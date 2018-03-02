@@ -12,7 +12,7 @@ Quickwords is an open-source alternative to [Text Expander](https://textexpander
 Contributions are very welcome. If you want, just drop a PR with any feature you'd like to see. If you want to help with the development of the app, you could [buy us a coffee](link-for-a-donation-here@todo).
 
 ## Authors
-The app was made by Dariusz Czajkowski and Grzegorz Tłuszcz, two students from Kraków, Poland.
+The app was made by [Dariusz Czajkowski](https://dczajkowski.com/) and [Grzegorz Tłuszcz](https://github.com/gtluszcz), two students from Kraków, Poland.
 
 ## License
 The Quickwords app is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
