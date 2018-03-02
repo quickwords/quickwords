@@ -19,7 +19,5 @@
   "devDependencies": {
     "electron": "~1.8.2"
   },
-  "dependencies": {
-    "menubar": "^5.2.3"
-  }
+  "dependencies": {}
 }
