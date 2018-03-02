@@ -5,8 +5,10 @@ const aboutWindow = require('./windows/about')
 const preferencesWindow = require('./windows/preferences')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners } = require('./helpers')
+const SnippetsManager = require('./modules/SnippetsManager')
 
 let appIcon
+const snippetsManager = new SnippetsManager()
 const windows = {}
 
 app.dock.hide()
@@ -21,6 +23,8 @@ app.on('ready', () => {
 
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
+
+    // snippetsManager.register()
 })
 
 app.on('window-all-closed', () => (process.platform !== 'darwin') ? app.quit() : '')
