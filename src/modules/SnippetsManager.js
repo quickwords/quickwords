@@ -1,6 +1,12 @@
+const ioHook = require('iohook')
+
 class SnippetsManager {
     constructor() {
-        console.log('run')
+        ioHook.on('keyup', e => {
+            console.log(e)
+        })
+
+        ioHook.start()
     }
 }
 
