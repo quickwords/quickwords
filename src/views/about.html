@@ -3,8 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <title>About Quickwords</title>
+        <link rel="stylesheet" href="./styles/about.css">
     </head>
     <body>
-        <h1>About</h1>
+        <div class="app">
+            <div class="logo">
+                <img src="../../assets/logo.svg" alt="Quickwords">
+            </div>
+            <span>Copyright &copy; Dariusz Czajkowski &amp; Grzegorz Tłuszcz</span>
+            <span>
+                version:
+                <script>document.write(require('../../package.json').version)</script>
+            </span>
+            <div class="buttons">
+                <div class="button"><a href="#">GitHub</a></div>
+                <div class="button"><a href="#">Donate</a></div>
+                <div class="button"><a href="#">Check for updates</a></div>
+            </div>
+        </div>
     </body>
 </html>

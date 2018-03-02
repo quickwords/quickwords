@@ -8,7 +8,7 @@ module.exports = {
         this.ctx = new BrowserWindow({
             show: false,
             width: 300,
-            height: 380,
+            height: 290,
         })
 
         this.ctx.loadURL(url.format({
