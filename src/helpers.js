@@ -3,10 +3,13 @@ module.exports = {
         callback(object)
         return object
     },
-    doNotCloseAppOnWindowClosure(windows) {
+    doNotQuitAppOnWindowClosure(windows) {
         Object.keys(windows).forEach(key => windows[key].on('close', e => {
             e.preventDefault()
             windows[key].hide()
         }))
+    },
+    unregisterWindowListeners(windows) {
+        Object.keys(windows).forEach(key => windows[key].removeAllListeners('close'))
     },
 }
