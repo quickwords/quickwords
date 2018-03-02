@@ -1,10 +1,12 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "Quickwords",
+  "version": "0.0.1",
+  "description": "An open-source alternative to Textexpander.",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -14,10 +16,13 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Dariusz Czajkowski and Grzegorz Tłuszcz",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "~1.8.2"
+    "cross-env": "^5.1.3",
+    "electron": "~1.8.2",
+    "laravel-mix": "^2.0.0",
+    "node-sass": "^4.7.2"
   },
   "dependencies": {}
 }
