@@ -25,5 +25,5 @@ app.on('ready', () => {
     appIcon.setContextMenu(menu)
 })
 
-app.on('window-all-closed', () => (process.platform !== 'darwin') ? app.quit() : '')
+app.on('window-all-closed', () => {})
 app.on('before-quit', () => unregisterWindowListeners(windows))
