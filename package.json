@@ -28,6 +28,7 @@
     "node-sass": "^4.7.2"
   },
   "dependencies": {
+    "electron-is-dev": "^0.3.0",
     "iohook": "^0.1.13"
   },
   "iohook": {

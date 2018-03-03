@@ -6,14 +6,17 @@ const preferencesWindow = require('./windows/preferences')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
+const isDev = require('electron-is-dev')
 
 let appIcon
 const snippetsManager = new SnippetsManager()
 const windows = {}
 
-require('electron-reload')(path.join(__dirname, '../build/styles'), {
-    electron: require(""+__dirname+'/../node_modules/electron'),
-})
+if (isDev) {
+    require('electron-reload')(path.join(__dirname, '../build/styles'), {
+        electron: require(path.join(__dirname, '/../node_modules/electron')),
+    })
+}
 
 app.dock.hide()
 
