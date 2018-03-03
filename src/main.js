@@ -28,9 +28,7 @@ app.on('ready', () => {
 
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
-
-    // snippetsManager.register()
 })
 
-app.on('window-all-closed', () => (process.platform !== 'darwin') ? app.quit() : '')
-app.on('before-quit', () => unregisterWindowListeners(windows));
+app.on('window-all-closed', () => {})
+app.on('before-quit', () => unregisterWindowListeners(windows))
