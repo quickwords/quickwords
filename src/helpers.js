@@ -12,4 +12,7 @@ module.exports = {
     unregisterWindowListeners(windows) {
         Object.keys(windows).forEach(key => windows[key].removeAllListeners('close'))
     },
+    log(info) {
+        console.log(info);
+    }
 }
