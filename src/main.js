@@ -11,7 +11,12 @@ let appIcon
 const snippetsManager = new SnippetsManager()
 const windows = {}
 
+require('electron-reload')(path.join(__dirname, '../build/styles'), {
+    electron: require(""+__dirname+'/../node_modules/electron'),
+})
+
 app.dock.hide()
+
 
 app.on('ready', () => {
     windows.about = aboutWindow.init()
