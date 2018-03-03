@@ -1,5 +1,4 @@
 const ioHook = require('iohook')
-const keycode = require('keycode')
 const charTable = require('./charTable')
 
 class SnippetsManager {
@@ -52,14 +51,22 @@ class SnippetsManager {
             }
         }
 
-        // run backspace snippet.length times
-        // type in match
+        if (match) {
+            for (let i = 0; i < snippet.length; i++) {
+                // @todo Press backspace
+            }
+
+            console.log(match)
+
+            // @todo Type a `match` as a keyboard
+        }
     }
 
     loadSnippetsFromFile() {
         this.snippets = {
             ';MAIL': 'mail@example.com',
             ';LENNY': "( ͡° ͜ʖ ͡°)",
+            ';GRZES': 'Idzie Grześ przez wieś!',
         }
     }
 
