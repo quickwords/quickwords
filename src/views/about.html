@@ -3,23 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>About Quickwords</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
         <link rel="stylesheet" href="../../build/styles/app.css">
     </head>
     <body>
-        <div class="app">
+        <div class="app flex-column">
             <div class="logo">
                 <img src="../../assets/logo.svg" alt="Quickwords">
             </div>
-            <span>Copyright &copy; Dariusz Czajkowski &amp; Grzegorz Tłuszcz</span>
-            <span>
+            <span> Dariusz Czajkowski &amp; Grzegorz Tłuszcz</span>
+            <div class="buttons">
+                <a class="button" href="https://github.com/quickwords/quickwords-electron">GitHub</a>
+                <a class="button" href="#">Donate</a>
+                <a class="button" href="#">Check for updates</a>
+            </div>
+            <span class="footer">
                 version:
                 <script>document.write(require('../../package.json').version)</script>
             </span>
-            <div class="buttons">
-                <div class="button"><a href="#">GitHub</a></div>
-                <div class="button"><a href="#">Donate</a></div>
-                <div class="button"><a href="#">Check for updates</a></div>
-            </div>
         </div>
     </body>
 </html>

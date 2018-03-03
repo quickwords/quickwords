@@ -9,6 +9,7 @@ module.exports = {
             show: false,
             width: 300,
             height: 290,
+            resizable: false,
         })
 
         this.ctx.loadURL(url.format({
