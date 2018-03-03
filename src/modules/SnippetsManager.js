@@ -1,5 +1,9 @@
 const ioHook = require('iohook')
 const charTable = require('./charTable')
+const path = require('path')
+const fs = require('fs')
+const os = require('os')
+const configFile = path.join(os.homedir(), 'Library/Application Support/Quickwords', 'snippets.json')
 
 class SnippetsManager {
     constructor() {
@@ -62,12 +66,45 @@ class SnippetsManager {
         }
     }
 
+    addSnippet(key, value) {
+        this.snippets[key] = value
+        this.addSnippetToConfigFile(key, value)
+    }
+
     loadSnippetsFromFile() {
-        this.snippets = {
-            ';MAIL': 'mail@example.com',
-            ';LENNY': "( ͡° ͜ʖ ͡°)",
-            ';GRZES': 'Idzie Grześ przez wieś!',
+        this.createConfigFileIfNecessary()
+
+        this.snippets = this.readConfigFile()
+
+        console.log(this.snippets)
+    }
+
+    createConfigFileIfNecessary() {
+        if (! fs.existsSync(configFile)) {
+            fs.writeFileSync(configFile, '{}', {
+                encoding: 'utf8',
+            })
         }
+    }
+
+    readConfigFile() {
+        return JSON.parse(fs.readFileSync(configFile, {
+            encoding: 'utf8',
+        }))
+    }
+
+    addSnippetToConfigFile(key, value) {
+        const contents = this.readConfigFile()
+
+        contents[key] = value
+
+        this.writeToConfigFile(contents)
+    }
+
+    writeToConfigFile(content) {
+        fs.writeFileSync(configFile, JSON.stringify(content), {
+            encoding: 'utf8',
+        })
     }
 
     addCharToBuffer(keycode) {
