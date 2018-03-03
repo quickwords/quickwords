@@ -12,8 +12,8 @@ class SnippetsManager {
         this.buffer = ''
         this.modifierPressed = false
 
-        ioHook.on('keydown', this.onKeyDown)
-        ioHook.on('keyup', this.onKeyUp)
+        ioHook.on('keydown', e => this.onKeyDown(e))
+        ioHook.on('keyup', e => this.onKeyUp(e))
 
         ioHook.start()
     }
