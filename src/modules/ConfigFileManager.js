@@ -5,35 +5,29 @@ const os = require('os')
 const configFile = path.join(os.homedir(), 'Library/Application Support/Quickwords', 'snippets.json')
 
 class ConfigFileManager {
-    constructor() {
-        this._loadSnippetsFromFile()
-    }
-
-    addSnippetToConfigFile(key, value) {
-        const contents = this._readConfigFile()
+    addSnippet(key, value) {
+        const contents = this._readFile()
 
         contents[key] = value
 
-        this._writeToConfigFile(contents)
+        this._writeToFile(contents)
     }
 
-    removeSnippetFromConfigFile(key) {
-        const contents = this._readConfigFile()
+    removeSnippet(key) {
+        const contents = this._readFile()
 
         delete contents[key]
 
-        this._writeToConfigFile(contents)
+        this._writeToFile(contents)
     }
 
-    _loadSnippetsFromFile() {
-        this._createConfigFileIfNecessary()
+    getSnippets() {
+        this._createFileIfNecessary()
 
-        this.snippets = this._readConfigFile()
-
-        console.log(this.snippets)
+        return this._readFile()
     }
 
-    _createConfigFileIfNecessary() {
+    _createFileIfNecessary() {
         if (! fs.existsSync(configFile)) {
             fs.writeFileSync(configFile, '{}', {
                 encoding: 'utf8',
@@ -41,13 +35,13 @@ class ConfigFileManager {
         }
     }
 
-    _readConfigFile() {
+    _readFile() {
         return JSON.parse(fs.readFileSync(configFile, {
             encoding: 'utf8',
         }))
     }
 
-    _writeToConfigFile(content) {
+    _writeToFile(content) {
         fs.writeFileSync(configFile, JSON.stringify(content), {
             encoding: 'utf8',
         })

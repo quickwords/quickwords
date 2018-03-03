@@ -5,6 +5,7 @@ const ConfigFileManager = require('./ConfigFileManager')
 class SnippetsManager {
     constructor() {
         this.configFile = new ConfigFileManager()
+        this.snippets = this.configFile.getSnippets()
 
         this.buffer = ''
         this.modifierPressed = false
@@ -17,12 +18,12 @@ class SnippetsManager {
 
     addSnippet(key, value) {
         this.snippets[key] = value
-        this.configFile.addSnippetToConfigFile(key, value)
+        this.configFile.addSnippet(key, value)
     }
 
     removeSnippet(key) {
         delete this.snippets[key]
-        this.configFile.removeSnippetFromConfigFile(key)
+        this.configFile.removeSnippet(key)
     }
 
     isChar(keycode) {
