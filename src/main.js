@@ -13,7 +13,15 @@ const snippetsManager = new SnippetsManager()
 const windows = {}
 
 if (isDev) {
-    require('electron-reload')(__dirname, {
+    require('electron-reload')([
+        path.join(__dirname, '../build/styles'),
+        path.join(__dirname, '../src/modules'),
+        path.join(__dirname, '../src/scripts'),
+        path.join(__dirname, '../src/views'),
+        path.join(__dirname, '../src/windows'),
+        path.join(__dirname, '../src/helpers.js'),
+        path.join(__dirname, '../src/main.js'),
+    ], {
         electron: require(path.join(__dirname, '../node_modules/electron')),
     })
 }
