@@ -13,17 +13,18 @@ const snippetsManager = new SnippetsManager()
 const windows = {}
 
 if (isDev) {
-    require('electron-reload')(path.join(__dirname, '../build/styles'), {
-        electron: require(path.join(__dirname, '/../node_modules/electron')),
+    require('electron-reload')(__dirname, {
+        electron: require(path.join(__dirname, '../node_modules/electron')),
     })
 }
 
 app.dock.hide()
 
-
 app.on('ready', () => {
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
+
+    windows.preferences.snippetsManager = snippetsManager
 
     doNotQuitAppOnWindowClosure(windows)
 
