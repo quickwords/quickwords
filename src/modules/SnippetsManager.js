@@ -47,6 +47,11 @@ class SnippetsManager {
         return keycode == 14
     }
 
+    updateSnippets(snippets) {
+        this.snippets = snippets
+        this.configFile._writeToFile(snippets)
+    }
+
     _onKeyUp(e) {
         if (this.isModifier(e.keycode)) {
             return this.modifierPressed = false

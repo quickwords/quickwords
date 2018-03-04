@@ -23,15 +23,22 @@
     "cross-env": "^5.1.3",
     "electron": "~1.8.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "electron-reload": "^1.2.2",
 =======
     "eslint": "^4.18.2",
 >>>>>>> 53626fac92d21dfa7424333dc2d4d8503dbeaaae
+=======
+    "electron-reload": "^1.2.2",
+    "eslint": "^4.18.2",
+>>>>>>> 62f8d411f08a62950fbb7b25e325313837f978dd
     "laravel-mix": "^2.0.0",
     "node-sass": "^4.7.2"
   },
   "dependencies": {
-    "iohook": "^0.1.13"
+    "electron-is-dev": "^0.3.0",
+    "iohook": "^0.1.13",
+    "vue": "^2.5.13"
   },
   "iohook": {
     "targets": [

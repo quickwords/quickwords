@@ -1,13 +1,102 @@
-@import "variables"
-.app
-  h3
-    text-align: left
-    padding: 0 24px
-    font-size: 22px
-    text-transform: uppercase
-    letter-spacing: 0.2em
-    font-weight: normal
-    color: $text-color-blue
+@import 'variables'
 
+$width: 23rem
+$table-border: 1px solid #ccc
+$odd-color: #f6f5f5
+$even-color: #fff
 
+#app
+    width: 430px
+    height: 430px
+    background: #e9e9e9
+    display: flex
+    align-items: center
+    flex-direction: column
+    font-family: Helvetica, Arial
+    border-radius: 3px
+    border: 1px solid #aeaeaf
 
+.snippets-table
+    width: $width
+    border: 1px solid #ccc
+
+.keys
+    width: $width
+    margin-top: 1rem
+
+    button
+        width: 1.5rem
+        height: 1.5rem
+        display: inline-flex
+        border: 1px solid #ccc
+        justify-content: center
+        align-items: center
+        font-size: 1.2rem
+        font-weight: 100
+        color: #4e4e4e
+        line-height: 1rem
+        padding-top: 0
+        outline: 0
+
+        &:first-child
+            border-radius: 3px 0 0 3px
+
+        &:nth-child(2)
+            border-radius: 0 3px 3px 0
+
+.row
+    display: flex
+    background: $even-color
+
+    &:nth-child(odd)
+        background: $odd-color
+
+    &.row--selected
+        background: #015cdc
+
+        .cell input
+            color: #fff
+
+    .cell
+        flex: 1
+        font-size: .9rem
+        padding: .7rem .3rem
+        border-bottom: $table-border
+
+        &:first-child
+            border-right: $table-border
+
+        input
+            background: transparent
+            border: none
+            outline: none
+
+            &[disabled]
+                pointer-events: none
+
+    &--header
+        background: $even-color !important
+
+        .cell
+            font-size: .8rem
+            padding: .3rem
+
+.rows
+    height: 10rem
+    overflow-y: scroll
+
+.checkboxes
+    margin-top: 1rem
+    font-size: .9rem
+
+    label
+        display: flex
+        align-items: center
+        height: 1.5rem
+        cursor: pointer
+        width: $width
+        justify-content: flex-start
+        margin-top: .5rem
+
+        input[type=checkbox]
+            margin-right: .5rem
