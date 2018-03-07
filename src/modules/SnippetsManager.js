@@ -13,6 +13,8 @@ class SnippetsManager {
         this.modifierPressed = false
         this.shouldMatch = true
 
+        robot.setKeyboardDelay(0)
+
         ioHook.on('keydown', e => this._onKeyDown(e))
         ioHook.on('keyup', e => this._onKeyUp(e))
 
