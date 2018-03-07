@@ -1,3 +1,5 @@
 {
-    "/build/styles/app.css": "/build/styles/app.css"
+    "/build/styles/app.css": "/build/styles/app.css",
+    "/build/styles/about.css": "/build/styles/about.css",
+    "/build/styles/preferences.css": "/build/styles/preferences.css"
 }

@@ -13,7 +13,7 @@ module.exports = {
         })
 
         this.ctx.loadURL(url.format({
-            pathname: path.join(`${__dirname}/../views`, 'about.html'),
+            pathname: path.join(__dirname, 'view.html'),
             protocol: 'file:',
             slashes: true,
         }))

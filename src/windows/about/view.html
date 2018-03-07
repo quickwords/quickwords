@@ -5,13 +5,14 @@
 
         <title>About Quickwords</title>
 
-        <link rel="stylesheet" href="../../assets/fonts/fonts.css">
-        <link rel="stylesheet" href="../../build/styles/app.css">
+        <link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+        <link rel="stylesheet" href="../../../build/styles/app.css">
+        <link rel="stylesheet" href="../../../build/styles/about.css">
     </head>
     <body>
         <div class="app flex-column">
             <div class="logo">
-                <img src="../../assets/logo.svg" alt="Quickwords">
+                <img src="../../../assets/logo.svg" alt="Quickwords">
             </div>
             <span><span id="dc" class="hidden-link">Dariusz Czajkowski</span> &amp; <span id="gt" class="hidden-link">Grzegorz Tłuszcz</span></span>
             <div class="buttons">
@@ -21,17 +22,10 @@
             </div>
             <span class="footer">
                 version:
-                <script>document.write(require('../../package.json').version)</script>
+                <script>document.write(require('../../../package.json').version)</script>
             </span>
         </div>
 
-        <script>
-            const electron = require('electron')
-            const currentWindow = electron.remote.getCurrentWindow()
-            const shell = electron['shell']
-
-            document.querySelector('#dc').addEventListener('click', e => shell.openExternal('https://dczajkowski.com'))
-            document.querySelector('#gt').addEventListener('click', e => shell.openExternal('https://github.com/gtluszcz'))
-        </script>
+        <script src="./script.js"></script>
     </body>
 </html>

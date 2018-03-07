@@ -1,6 +1,6 @@
 const { Menu } = require('electron')
-const aboutWindow = require('../windows/about')
-const preferencesWindow = require('../windows/preferences')
+const aboutWindow = require('../windows/about/controller')
+const preferencesWindow = require('../windows/preferences/controller')
 
 module.exports = Menu.buildFromTemplate([
     {
