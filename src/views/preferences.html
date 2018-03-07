@@ -3,17 +3,19 @@
     <head>
         <meta charset="UTF-8">
         <title>Quickwords Preferences</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
+
         <link rel="stylesheet" href="../../build/styles/app.css">
     </head>
     <body>
-        <div id="app">
+        <div class="app flex-column">
             <div class="wrapper" @click.self="unselectAll">
                 <div class="top-bar">
                     <span class="circle"></span>
                     <span class="circle"></span>
                     <span class="circle"></span>
                 </div>
-                <h1>Preferences</h1>
+                <h1 class="title"><img class="downlogo" src="../../assets/logo.svg" alt="">Preferences</h1>
                 <div class="snippets-table">
                     <div class="row row--header">
                         <div class="cell">key</div>
