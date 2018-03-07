@@ -1,48 +1,53 @@
 @import 'variables'
 
 $width: 23rem
-$table-border: 1px solid #ccc
-$odd-color: #f6f5f5
+$table-border: 1px solid #ddd
+$odd-color: $bg-light
 $even-color: #fff
 
-#app
-    width: 430px
-    height: 430px
-    background: #e9e9e9
-    display: flex
-    align-items: center
-    flex-direction: column
-    font-family: Helvetica, Arial
-    border-radius: 3px
-    border: 1px solid #aeaeaf
+.downlogo
+    position: absolute
+    left: calc(50% - 30px)
+    bottom: 20px
+    width: 60px
 
+.title
+    font-weight: normal
 .snippets-table
     width: $width
-    border: 1px solid #ccc
+    //border: 1px solid #ccc
+    border-radius: 4px
+    box-shadow: $shadow
+    overflow: hidden
 
 .keys
     width: $width
     margin-top: 1rem
 
+
     button
         width: 1.5rem
         height: 1.5rem
         display: inline-flex
-        border: 1px solid #ccc
+        border: 0px solid #ccc
         justify-content: center
         align-items: center
         font-size: 1.2rem
         font-weight: 100
+        background-color: $bg-white
         color: #4e4e4e
         line-height: 1rem
         padding-top: 0
         outline: 0
+        box-shadow: $shadow
+
 
         &:first-child
-            border-radius: 3px 0 0 3px
+            border-radius: 4px 0 0 4px
+            border-right: $table-border
 
         &:nth-child(2)
-            border-radius: 0 3px 3px 0
+            border-radius: 0 4px 4px 0
 
 .row
     display: flex
@@ -52,24 +57,34 @@ $even-color: #fff
         background: $odd-color
 
     &.row--selected
-        background: #015cdc
+        background: $text-color-blue
 
         .cell input
             color: #fff
 
+    .cell-wrong
+        border-bottom: 3px solid rgba(240,0,0,0.6)
+
+
     .cell
         flex: 1
         font-size: .9rem
-        padding: .7rem .3rem
+        padding: .6rem 10px
         border-bottom: $table-border
+        display: flex
+        font-weight: 100
+        font-family: $font
 
         &:first-child
             border-right: $table-border
 
         input
             background: transparent
+            flex-grow: 1
             border: none
-            outline: none
+            outline: 0
+            border-bottom: none
+            font-family: $font
 
             &[disabled]
                 pointer-events: none
@@ -79,7 +94,7 @@ $even-color: #fff
 
         .cell
             font-size: .8rem
-            padding: .3rem
+            padding: .3rem 10px
 
 .rows
     height: 10rem
@@ -97,6 +112,8 @@ $even-color: #fff
         width: $width
         justify-content: flex-start
         margin-top: .5rem
+        font-size: 14px
+        color: #4e4e4e
 
         input[type=checkbox]
             margin-right: .5rem
