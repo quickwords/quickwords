@@ -1,9 +1,7 @@
-const electron = require('electron')
-const currentWindow = electron.remote.getCurrentWindow()
-const shell = electron['shell']
+const { shell } = require('electron')
 
-document.querySelector('#dc').addEventListener('click', e => shell.openExternal('https://dczajkowski.com'))
-document.querySelector('#gt').addEventListener('click', e => shell.openExternal('https://github.com/gtluszcz'))
+document.querySelector('#dc').addEventListener('click', () => shell.openExternal('https://dczajkowski.com'))
+document.querySelector('#gt').addEventListener('click', () => shell.openExternal('https://github.com/gtluszcz'))
 
 document.querySelectorAll('a').forEach(el => el.addEventListener('click', e => {
     e.preventDefault()
