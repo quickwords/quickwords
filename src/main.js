@@ -43,4 +43,7 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', () => {})
-app.on('before-quit', () => unregisterWindowListeners(windows))
+app.on('before-quit', () => {
+    unregisterWindowListeners(windows)
+    snippetsManager.destructor()
+})
