@@ -1,8 +1,8 @@
 const { app, Tray } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
-const aboutWindow = require('./windows/about')
-const preferencesWindow = require('./windows/preferences')
+const aboutWindow = require('./windows/about/controller')
+const preferencesWindow = require('./windows/preferences/controller')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
@@ -15,14 +15,10 @@ const windows = {}
 if (isDev) {
     require('electron-reload')([
         path.join(__dirname, '../build/styles'),
-        path.join(__dirname, '../src/modules'),
-        path.join(__dirname, '../src/scripts'),
-        path.join(__dirname, '../src/views'),
-        path.join(__dirname, '../src/windows'),
-        path.join(__dirname, '../src/helpers.js'),
-        path.join(__dirname, '../src/main.js'),
+        path.join(__dirname),
     ], {
         electron: require(path.join(__dirname, '../node_modules/electron')),
+        ignored: /.*\.sass/,
     })
 }
 
