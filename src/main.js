@@ -35,6 +35,9 @@ app.on('ready', () => {
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
 
+    windows.preferences.on('focus', () => snippetsManager.shouldMatch = false)
+    windows.preferences.on('blur', () => snippetsManager.shouldMatch = true)
+
     doNotQuitAppOnWindowClosure(windows)
 
     appIcon = new Tray(iconPath)
@@ -44,6 +47,7 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', () => {})
+
 app.on('before-quit', () => {
     unregisterWindowListeners(windows)
     snippetsManager.destructor()
