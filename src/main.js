@@ -32,6 +32,7 @@ app.on('ready', () => {
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
 
+    windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
 
     doNotQuitAppOnWindowClosure(windows)
