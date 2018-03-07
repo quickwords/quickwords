@@ -112,9 +112,8 @@ class SnippetsManager {
 
             clipboard.writeText(match)
 
-            robot.keyTap('v', 'command')
-
-            setTimeout(() => clipboard.writeText(clipboardContent), 1000)
+            setTimeout(() => robot.keyTap('v', 'command'), 50)
+            setTimeout(() => clipboard.writeText(clipboardContent), 500)
         }
     }
 
