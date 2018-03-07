@@ -95,7 +95,7 @@ class SnippetsManager {
         let snippet = ''
 
         for (snippet of Object.keys(this.snippets)) {
-            if (new RegExp(`.*${snippet}`).test(this.buffer)) {
+            if (new RegExp(`.*${snippet}$`, 'i').test(this.buffer)) {
                 match = this.snippets[snippet]
                 break
             }
