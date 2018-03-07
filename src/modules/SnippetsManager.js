@@ -1,6 +1,8 @@
+const { clipboard } = require('electron')
 const ioHook = require('iohook')
 const charTable = require('./charTable')
 const ConfigFileManager = require('./ConfigFileManager')
+const robot = require('robotjs')
 
 class SnippetsManager {
     constructor() {
@@ -9,11 +11,17 @@ class SnippetsManager {
 
         this.buffer = ''
         this.modifierPressed = false
+        this.shouldMatch = true
 
         ioHook.on('keydown', e => this._onKeyDown(e))
         ioHook.on('keyup', e => this._onKeyUp(e))
 
         ioHook.start()
+    }
+
+    destructor() {
+        ioHook.unload()
+        ioHook.stop()
     }
 
     addSnippet(key, value) {
@@ -53,6 +61,10 @@ class SnippetsManager {
     }
 
     _onKeyUp(e) {
+        if (! this.shouldMatch) {
+            return
+        }
+
         if (this.isModifier(e.keycode)) {
             return this.modifierPressed = false
         }
@@ -91,12 +103,16 @@ class SnippetsManager {
 
         if (match) {
             for (let i = 0; i < snippet.length; i++) {
-                // @todo Press backspace
+                robot.keyTap('backspace')
             }
 
-            console.log(match)
+            const clipboardContent = clipboard.readText()
 
-            // @todo Type a `match` as a keyboard
+            clipboard.writeText(match)
+
+            robot.keyTap('v', 'command')
+
+            setTimeout(() => clipboard.writeText(clipboardContent), 1000)
         }
     }
 
