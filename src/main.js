@@ -14,7 +14,6 @@ const windows = {}
 
 if (isDev) {
     require('electron-reload')([
-        path.join(__dirname, '../build/styles'),
         path.join(__dirname),
     ], {
         electron: require(path.join(__dirname, '../node_modules/electron')),
