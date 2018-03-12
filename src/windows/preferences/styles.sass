@@ -5,6 +5,9 @@ $table-border: 1px solid #ddd
 $odd-color: $bg-light
 $even-color: #fff
 
+.app
+    -webkit-app-region: drag
+
 .downlogo
     position: absolute
     left: calc(50% - 30px)
@@ -13,6 +16,9 @@ $even-color: #fff
 
 .title
     font-weight: normal
+    -webkit-app-region: drag
+    margin-top: 35px
+
 .snippets-table
     width: $width
     //border: 1px solid #ccc
@@ -89,6 +95,7 @@ $even-color: #fff
             border-bottom: none
             font-family: $font
             color: inherit
+            -webkit-app-region: no-drag
 
             &::placeholder
                 color: rgba(240,0,0,0.6)

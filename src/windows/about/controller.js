@@ -10,6 +10,7 @@ module.exports = {
             width: 300,
             height: 290,
             resizable: false,
+            titleBarStyle: 'hidden',
         })
 
         this.ctx.loadURL(url.format({

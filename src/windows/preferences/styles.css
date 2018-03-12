@@ -1,3 +1,7 @@
+.app {
+  -webkit-app-region: drag;
+}
+
 .downlogo {
   position: absolute;
   left: calc(50% - 30px);
@@ -7,6 +11,8 @@
 
 .title {
   font-weight: normal;
+  -webkit-app-region: drag;
+  margin-top: 35px;
 }
 
 .snippets-table {
@@ -122,6 +128,7 @@
   border-bottom: none;
   font-family: "Montserrat", sans-serif;
   color: inherit;
+  -webkit-app-region: no-drag;
 }
 
 .row .cell input::-webkit-input-placeholder {

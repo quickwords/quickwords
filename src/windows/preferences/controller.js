@@ -9,9 +9,10 @@ module.exports = {
         this.ctx = new BrowserWindow({
             show: false,
             'minWidth': 430,
-            'minHeight': 450,
+            'minHeight': 470,
             width: 430,
-            height: 450,
+            height: 470,
+            titleBarStyle: 'hidden',
         })
 
         this.ctx.loadURL(url.format({

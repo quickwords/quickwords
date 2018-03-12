@@ -4,6 +4,11 @@
 
 .logo img {
   width: 200px;
+  margin-top: 10px;
+}
+
+.app {
+  -webkit-app-region: drag;
 }
 
 span {
