@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const os = require('os')
 
-const configFile = path.join(os.homedir(), 'Library/Application Support/Quickwords', 'snippets.json')
+const snippetsFile = path.join(os.homedir(), 'Library/Application Support/Quickwords', 'snippets.json')
 
 class ConfigFileManager {
     addSnippet(key, value) {
@@ -28,21 +28,21 @@ class ConfigFileManager {
     }
 
     _createFileIfNecessary() {
-        if (! fs.existsSync(configFile)) {
-            fs.writeFileSync(configFile, '{}', {
+        if (! fs.existsSync(snippetsFile)) {
+            fs.writeFileSync(snippetsFile, '{}', {
                 encoding: 'utf8',
             })
         }
     }
 
     _readFile() {
-        return JSON.parse(fs.readFileSync(configFile, {
+        return JSON.parse(fs.readFileSync(snippetsFile, {
             encoding: 'utf8',
         }))
     }
 
     _writeToFile(content) {
-        fs.writeFileSync(configFile, JSON.stringify(content), {
+        fs.writeFileSync(snippetsFile, JSON.stringify(content), {
             encoding: 'utf8',
         })
     }

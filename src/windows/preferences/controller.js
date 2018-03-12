@@ -1,6 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
+const PreferencesManager = require('../../modules/PreferencesManager')
 
 module.exports = {
     ctx: null,
@@ -18,6 +19,8 @@ module.exports = {
             protocol: 'file:',
             slashes: true,
         }))
+
+        this.ctx.preferencesManager = new PreferencesManager()
 
         return this.ctx
     },
