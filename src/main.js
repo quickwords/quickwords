@@ -1,4 +1,4 @@
-const { app, Tray } = require('electron')
+const { app, Tray, globalShortcut } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about/controller')
@@ -30,14 +30,8 @@ app.on('ready', () => {
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
 
-    windows.preferences.on('focus', () => {
-        snippetsManager.shouldMatch = false
-        console.log(snippetsManager.shouldMatch)
-    })
-    windows.preferences.on('blur', () => {
-        snippetsManager.shouldMatch = true
-        console.log(snippetsManager.shouldMatch)
-    })
+    windows.preferences.on('focus', () => { snippetsManager.shouldMatch = false })
+    windows.preferences.on('blur', () => { snippetsManager.shouldMatch = true })
 
     doNotQuitAppOnWindowClosure(windows)
 
