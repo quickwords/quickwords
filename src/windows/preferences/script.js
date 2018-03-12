@@ -7,6 +7,7 @@ new Vue({
     data() {
         return {
             snippets: [],
+            autoLaunch: true,
         }
     },
     watch: {
@@ -19,6 +20,13 @@ new Vue({
                 currentWindow.snippetsManager.updateSnippets(obj)
             },
             deep: true,
+        },
+        autoLaunch() {
+            if (this.autoLaunch === true) {
+                currentWindow.autoLaunchManager.enable()
+            } else {
+                currentWindow.autoLaunchManager.disable()
+            }
         },
     },
     methods: {

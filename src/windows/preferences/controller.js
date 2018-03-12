@@ -1,6 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
+const AutoLaunchManager = require('../../modules/AutoLaunchManager')
 
 module.exports = {
     ctx: null,
@@ -18,6 +19,8 @@ module.exports = {
             protocol: 'file:',
             slashes: true,
         }))
+
+        this.ctx.autoLaunchManager = new AutoLaunchManager()
 
         return this.ctx
     },
