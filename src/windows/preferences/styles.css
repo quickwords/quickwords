@@ -81,19 +81,19 @@
 }
 
 .row.row--selected .cell input::-webkit-input-placeholder {
-  color: rgba(255, 0, 0, 0.6);
+  color: #fff;
 }
 
 .row.row--selected .cell input:-ms-input-placeholder {
-  color: rgba(255, 0, 0, 0.6);
+  color: #fff;
 }
 
 .row.row--selected .cell input::-ms-input-placeholder {
-  color: rgba(255, 0, 0, 0.6);
+  color: #fff;
 }
 
 .row.row--selected .cell input::placeholder {
-  color: rgba(255, 0, 0, 0.6);
+  color: #fff;
 }
 
 .row .cell-wrong {

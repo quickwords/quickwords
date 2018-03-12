@@ -10,14 +10,14 @@
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body style="-webkit-app-region: drag">
-        <div id="app" class="app flex-column">
+        <div id="app" class="app flex-column" @click.self="unselectAll">
             <div class="wrapper" @click.self="unselectAll">
                 <div class="top-bar">
                     <span class="circle"></span>
                     <span class="circle"></span>
                     <span class="circle"></span>
                 </div>
-                <h1 class="title"><img class="downlogo" src="../../../assets/logo.svg" alt="">Preferences</h1>
+                <h1 class="title" @click.self="unselectAll"><img class="downlogo" src="../../../assets/logo.svg" alt="">Preferences</h1>
                 <div class="snippets-table">
                     <div class="row row--header">
                         <div class="cell">key</div>
@@ -45,11 +45,11 @@
                     </div>
                 </div>
 
-                <div class="keys">
+                <div class="keys" @click.self="unselectAll">
                     <button type="button" @click="add">+</button><button type="button" @click="remove">-</button>
                 </div>
 
-                <div class="checkboxes">
+                <div class="checkboxes" @click.self="unselectAll">
                     <label for="startup">
                         <input type="checkbox" id="startup" v-model="autoLaunch"> Launch Quickwords at system startup
                     </label>
