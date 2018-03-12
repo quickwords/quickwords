@@ -15,8 +15,9 @@ new Vue({
                 const obj = {}
 
                 this.snippets.forEach(snippet => {
-                    if(snippet.key !=='')
+                    if (snippet.key !== '') {
                         obj[snippet.key] = snippet.value
+                    }
                 })
 
                 currentWindow.snippetsManager.updateSnippets(obj)
@@ -26,7 +27,9 @@ new Vue({
     },
     methods: {
         select(snippet) {
-            if (snippet.selected) return snippet.selected = false
+            if (snippet.selected) {
+                return snippet.selected = false
+            }
 
             this.unselectAll()
 

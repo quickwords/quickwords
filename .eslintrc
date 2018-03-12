@@ -13,6 +13,20 @@
             "error",
             4
         ],
+        "keyword-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "space-infix-ops": [
+            "error",
+            {
+                "int32Hint": false
+            }
+        ],
+        "curly": "error",
         "linebreak-style": [
             "error",
             "unix"
@@ -34,6 +48,18 @@
                 "exports": "always-multiline",
                 "functions": "never"
             }
+        ],
+        "array-bracket-spacing": [
+            "error",
+            "always",
+            {
+                "objectsInArrays": false,
+                "arraysInArrays": false
+            }
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
         ],
         "no-console": "off",
         "no-unused-vars": [
