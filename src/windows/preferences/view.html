@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../../styles/app.css">
         <link rel="stylesheet" href="./styles.css">
     </head>
-    <body>
+    <body style="-webkit-app-region: drag">
         <div id="app" class="app flex-column">
             <div class="wrapper" @click.self="unselectAll">
                 <div class="top-bar">
@@ -40,7 +40,7 @@
                                 @click.exact.self="select(snippet)"
                                 @click.ctrl.self="selectNext(snippet)"
                                 @click.meta.self="selectNext(snippet)"
-                            ><input v-model="snippet.value" :disabled="! snippet.selected" placeholder="enter value"></div>
+                            ><input v-model="snippet.value" :disabled="! snippet.selected" placeholder=""></div>
                         </div>
                     </div>
                 </div>
