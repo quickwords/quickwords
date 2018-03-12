@@ -4,7 +4,7 @@ const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about/controller')
 const preferencesWindow = require('./windows/preferences/controller')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
-const { doNotQuitAppOnWindowClosure, unregisterWindowListeners } = require('./helpers')
+const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
 const isDev = require('electron-is-dev')
 
@@ -39,6 +39,9 @@ app.on('ready', () => {
 
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
+
+    setTimeout(checkForNewVersion, 2000)
+    setInterval(checkForNewVersion, 4e7) // ~ 11 hours
 })
 
 app.on('window-all-closed', () => {})

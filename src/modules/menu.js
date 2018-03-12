@@ -1,12 +1,15 @@
 const { Menu } = require('electron')
 const aboutWindow = require('../windows/about/controller')
 const preferencesWindow = require('../windows/preferences/controller')
+const { checkForNewVersion } = require('../helpers')
 
 module.exports = Menu.buildFromTemplate([
     {
         label: 'About Quickwords',
         click() {
             aboutWindow.ctx.show()
+
+            checkForNewVersion()
         },
     },
     {
