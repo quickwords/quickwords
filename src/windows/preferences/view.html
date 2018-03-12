@@ -34,13 +34,13 @@
                                 @click.exact.self="select(snippet)"
                                 @click.ctrl.self="selectNext(snippet)"
                                 @click.meta.self="selectNext(snippet)"
-                            ><input v-model="snippet.key" :disabled="! snippet.selected"></div>
+                            ><input v-model="snippet.key" :disabled="! snippet.selected" placeholder="key can't be empty"></div>
                             <div
                                 class="cell"
                                 @click.exact.self="select(snippet)"
                                 @click.ctrl.self="selectNext(snippet)"
                                 @click.meta.self="selectNext(snippet)"
-                            ><input v-model="snippet.value" :disabled="! snippet.selected"></div>
+                            ><input v-model="snippet.value" :disabled="! snippet.selected" placeholder="enter value"></div>
                         </div>
                     </div>
                 </div>

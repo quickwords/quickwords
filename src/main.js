@@ -30,8 +30,14 @@ app.on('ready', () => {
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
 
-    // windows.preferences.on('focus', () => snippetsManager.shouldMatch = false)
-    // windows.preferences.on('blur', () => snippetsManager.shouldMatch = true)
+    windows.preferences.on('focus', () => {
+        snippetsManager.shouldMatch = false
+        console.log(snippetsManager.shouldMatch)
+    })
+    windows.preferences.on('blur', () => {
+        snippetsManager.shouldMatch = true
+        console.log(snippetsManager.shouldMatch)
+    })
 
     doNotQuitAppOnWindowClosure(windows)
 

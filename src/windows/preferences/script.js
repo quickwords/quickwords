@@ -14,7 +14,10 @@ new Vue({
             handler() {
                 const obj = {}
 
-                this.snippets.forEach(snippet => obj[snippet.key] = snippet.value)
+                this.snippets.forEach(snippet => {
+                    if(!snippet.key ==='')
+                        obj[snippet.key] = snippet.value
+                })
 
                 currentWindow.snippetsManager.updateSnippets(obj)
             },
