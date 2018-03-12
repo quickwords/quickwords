@@ -1,7 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
-const AutoLaunchManager = require('../../modules/AutoLaunchManager')
+const PreferencesManager = require('../../modules/PreferencesManager')
 
 module.exports = {
     ctx: null,
@@ -20,7 +20,7 @@ module.exports = {
             slashes: true,
         }))
 
-        this.ctx.autoLaunchManager = new AutoLaunchManager()
+        this.ctx.preferencesManager = new PreferencesManager()
 
         return this.ctx
     },

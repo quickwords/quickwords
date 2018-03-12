@@ -7,7 +7,7 @@ new Vue({
     data() {
         return {
             snippets: [],
-            autoLaunch: true,
+            autoLaunch: currentWindow.preferencesManager.getCurrentState(),
         }
     },
     watch: {
@@ -23,9 +23,9 @@ new Vue({
         },
         autoLaunch() {
             if (this.autoLaunch === true) {
-                currentWindow.autoLaunchManager.enable()
+                currentWindow.preferencesManager.enableAutoLaunch()
             } else {
-                currentWindow.autoLaunchManager.disable()
+                currentWindow.preferencesManager.disableAutoLaunch()
             }
         },
     },
