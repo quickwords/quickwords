@@ -15,7 +15,7 @@ new Vue({
                 const obj = {}
 
                 this.snippets.forEach(snippet => {
-                    if(!snippet.key ==='')
+                    if(snippet.key !=='')
                         obj[snippet.key] = snippet.value
                 })
 

@@ -61,6 +61,9 @@ $even-color: #fff
 
         .cell input
             color: #fff
+        .cell input::placeholder
+            color: rgba(255,0,0,0.6)
+
 
     .cell-wrong
         border-bottom: 3px solid rgba(240,0,0,0.6)
@@ -88,7 +91,7 @@ $even-color: #fff
             color: inherit
 
             &::placeholder
-                color: inherit
+                color: rgba(240,0,0,0.6)
 
             &[disabled]
                 pointer-events: none

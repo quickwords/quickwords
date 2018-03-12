@@ -74,6 +74,22 @@
   color: #fff;
 }
 
+.row.row--selected .cell input::-webkit-input-placeholder {
+  color: rgba(255, 0, 0, 0.6);
+}
+
+.row.row--selected .cell input:-ms-input-placeholder {
+  color: rgba(255, 0, 0, 0.6);
+}
+
+.row.row--selected .cell input::-ms-input-placeholder {
+  color: rgba(255, 0, 0, 0.6);
+}
+
+.row.row--selected .cell input::placeholder {
+  color: rgba(255, 0, 0, 0.6);
+}
+
 .row .cell-wrong {
   border-bottom: 3px solid rgba(240, 0, 0, 0.6);
 }
@@ -109,19 +125,19 @@
 }
 
 .row .cell input::-webkit-input-placeholder {
-  color: inherit;
+  color: rgba(240, 0, 0, 0.6);
 }
 
 .row .cell input:-ms-input-placeholder {
-  color: inherit;
+  color: rgba(240, 0, 0, 0.6);
 }
 
 .row .cell input::-ms-input-placeholder {
-  color: inherit;
+  color: rgba(240, 0, 0, 0.6);
 }
 
 .row .cell input::placeholder {
-  color: inherit;
+  color: rgba(240, 0, 0, 0.6);
 }
 
 .row .cell input[disabled] {
