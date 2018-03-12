@@ -19,13 +19,13 @@ class PreferencesManager {
     }
 
     enableAutoLaunch() {
-        this.change(autoLaunch, true)
+        this.change('autoLaunch', true)
 
         this.autoLaunch.enable()
     }
 
     disableAutoLaunch() {
-        this.change(autoLaunch, false)
+        this.change('autoLaunch', false)
 
         this.autoLaunch.disable()
     }
