@@ -6,12 +6,14 @@ const configFile = path.join(os.homedir(), 'Library/Application Support/Quickwor
 
 class PreferencesManager {
     constructor() {
-        this._createFileIfNecessary()
-
         this.autoLaunch = new AutoLaunch({
             name: 'Quickwords',
             path: '/Applications/Quickwords.app',
         })
+    }
+
+    init() {
+        return this._createFileIfNecessary()
     }
 
     getCurrentState() {
@@ -43,7 +45,11 @@ class PreferencesManager {
             fs.writeFileSync(configFile, '{}', {
                 encoding: 'utf8',
             })
+
+            return true
         }
+
+        return false
     }
 
     _readFile() {

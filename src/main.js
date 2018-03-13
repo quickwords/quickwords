@@ -7,6 +7,7 @@ const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
 const isDev = require('electron-is-dev')
+const PreferencesManager = require('./modules/PreferencesManager')
 
 let appIcon
 const snippetsManager = new SnippetsManager()
@@ -24,11 +25,20 @@ if (isDev) {
 app.dock.hide()
 
 app.on('ready', () => {
+    const preferencesManager = new PreferencesManager()
+    const isFirstLaunch = preferencesManager.init()
+
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
 
+    if (isFirstLaunch) {
+        app.relaunch()
+        return app.exit(0)
+    }
+
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
+    windows.preferences.preferencesManager = preferencesManager
 
     windows.preferences.on('focus', () => { snippetsManager.shouldMatch = false })
     windows.preferences.on('blur', () => { snippetsManager.shouldMatch = true })
