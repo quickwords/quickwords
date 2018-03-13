@@ -1,5 +1,6 @@
 const { Notification, shell } = require('electron')
 const fetch = require('node-fetch')
+const path = require('path')
 
 module.exports = {
     tap(object, callback) {
@@ -32,6 +33,7 @@ module.exports = {
                     const notification = new Notification({
                         title: 'New Version Available',
                         body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
+                        icon: path.join(__dirname, '../build/icon.icns'),
                     })
 
                     notification.on('click', () => shell.openExternal(url))
