@@ -28,13 +28,13 @@ app.on('ready', () => {
     const preferencesManager = new PreferencesManager()
     const isFirstLaunch = preferencesManager.init()
 
-    windows.about = aboutWindow.init()
-    windows.preferences = preferencesWindow.init()
-
     if (isFirstLaunch) {
         app.relaunch()
         return app.exit(0)
     }
+
+    windows.about = aboutWindow.init()
+    windows.preferences = preferencesWindow.init()
 
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
