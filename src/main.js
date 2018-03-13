@@ -50,7 +50,7 @@ app.on('ready', () => {
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
 
-    setTimeout(checkForNewVersion, 2000)
+    setTimeout(checkForNewVersion, 1000)
     setInterval(checkForNewVersion, 4e7) // ~ 11 hours
 })
 

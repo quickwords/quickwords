@@ -34,9 +34,7 @@ module.exports = {
                         body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
                     })
 
-                    notification.onclick = () => {
-                        shell.openExternal(url)
-                    }
+                    notification.on('click', () => shell.openExternal(url))
 
                     notification.show()
                 }
