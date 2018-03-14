@@ -1,6 +1,6 @@
 # 🚧 Work in Progress!!! 🚧
 
-<p align="center"><a href="http://quickwords.co"><img width="450" src="http://quickwords.co/assets/logo.svg"></a></p>
+<p align="center"><a href="https://quickwords.co"><img width="450" src="https://quickwords.co/assets/logo.svg"></a></p>
 
 ## Table of Contents
 - [What is Quickwords?](#what-is-quickwords)
