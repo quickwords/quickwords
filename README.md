@@ -1,6 +1,6 @@
 # 🚧 Work in Progress!!! 🚧
 
-<p align="center"><img width="450" src="http://quickwords.co/assets/logo.svg"></p>
+<p align="center"><a href="http://quickwords.co"><img width="450" src="http://quickwords.co/assets/logo.svg"></a></p>
 
 ## What is Quickwords?
 Quickwords is an open-source alternative to [Text Expander](https://textexpander.com) written in [Electron](https://electronjs.org). It is available on MacOS (other systems coming very soon).
