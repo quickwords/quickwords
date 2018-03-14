@@ -23,7 +23,7 @@
                         <div class="cell">key</div>
                         <div class="cell">value</div>
                     </div>
-                    <div class="rows" @click.self="unselectAll">
+                    <div class="rows" ref="rows" @click.self="unselectAll">
                         <div
                             class="row"
                             v-for="snippet in snippets"

@@ -21,15 +21,11 @@ module.exports = {
         }))
 
         this.ctx.showTextBubble = (r) => {
-            BrowserWindow.fromId(3).setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width,this.ctx.getBounds().y + r - 125 + 18,true)
-            BrowserWindow.fromId(3).setSize(440,250,true)
+            BrowserWindow.fromId(3).setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + r - 125 + 18, true)
+            BrowserWindow.fromId(3).setSize(440, 250, true)
             BrowserWindow.fromId(3).setParentWindow(this.ctx)
             BrowserWindow.fromId(3).show()
         }
-
-
-
-
 
         return this.ctx
     },
