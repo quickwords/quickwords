@@ -3,6 +3,7 @@ const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about/controller')
 const preferencesWindow = require('./windows/preferences/controller')
+const textBubble = require('./windows/textBubble/controller')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
@@ -35,6 +36,7 @@ app.on('ready', () => {
 
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
+    windows.textBubble = textBubble.init(windows.preferences)
 
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
@@ -122,3 +124,4 @@ app.on('before-quit', () => {
     unregisterWindowListeners(windows)
     snippetsManager.destructor()
 })
+

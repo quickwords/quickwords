@@ -105,7 +105,7 @@
       -ms-flex: 1;
           flex: 1;
   font-size: .9rem;
-  padding: .6rem 10px;
+  padding: 0 10px;
   border-bottom: 1px solid #ddd;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -125,6 +125,7 @@
           flex-grow: 1;
   border: none;
   outline: 0;
+  height: 36px;
   border-bottom: none;
   font-family: "Montserrat", sans-serif;
   color: inherit;
