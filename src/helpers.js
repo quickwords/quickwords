@@ -17,30 +17,36 @@ module.exports = {
         Object.keys(windows).forEach(key => windows[key].removeAllListeners('close'))
     },
     checkForNewVersion() {
-        const currentVersion = require('../package.json').version.split('.')
+        return new Promise((resolve, reject) => {
+            const currentVersion = require('../package.json').version.split('.')
 
-        fetch('https://api.github.com/repos/quickwords/quickwords/releases/latest')
-            .then(response => response.json())
-            .then(data => {
-                const currentNewestVersion = data.tag_name.split('.')
-                const url = data.html_url
+            fetch('https://api.github.com/repos/quickwords/quickwords/releases/latest')
+                .then(response => response.json())
+                .then(data => {
+                    const currentNewestVersion = data.tag_name.split('.')
+                    const url = data.html_url
 
-                if (
-                    currentNewestVersion[0] > currentVersion[0]
-                    || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] > currentVersion[1])
-                    || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] === currentVersion[1] && currentNewestVersion[2] > currentVersion[2])
-                ) {
-                    const notification = new Notification({
-                        title: 'New Version Available',
-                        body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                        icon: path.join(__dirname, '../build/icon.icns'),
-                    })
+                    if (
+                        currentNewestVersion[0] > currentVersion[0]
+                        || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] > currentVersion[1])
+                        || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] === currentVersion[1] && currentNewestVersion[2] > currentVersion[2])
+                    ) {
+                        const notification = new Notification({
+                            title: 'New Version Available',
+                            body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
+                            icon: path.join(__dirname, '../build/icon.icns'),
+                        })
 
-                    notification.on('click', () => shell.openExternal(url))
+                        notification.on('click', () => shell.openExternal(url))
 
-                    notification.show()
-                }
-            })
-            .catch(() => {})
+                        notification.show()
+
+                        return resolve(true)
+                    }
+
+                    resolve(false)
+                })
+                .catch(() => reject())
+        })
     },
 }

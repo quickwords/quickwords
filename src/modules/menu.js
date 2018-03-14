@@ -9,7 +9,7 @@ module.exports = Menu.buildFromTemplate([
         click() {
             aboutWindow.ctx.show()
 
-            checkForNewVersion()
+            checkForNewVersion().then(() => {}).catch(() => {})
         },
     },
     {

@@ -50,8 +50,26 @@ app.on('ready', () => {
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
 
-    setTimeout(checkForNewVersion, 1000)
-    setInterval(checkForNewVersion, 4e7) // ~ 11 hours
+    const updatesInterval = setInterval(() => {
+        checkForNewVersion()
+            .then(hasNewVersion => {
+                if (hasNewVersion) {
+                    clearInterval(updatesInterval)
+                }
+            })
+            .catch(() => {})
+    }, 4e7) // ~ 11 hours
+
+    setTimeout(() => {
+        checkForNewVersion()
+            .then(hasNewVersion => {
+                if (hasNewVersion) {
+                    clearInterval(updatesInterval)
+                }
+            })
+            .catch(() => {})
+    }, 1000)
+
 
     // This menu does not show up nowhere, but it does register shortcuts like copy-paste, close and minimize
     Menu.setApplicationMenu(Menu.buildFromTemplate([
