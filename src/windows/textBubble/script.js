@@ -4,6 +4,7 @@ const currentWindow = electron.remote.getCurrentWindow()
 
 new Vue({
     data() {
+
     },
     methods: {
 

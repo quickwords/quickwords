@@ -25,9 +25,9 @@ module.exports = {
         }))
 
         this.ctx.on('move', (e, cmd) => {
-            if(this.ctx.isFocused()){
+            if (this.ctx.isFocused()) {
                 this.ctx.setParentWindow(null)
-             }
+            }
         })
 
         return this.ctx
