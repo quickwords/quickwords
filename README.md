@@ -2,6 +2,18 @@
 
 <p align="center"><a href="http://quickwords.co"><img width="450" src="http://quickwords.co/assets/logo.svg"></a></p>
 
+## Table of Contents
+- [What is Quickwords?](#what-is-quickwords)
+- [Installation](#installation)
+    - [MacOS](#macos)
+    - [Linux & Windows](#linux--windows)
+- [Privacy and Security](#privacy-and-security)
+- [FAQ](#faq)
+    - [macOS doesn't allow me to start the app](#macos-doesnt-allow-me-to-start-the-app)
+- [Contribution](#contribution)
+- [Authors](#authors)
+- [License](#license)
+
 ## What is Quickwords?
 Quickwords is an open-source alternative to [Text Expander](https://textexpander.com) written in [Electron](https://electronjs.org). It is available on MacOS (other systems coming very soon).
 
