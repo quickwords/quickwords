@@ -7,7 +7,7 @@ module.exports = {
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            'minWidth': 430,
+            'minWidth': 470,
             'minHeight': 470,
             width: 430,
             height: 470,
@@ -19,6 +19,17 @@ module.exports = {
             protocol: 'file:',
             slashes: true,
         }))
+
+        this.ctx.showTextBubble = (r) => {
+            BrowserWindow.fromId(3).setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width,this.ctx.getBounds().y + r - 125 + 18,true)
+            BrowserWindow.fromId(3).setSize(440,250,true)
+            BrowserWindow.fromId(3).setParentWindow(this.ctx)
+            BrowserWindow.fromId(3).show()
+        }
+
+
+
+
 
         return this.ctx
     },

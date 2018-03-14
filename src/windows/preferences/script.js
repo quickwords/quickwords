@@ -53,6 +53,9 @@ new Vue({
                 this.unselectAll()
             }
         },
+        showTextBubble(e) {
+            currentWindow.showTextBubble(e.target.offsetTop - document.getElementsByClassName('rows')[0].scrollTop)
+        }
     },
     mounted() {
         const snippets = currentWindow.snippetsManager.snippets

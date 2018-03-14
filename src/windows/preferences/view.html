@@ -18,7 +18,7 @@
                     <span class="circle"></span>
                 </div>
                 <h1 class="title" @click.self="unselectAll"><img class="downlogo" src="../../../assets/logo.svg" alt="">Preferences</h1>
-                <div class="snippets-table">
+                <div id="snippets-table" class="snippets-table">
                     <div class="row row--header">
                         <div class="cell">key</div>
                         <div class="cell">value</div>
@@ -37,6 +37,7 @@
                             ><input v-model="snippet.key" :disabled="! snippet.selected" placeholder="key can't be empty"></div>
                             <div
                                 class="cell"
+                                @click="showTextBubble($event)"
                                 @click.exact.self="select(snippet)"
                                 @click.ctrl.self="selectNext(snippet)"
                                 @click.meta.self="selectNext(snippet)"
