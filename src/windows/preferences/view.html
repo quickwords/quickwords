@@ -38,7 +38,7 @@
                             ><input v-model="snippet.key" :disabled="! snippet.selected" placeholder="key can't be empty"></div>
                             <div
                                 class="cell"
-                                @click="showTextBubble($event)"
+                                @click="showPopup($event)"
                                 @click.exact.self="select(snippet)"
                                 @click.ctrl.self="selectNext(snippet)"
                                 @click.meta.self="selectNext(snippet)"

@@ -77,8 +77,8 @@ new Vue({
                 this.unselectAll()
             }
         },
-        showTextBubble(e) {
-            currentWindow.showTextBubble(e.target.offsetTop - this.$refs.rows.scrollTop)
+        showPopup(e) {
+            currentWindow.showPopup(e.target.offsetTop - this.$refs.rows.scrollTop)
         },
     },
     mounted() {

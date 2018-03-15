@@ -19,13 +19,13 @@ module.exports = {
             slashes: true,
         }))
 
-        this.ctx.showTextBubble = (position) => {
-            const textBubbleWindow = require('../textBubble/controller')
+        this.ctx.showPopup = (position) => {
+            const popupWindow = require('../popup/controller')
 
-            textBubbleWindow.ctx.setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + position - 125 + 18, true)
-            textBubbleWindow.ctx.setSize(440, 250, true)
-            textBubbleWindow.ctx.setParentWindow(this.ctx)
-            textBubbleWindow.ctx.show()
+            popupWindow.ctx.setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + position - 125 + 18, true)
+            popupWindow.ctx.setSize(440, 250, true)
+            popupWindow.ctx.setParentWindow(this.ctx)
+            popupWindow.ctx.show()
 
             this.ctx.focus()
         }
