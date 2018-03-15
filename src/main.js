@@ -8,14 +8,13 @@ const popup = require('./windows/popup/controller')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
-const isDev = require('electron-is-dev')
 const PreferencesManager = require('./modules/PreferencesManager')
 
 let appIcon
 const snippetsManager = new SnippetsManager()
 const windows = {}
 
-if (isDev) {
+if (process.env.ENVIRONMENT === 'development') {
     require('electron-reload')([
         path.join(__dirname),
     ], {
@@ -75,7 +74,7 @@ app.on('ready', () => {
 
 
     // This menu does not show up nowhere, but it does register shortcuts like copy-paste, close and minimize
-    if (! isDev) {
+    if (process.env.ENVIRONMENT === 'production') {
         Menu.setApplicationMenu(Menu.buildFromTemplate([
             {
                 label: 'Quickwords',
