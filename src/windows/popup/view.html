@@ -12,11 +12,13 @@
     <body>
         <div id="app" class="app flex">
             <div class="handle" v-if="isAttached"></div>
-            <div class="text-wrapper">
-                <textarea> some text</textarea>
+            <div class="handle-shadow" v-if="isAttached"></div>
+            <div class="text-wrapper" v-if="snippet">
+                <textarea v-model="snippet.value"></textarea>
             </div>
         </div>
 
+        <script src="http://localhost:8098"></script>
         <script src="./script.js"></script>
     </body>
 </html>

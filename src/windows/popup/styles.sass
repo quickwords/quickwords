@@ -2,7 +2,8 @@
 
 .app
     background-color: transparent
-    padding-left: 20px
+    padding: 20px
+    padding-left: 30px
     box-sizing: border-box
     border-radius: 4px
     overflow: hidden
@@ -17,6 +18,8 @@
         background-color: $bg-light
         position: relative
         overflow: hidden
+        border: 1px solid #a7a7a7
+        box-shadow: 1px 1px 25px #3e3e3e
 
         textarea, textarea:focus
             -webkit-app-region: no-drag
@@ -28,12 +31,18 @@
             resize: none
             outline: none
 
-    .handle
-        width: 0
-        height: 0
-        left: 0
+    .handle,
+    .handle-shadow
+        width: 28px
+        height: 28px
+        left: 17px
         top: calc(50% - 15px)
         position: absolute
-        border-top: 15px solid transparent
-        border-bottom: 15px solid transparent
-        border-right: 20px solid $bg-light
+        transform: rotate(45deg)
+
+    .handle
+        z-index: 1
+        background: #faf9fa
+
+    .handle-shadow
+        box-shadow: -1px -1px 20px

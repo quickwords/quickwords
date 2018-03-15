@@ -1,6 +1,6 @@
 {
     "/src/styles/app.css": "/src/styles/app.css",
     "/src/windows/about/styles.css": "/src/windows/about/styles.css",
-    "/src/windows/preferences/styles.css": "/src/windows/preferences/styles.css",
-    "/src/windows/textBubble/styles.css": "/src/windows/textBubble/styles.css"
+    "/src/windows/popup/styles.css": "/src/windows/popup/styles.css",
+    "/src/windows/preferences/styles.css": "/src/windows/preferences/styles.css"
 }

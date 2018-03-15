@@ -77,8 +77,8 @@ new Vue({
                 this.unselectAll()
             }
         },
-        showPopup(e) {
-            currentWindow.showPopup(e.target.offsetTop - this.$refs.rows.scrollTop)
+        showPopup(e, snippet) {
+            currentWindow.showPopup(e.target.offsetTop - this.$refs.rows.scrollTop, snippet)
         },
     },
     mounted() {

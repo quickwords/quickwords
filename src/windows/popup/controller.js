@@ -38,12 +38,13 @@ module.exports = {
 
         return this.ctx
     },
-    attach(preferencesWindow, position) {
-        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width, preferencesWindow.ctx.getBounds().y + position - 125 + 18, true)
+    attach(preferencesWindow, position, snippet) {
+        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width - 10, preferencesWindow.ctx.getBounds().y + position - 125 + 18, true)
         this.ctx.setSize(WIDTH, HEIGHT, true)
         this.ctx.setParentWindow(preferencesWindow.ctx)
         this.ctx.show()
-        this.ctx.webContents.executeJavaScript('vm.attached()')
+        this.ctx.webContents.executeJavaScript('vm.attached();')
+        this.ctx.webContents.executeJavaScript(`vm.setSnippet(${JSON.stringify(snippet)});`)
         this.isAttached = true
     },
 }

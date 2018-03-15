@@ -19,10 +19,10 @@ module.exports = {
             slashes: true,
         }))
 
-        this.ctx.showPopup = (position) => {
+        this.ctx.showPopup = (position, snippet) => {
             const popupWindow = require('../popup/controller')
 
-            popupWindow.attach(this, position)
+            popupWindow.attach(this, position, snippet)
 
             this.ctx.focus()
         }

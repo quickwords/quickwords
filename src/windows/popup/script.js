@@ -7,6 +7,7 @@ const vm = new Vue({
     data() {
         return {
             isAttached: true,
+            snippet: null,
         }
     },
     methods: {
@@ -15,6 +16,10 @@ const vm = new Vue({
         },
         attached() {
             this.isAttached = true
+        },
+        setSnippet(snippet) {
+            console.log(snippet)
+            this.snippet = snippet
         },
     },
 })
