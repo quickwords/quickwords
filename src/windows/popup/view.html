@@ -11,7 +11,7 @@
     </head>
     <body>
         <div id="app" class="app flex">
-            <div class="handle"></div>
+            <div class="handle" v-if="isAttached"></div>
             <div class="text-wrapper">
                 <textarea> some text</textarea>
             </div>

@@ -22,10 +22,7 @@ module.exports = {
         this.ctx.showPopup = (position) => {
             const popupWindow = require('../popup/controller')
 
-            popupWindow.ctx.setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + position - 125 + 18, true)
-            popupWindow.ctx.setSize(440, 250, true)
-            popupWindow.ctx.setParentWindow(this.ctx)
-            popupWindow.ctx.show()
+            popupWindow.attach(this, position)
 
             this.ctx.focus()
         }
