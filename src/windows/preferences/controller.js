@@ -3,12 +3,11 @@ const path = require('path')
 const url = require('url')
 
 module.exports = {
-    ctx: null,
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            'minWidth': 470,
-            'minHeight': 470,
+            minWidth: 470,
+            minHeight: 470,
             width: 430,
             height: 470,
             titleBarStyle: 'hidden',
@@ -20,11 +19,15 @@ module.exports = {
             slashes: true,
         }))
 
-        this.ctx.showTextBubble = (r) => {
-            BrowserWindow.fromId(3).setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + r - 125 + 18, true)
-            BrowserWindow.fromId(3).setSize(440, 250, true)
-            BrowserWindow.fromId(3).setParentWindow(this.ctx)
-            BrowserWindow.fromId(3).show()
+        this.ctx.showTextBubble = (position) => {
+            const textBubbleWindow = require('../textBubble/controller')
+
+            textBubbleWindow.ctx.setPosition(this.ctx.getBounds().x + this.ctx.getBounds().width, this.ctx.getBounds().y + position - 125 + 18, true)
+            textBubbleWindow.ctx.setSize(440, 250, true)
+            textBubbleWindow.ctx.setParentWindow(this.ctx)
+            textBubbleWindow.ctx.show()
+
+            this.ctx.focus()
         }
 
         return this.ctx

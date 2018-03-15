@@ -1,18 +1,18 @@
-const Vue = require('vue/dist/vue')
-const electron = require('electron')
-const currentWindow = electron.remote.getCurrentWindow()
+// const Vue = require('vue/dist/vue')
+// const electron = require('electron')
+// const currentWindow = electron.remote.getCurrentWindow()
 
-new Vue({
-    data() {
+// new Vue({
+//     data() {
 
-    },
-    methods: {
+//     },
+//     methods: {
 
-    },
-    mounted() {
+//     },
+//     mounted() {
 
-    },
-    unmounted() {
+//     },
+//     unmounted() {
 
-    },
-})
+//     },
+// })

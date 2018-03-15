@@ -3,7 +3,6 @@ const path = require('path')
 const url = require('url')
 
 module.exports = {
-    ctx: null,
     init() {
         this.ctx = new BrowserWindow({
             show: false,

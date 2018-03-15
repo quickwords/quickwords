@@ -37,7 +37,7 @@ app.on('ready', () => {
 
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
-    windows.textBubble = textBubble.init(windows.preferences)
+    windows.textBubble = textBubble.init()
 
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager

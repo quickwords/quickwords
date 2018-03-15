@@ -3,8 +3,9 @@ const path = require('path')
 const url = require('url')
 
 module.exports = {
-    ctx: null,
-    init(parent2) {
+    init() {
+        const preferencesWindow = require('../preferences/controller')
+
         this.ctx = new BrowserWindow({
             show: false,
             width: 440,
@@ -12,10 +13,9 @@ module.exports = {
             hasShadow: true,
             frame: false,
             transparent: true,
-            parent: parent2,
-            x: parent2.getBounds().x + parent2.getBounds().width,
-            y: parent2.getBounds().y,
-
+            parent: preferencesWindow.ctx,
+            x: preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width,
+            y: preferencesWindow.ctx.getBounds().y,
         })
 
         this.ctx.loadURL(url.format({
@@ -24,7 +24,7 @@ module.exports = {
             slashes: true,
         }))
 
-        this.ctx.on('move', (e, cmd) => {
+        this.ctx.on('move', () => {
             if (this.ctx.isFocused()) {
                 this.ctx.setParentWindow(null)
             }
