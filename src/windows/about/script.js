@@ -1,10 +1,19 @@
 const { shell } = require('electron')
+const Vue = require('vue/dist/vue')
+const config = require('../../../config')
 
-document.querySelector('#dc').addEventListener('click', () => shell.openExternal('https://dczajkowski.com'))
-document.querySelector('#gt').addEventListener('click', () => shell.openExternal('https://github.com/gtluszcz'))
+new Vue({
+    el: '#app',
+    data() {
+        return {
+            config: config,
+        }
+    },
+    mounted() {
+        document.querySelectorAll('a').forEach(el => el.addEventListener('click', e => {
+            e.preventDefault()
 
-document.querySelectorAll('a').forEach(el => el.addEventListener('click', e => {
-    e.preventDefault()
-
-    shell.openExternal(el.getAttribute('href'))
-}))
+            shell.openExternal(el.getAttribute('href'))
+        }))
+    },
+})

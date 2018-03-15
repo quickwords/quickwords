@@ -10,18 +10,20 @@
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
-        <div class="app flex-column">
+        <div id="app" class="app flex-column">
             <div class="logo">
-                <img src="../../../assets/logo.svg" alt="Quickwords">
+                <a :href="config.WEBSITE_URL"><img src="../../../assets/logo.svg" alt="Quickwords"></a>
             </div>
-            <span><span id="dc" class="hidden-link">Dariusz Czajkowski</span> &amp; <span id="gt" class="hidden-link">Grzegorz Tłuszcz</span></span>
+            <span>
+                <a :href="config.DC_URL" class="hidden-link">Dariusz Czajkowski</a>
+                &amp; <a :href="config.GT_URL" class="hidden-link">Grzegorz Tłuszcz</a>
+            </span>
             <div class="buttons">
-                <a class="button" href="https://github.com/quickwords/quickwords-electron">GitHub</a>
-                <a class="button" href="#">Donate</a>
+                <a class="button" :href="config.GITHUB_URL">GitHub</a>
+                <a class="button" :href="config.DONATION_URL">Donate</a>
             </div>
             <span class="footer">
-                version:
-                <script>document.write(require('../../../package.json').version)</script>
+                version: {{ config.VERSION }}
             </span>
         </div>
 

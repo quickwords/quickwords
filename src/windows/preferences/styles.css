@@ -123,10 +123,9 @@
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  border: none;
   outline: 0;
   height: 36px;
-  border-bottom: none;
+  border-style: none;
   font-family: "Montserrat", sans-serif;
   color: inherit;
   -webkit-app-region: no-drag;

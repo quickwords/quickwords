@@ -18,11 +18,11 @@ span {
 }
 
 .hidden-link {
-  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }
 
 .buttons {
-  margin-top: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,11 +38,10 @@ span {
   height: 1.5rem;
   line-height: 1.5rem;
   text-decoration: none;
-  background: #fff;
   padding: .2rem .7rem;
   border-radius: 1px;
   font-size: .8rem;
-  background-color: #fff;
+  background: #fff;
   color: #141414;
   text-align: center;
   -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 2px 2px -2px rgba(0, 0, 0, 0.02), 0 1px 4px 0 rgba(0, 0, 0, 0.04);
