@@ -24,7 +24,6 @@ const vm = new Vue({
 
                 this.snippets = this.snippets.map(snippet => (snippet.id === this.editing.id) ? this.editing : snippet)
 
-                console.log('updating', this.snippets)
                 currentWindow.snippetsManager.updateSnippets(this.snippets)
             },
             deep: true,
@@ -38,7 +37,6 @@ const vm = new Vue({
             this.isAttached = true
         },
         edit(snippet) {
-            console.log(snippet)
             this.editing = snippet
         },
         updateSnippets(snippets) {

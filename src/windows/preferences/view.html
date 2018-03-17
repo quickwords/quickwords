@@ -21,7 +21,6 @@
                 <div id="snippets-table" class="snippets-table">
                     <div class="row row--header">
                         <div class="cell">key</div>
-                        <!-- <div class="cell">value</div> -->
                     </div>
                     <div class="rows" ref="rows" @click.self="unselectAll">
                         <div
@@ -33,24 +32,13 @@
                             @click.ctrl="selectNext(snippet)"
                             @click.meta="selectNext(snippet)"
                         >
-                            <div
-                                class="cell"
-                            >
-                                <!-- @contextmenu="contextMenu($event)" -->
+                            <div class="cell">
                                 <div class="cell__key">{{ snippet.key }}</div>
                                 <div class="cell__options">
                                     <div class="cell__options__regex" v-if="snippet.regex">regex</div>
                                     <div class="cell__options__js" v-if="snippet.type === 'js'">js</div>
                                 </div>
                             </div>
-                            <!-- <div
-                                class="cell"
-                                @click="showPopup($event, snippet)"
-                                @click.exact.self="select(snippet)"
-                                @click.ctrl.self="selectNext(snippet)"
-                                @click.meta.self="selectNext(snippet)"
-                                @contextmenu="contextMenu($event)"
-                            ><input v-model="snippet.value" :disabled="! snippet.selected" placeholder=""></div> -->
                         </div>
                     </div>
                 </div>
@@ -63,15 +51,10 @@
                     <label for="startup">
                         <input type="checkbox" id="startup" v-model="autoLaunch"> Launch Quickwords at system startup
                     </label>
-
-                    <!-- <label for="special">
-                        <input type="checkbox" id="special"> Use space as a trigger key
-                    </label> -->
                 </div>
             </div>
         </div>
 
-        <script src="http://localhost:8098"></script>
         <script src="./script.js"></script>
     </body>
 </html>

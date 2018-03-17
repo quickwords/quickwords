@@ -20,6 +20,7 @@ const vm = new Vue({
         },
     },
     methods: {
+        // @todo move to the popup
         contextMenu(e) {
             // e.preventDefault()
 
@@ -34,8 +35,6 @@ const vm = new Vue({
             // ]).popup(currentWindow)
         },
         select(snippet) {
-            console.log('c', snippet)
-
             if (snippet.selected) {
                 return snippet.selected = false
             }
@@ -62,8 +61,6 @@ const vm = new Vue({
 
             this.snippets.push(snippet)
 
-            console.log('a', this.snippets)
-
             this.sendSnippetsToBackend()
 
             this.showPopup(300, snippet)
@@ -81,7 +78,6 @@ const vm = new Vue({
             currentWindow.showPopup(top - this.$refs.rows.scrollTop, snippet)
         },
         updateSnippets(snippets) {
-            console.log('b', snippets)
             this.snippets = snippets
         },
         sendSnippetsToBackend() {

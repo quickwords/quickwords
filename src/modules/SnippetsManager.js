@@ -26,26 +26,6 @@ class SnippetsManager {
         ioHook.stop()
     }
 
-    // getSnippet(key) {
-    //     return this.snippets.filter(snippet => snippet.key === key)[0]
-    // }
-
-    // addSnippet(key, value) {
-    //     this.snippets.map(snippet => {
-    //         if (snippet.key === key) {
-    //             snippet.value = value
-    //         }
-    //         return snippet
-    //     })
-
-    //     this._writeToFile(this.snippets)
-    // }
-
-    // removeSnippet(key) {
-    //     this.snippets = this.snippets.filter(snippet => snippet.key !== key)
-    //     this._writeToFile(this.snippets)
-    // }
-
     updateSnippets(snippets) {
         console.log('hi', snippets)
         this.snippets = snippets
