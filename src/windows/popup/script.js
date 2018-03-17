@@ -10,6 +10,7 @@ const vm = new Vue({
             isAttached: true,
             editing: {},
             snippets: [],
+            error: '',
         }
     },
     watch: {
@@ -23,14 +24,35 @@ const vm = new Vue({
                     this.editing.value = 'function (trigger) {\n  return trigger.toUpperCase()\n}'
                 }
 
-                this.snippets = this.snippets.map(snippet => (snippet.id === this.editing.id) ? this.editing : snippet)
+                this.validateInput()
 
-                currentWindow.snippetsManager.updateSnippets(this.snippets)
+                if (! this.error) {
+                    this.snippets = this.snippets.map(snippet => (snippet.id === this.editing.id) ? this.editing : snippet)
+
+                    currentWindow.snippetsManager.updateSnippets(this.snippets)
+                }
             },
             deep: true,
         },
     },
     methods: {
+        validateInput() {
+            if (this.editing.type === 'js') {
+                let response
+
+                try {
+                    response = eval(`(${this.editing.value})`)
+                } catch (e) {
+                    return this.error = e
+                }
+
+                if ((typeof response !== 'function') || (typeof response('abc') !== 'string')) {
+                    return this.error = 'JS code must be a callable that returns a string.'
+                }
+
+                this.error = ''
+            }
+        },
         moved() {
             this.isAttached = false
         },

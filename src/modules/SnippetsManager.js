@@ -95,7 +95,7 @@ class SnippetsManager {
         let response
 
         try {
-            response = eval(`(${code})`)(input)
+            response = '' + eval(`(${code})`)(input)
         } catch (e) {
             console.log('An error occured')
         }
