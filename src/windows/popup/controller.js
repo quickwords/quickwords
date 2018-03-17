@@ -13,7 +13,6 @@ module.exports = {
             show: false,
             width: WIDTH,
             height: HEIGHT,
-            hasShadow: true,
             frame: false,
             transparent: true,
             parent: preferencesWindow.ctx,

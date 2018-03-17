@@ -27,7 +27,6 @@ class SnippetsManager {
     }
 
     updateSnippets(snippets) {
-        console.log('hi', snippets)
         this.snippets = snippets
         this._writeToFile(this.snippets)
         this.propagateSnippetsToViews()

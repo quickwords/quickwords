@@ -2,6 +2,7 @@ const Vue = require('vue/dist/vue')
 const electron = require('electron')
 const currentWindow = electron.remote.getCurrentWindow()
 
+/* eslint "no-unused-vars": "off" */
 const vm = new Vue({
     el: '#app',
     data() {
@@ -20,20 +21,6 @@ const vm = new Vue({
         },
     },
     methods: {
-        // @todo move to the popup
-        contextMenu(e) {
-            // e.preventDefault()
-
-            // electron.remote.Menu.buildFromTemplate([
-            //     { label: 'Undo', role: 'undo' },
-            //     { label: 'Redo', role: 'redo' },
-            //     { type: 'separator' },
-            //     { label: 'Cut', role: 'cut' },
-            //     { label: 'Copy', role: 'copy' },
-            //     { label: 'Paste', role: 'paste' },
-            //     { label: 'Select All', role: 'selectAll' },
-            // ]).popup(currentWindow)
-        },
         select(snippet) {
             if (snippet.selected) {
                 return snippet.selected = false
@@ -56,7 +43,7 @@ const vm = new Vue({
                 value:'',
                 selected: false,
                 regex: false,
-                js: false,
+                type: 'plain',
             }
 
             this.snippets.push(snippet)

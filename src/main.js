@@ -1,4 +1,6 @@
+/* eslint "no-unused-vars": "off" */
 const config = require('../config')
+
 const { app, Tray, Menu } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
