@@ -24,7 +24,7 @@ module.exports = {
 
             popupWindow.attach(this, position, snippet)
 
-            this.ctx.focus()
+            // this.ctx.focus()
         }
 
         return this.ctx

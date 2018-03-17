@@ -13,6 +13,7 @@
         box-sizing: border-box
         width: 100%
         height: 100%
+        min-height: 230px
         border-radius: 6px
         padding: 20px
         background-color: $bg-light
@@ -20,16 +21,26 @@
         overflow: hidden
         border: 1px solid #a7a7a7
         box-shadow: 1px 1px 25px #3e3e3e
+        display: flex
+        flex-direction: column
 
-        textarea, textarea:focus
+        textarea,
+        textarea:focus,
+        input
             -webkit-app-region: no-drag
             box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1) inset, 0 2px 2px -2px rgba(0, 0, 0, .02) inset, 0 1px 4px 0 rgba(0, 0, 0, .04) inset
             border: none
             border-radius: 4px
-            width: 100%
-            height: 100%
-            resize: none
             outline: none
+
+        input
+            padding: 10px
+            flex: 1
+
+        textarea
+            width: 100%
+            flex: 1
+            resize: none
 
     .handle,
     .handle-shadow
@@ -46,3 +57,20 @@
 
     .handle-shadow
         box-shadow: -1px -1px 20px
+
+    .top
+        display: flex
+        align-items: center
+        margin-bottom: 10px
+
+        &> label
+            padding-left: 10px
+            font-size: 12px
+
+    .bottom
+        margin-top: 20px
+        display: flex
+
+        select
+            flex: 1
+            font-size: 15px

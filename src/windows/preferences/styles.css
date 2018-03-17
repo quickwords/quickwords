@@ -66,6 +66,7 @@
   display: -ms-flexbox;
   display: flex;
   background: #fff;
+  height: 40px;
 }
 
 .row:nth-child(odd) {
@@ -100,6 +101,16 @@
   border-bottom: 3px solid rgba(240, 0, 0, 0.6);
 }
 
+.row--header {
+  background: #fff !important;
+  height: auto;
+}
+
+.row--header .cell {
+  font-size: .8rem;
+  padding: .3rem 10px;
+}
+
 .row .cell {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -112,10 +123,36 @@
   display: flex;
   font-weight: 100;
   font-family: "Montserrat", sans-serif;
+  height: 100%;
 }
 
-.row .cell:first-child {
-  border-right: 1px solid #ddd;
+.row .cell__key {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row .cell__options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row .cell__options > div {
+  background: #525252;
+  color: #fff;
+  font-size: 10px;
+  border-radius: 50rem;
+  padding: 5px 10px;
 }
 
 .row .cell input {
@@ -149,15 +186,6 @@
 
 .row .cell input[disabled] {
   pointer-events: none;
-}
-
-.row--header {
-  background: #fff !important;
-}
-
-.row--header .cell {
-  font-size: .8rem;
-  padding: .3rem 10px;
 }
 
 .rows {

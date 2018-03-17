@@ -14,11 +14,24 @@
             <div class="handle" v-if="isAttached"></div>
             <div class="handle-shadow" v-if="isAttached"></div>
             <div class="text-wrapper" v-if="editing">
+                <div class="top">
+                    <input type="text" v-model="editing.key">
+                    <label>
+                        <input type="checkbox" v-model="editing.regex">
+                        Use regular expression
+                    </label>
+                </div>
                 <textarea v-model="editing.value"></textarea>
+                <div class="bottom">
+                    <select v-model="editing.type">
+                        <option value="plain" :selected="editing.type === 'plain'">Plain text</option>
+                        <option value="js" :selected="editing.type === 'js'">JavaScript</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <script src="http://localhost:8098"></script>
+        <!-- <script src="http://localhost:8098"></script> -->
         <script src="./script.js"></script>
     </body>
 </html>

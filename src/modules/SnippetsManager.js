@@ -1,13 +1,13 @@
 const { clipboard } = require('electron')
 const ioHook = require('iohook')
 const charTable = require('./charTable')
-const ConfigFileManager = require('./ConfigFileManager')
 const robot = require('robotjs')
+const fs = require('fs')
 
 class SnippetsManager {
     constructor() {
-        this.configFile = new ConfigFileManager()
-        this.snippets = this.configFile.getSnippets()
+        this._createFileIfNecessary()
+        this.snippets = this._readFile()
 
         this.buffer = ''
         this.modifierPressed = false
@@ -26,47 +26,38 @@ class SnippetsManager {
         ioHook.stop()
     }
 
-    getSnippet(key) {
-        return this.snippets.filter(snippet => snippet.key === key)[0]
-    }
+    // getSnippet(key) {
+    //     return this.snippets.filter(snippet => snippet.key === key)[0]
+    // }
 
-    addSnippet(key, value) {
-        this.snippets.map(snippet => {
-            if (snippet.key === key) {
-                snippet.value = value
-            }
-            return snippet
-        })
+    // addSnippet(key, value) {
+    //     this.snippets.map(snippet => {
+    //         if (snippet.key === key) {
+    //             snippet.value = value
+    //         }
+    //         return snippet
+    //     })
 
-        this._writeToFile(this.snippets)
-    }
+    //     this._writeToFile(this.snippets)
+    // }
 
-    removeSnippet(key) {
-        this.snippets = this.snippets.filter(snippet => snippet.key !== key)
-        this._writeToFile(this.snippets)
-    }
+    // removeSnippet(key) {
+    //     this.snippets = this.snippets.filter(snippet => snippet.key !== key)
+    //     this._writeToFile(this.snippets)
+    // }
 
     updateSnippets(snippets) {
-        console.log(snippets)
+        console.log('hi', snippets[0].key)
         this.snippets = snippets
         this._writeToFile(this.snippets)
-        // this.propagateSnippetsToViews()
+        this.propagateSnippetsToViews()
     }
 
-    updateSnippet(snippet) {
-        console.log(snippet)
-        this.snippets = this.snippets.map(s => (s.key === snippet.key) ? snippet : s)
-        this._writeToFile(this.snippets)
-        // this.propagateSnippetsToViews()
+    propagateSnippetsToViews() {
+        const preferencesWindow = require('../windows/preferences/controller')
+
+        preferencesWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
     }
-
-    // propagateSnippetsToViews() {
-    //     const preferencesWindow = require('../windows/preferences')
-    //     const popupWindow = require('../windows/popup')
-
-    //     preferencesWindow.ctx.webContents.executeJavaScript(`vm.reloadSnippets();`)
-    //     popupWindow.ctx.webContents.executeJavaScript(`vm.reloadSnippet();`)
-    // }
 
     isChar(keycode) {
         return keycode in charTable
@@ -148,6 +139,26 @@ class SnippetsManager {
         if (this.buffer.length > 20) {
             this.buffer = this.buffer.substring(1)
         }
+    }
+
+    _createFileIfNecessary() {
+        if (! fs.existsSync(process.env.SNIPPETS_PATH)) {
+            fs.writeFileSync(process.env.SNIPPETS_PATH, '{}', {
+                encoding: 'utf8',
+            })
+        }
+    }
+
+    _readFile() {
+        return JSON.parse(fs.readFileSync(process.env.SNIPPETS_PATH, {
+            encoding: 'utf8',
+        }))
+    }
+
+    _writeToFile(content) {
+        fs.writeFileSync(process.env.SNIPPETS_PATH, JSON.stringify(content), {
+            encoding: 'utf8',
+        })
     }
 }
 

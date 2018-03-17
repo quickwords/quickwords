@@ -2,7 +2,7 @@ const Vue = require('vue/dist/vue')
 const electron = require('electron')
 const currentWindow = electron.remote.getCurrentWindow()
 
-new Vue({
+const vm = new Vue({
     el: '#app',
     data() {
         return {
@@ -11,12 +11,6 @@ new Vue({
         }
     },
     watch: {
-        snippets: {
-            handler() {
-                currentWindow.snippetsManager.updateSnippets(this.snippets)
-            },
-            deep: true,
-        },
         autoLaunch() {
             if (this.autoLaunch === true) {
                 currentWindow.preferencesManager.enableAutoLaunch()
@@ -27,19 +21,21 @@ new Vue({
     },
     methods: {
         contextMenu(e) {
-            e.preventDefault()
+            // e.preventDefault()
 
-            electron.remote.Menu.buildFromTemplate([
-                { label: 'Undo', role: 'undo' },
-                { label: 'Redo', role: 'redo' },
-                { type: 'separator' },
-                { label: 'Cut', role: 'cut' },
-                { label: 'Copy', role: 'copy' },
-                { label: 'Paste', role: 'paste' },
-                { label: 'Select All', role: 'selectAll' },
-            ]).popup(currentWindow)
+            // electron.remote.Menu.buildFromTemplate([
+            //     { label: 'Undo', role: 'undo' },
+            //     { label: 'Redo', role: 'redo' },
+            //     { type: 'separator' },
+            //     { label: 'Cut', role: 'cut' },
+            //     { label: 'Copy', role: 'copy' },
+            //     { label: 'Paste', role: 'paste' },
+            //     { label: 'Select All', role: 'selectAll' },
+            // ]).popup(currentWindow)
         },
         select(snippet) {
+            console.log(snippet)
+
             if (snippet.selected) {
                 return snippet.selected = false
             }
@@ -55,26 +51,46 @@ new Vue({
             this.snippets.forEach(snippet => snippet.selected = false)
         },
         add() {
-            this.snippets.push({
+            const snippet = {
+                id: Math.floor(Math.random() * (9999999 - 1000000)) + 1000000,
                 key: '',
                 value:'',
                 selected: false,
-            })
+                regex: false,
+                js: false,
+            }
+
+            this.snippets.push(snippet)
+
+            this.showPopup(300, snippet)
+            this.sendSnippetsToBackend()
         },
         remove() {
             this.snippets = this.snippets.filter(snippet => ! snippet.selected)
+            this.sendSnippetsToBackend()
         },
         escapeHandler(e) {
             if (e.key === 'Escape') {
                 this.unselectAll()
             }
         },
-        showPopup(e, snippet) {
-            currentWindow.showPopup(e.target.offsetTop - this.$refs.rows.scrollTop, snippet)
+        showPopup(top, snippet) {
+            currentWindow.showPopup(top - this.$refs.rows.scrollTop, snippet)
+        },
+        updateSnippets(snippets) {
+            console.log(snippets)
+            this.snippets = snippets
+        },
+        sendSnippetsToBackend() {
+            currentWindow.snippetsManager.updateSnippets(this.snippets.map(snippet => {
+                snippet.selected = false
+
+                return snippet
+            }))
         },
     },
     mounted() {
-        this.snippets = currentWindow.snippetsManager.snippets
+        this.snippets = JSON.parse(JSON.stringify(currentWindow.snippetsManager.snippets))
 
         document.addEventListener('keyup', this.escapeHandler)
     },

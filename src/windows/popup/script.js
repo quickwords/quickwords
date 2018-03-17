@@ -11,6 +11,20 @@ const vm = new Vue({
             snippets: [],
         }
     },
+    watch: {
+        editing: {
+            handler() {
+                if (this.editing.type === 'js' && ! this.editing.value) {
+                    this.editing.value = `function (trigger) {\n  return trigger.toUpperCase()\n}`
+                }
+
+                this.snippets = this.snippets.map(snippet => (snippet.id === this.editing.id) ? this.editing : snippet)
+
+                currentWindow.snippetsManager.updateSnippets(this.snippets)
+            },
+            deep: true,
+        },
+    },
     methods: {
         moved() {
             this.isAttached = false
