@@ -13,15 +13,7 @@ new Vue({
     watch: {
         snippets: {
             handler() {
-                const obj = {}
-
-                this.snippets.forEach(snippet => {
-                    if (snippet.key !== '') {
-                        obj[snippet.key] = snippet.value
-                    }
-                })
-
-                currentWindow.snippetsManager.updateSnippets(obj)
+                currentWindow.snippetsManager.updateSnippets(this.snippets)
             },
             deep: true,
         },
@@ -82,13 +74,7 @@ new Vue({
         },
     },
     mounted() {
-        const snippets = currentWindow.snippetsManager.snippets
-
-        this.snippets = Object.keys(snippets).map(key => ({
-            key: key,
-            value: snippets[key],
-            selected: false,
-        }))
+        this.snippets = currentWindow.snippetsManager.snippets
 
         document.addEventListener('keyup', this.escapeHandler)
     },

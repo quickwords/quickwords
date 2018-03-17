@@ -13,8 +13,8 @@
         <div id="app" class="app flex">
             <div class="handle" v-if="isAttached"></div>
             <div class="handle-shadow" v-if="isAttached"></div>
-            <div class="text-wrapper" v-if="snippet">
-                <textarea v-model="snippet.value"></textarea>
+            <div class="text-wrapper" v-if="editing">
+                <textarea v-model="editing.value"></textarea>
             </div>
         </div>
 

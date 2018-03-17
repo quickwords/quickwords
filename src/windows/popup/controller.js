@@ -44,7 +44,7 @@ module.exports = {
         this.ctx.setParentWindow(preferencesWindow.ctx)
         this.ctx.show()
         this.ctx.webContents.executeJavaScript('vm.attached();')
-        this.ctx.webContents.executeJavaScript(`vm.setSnippet(${JSON.stringify(snippet)});`)
+        this.ctx.webContents.executeJavaScript(`vm.edit(${JSON.stringify(snippet)});`)
         this.isAttached = true
     },
 }

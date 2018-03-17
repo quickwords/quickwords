@@ -26,15 +26,47 @@ class SnippetsManager {
         ioHook.stop()
     }
 
+    getSnippet(key) {
+        return this.snippets.filter(snippet => snippet.key === key)[0]
+    }
+
     addSnippet(key, value) {
-        this.snippets[key] = value
-        this.configFile.addSnippet(key, value)
+        this.snippets.map(snippet => {
+            if (snippet.key === key) {
+                snippet.value = value
+            }
+            return snippet
+        })
+
+        this._writeToFile(this.snippets)
     }
 
     removeSnippet(key) {
-        delete this.snippets[key]
-        this.configFile.removeSnippet(key)
+        this.snippets = this.snippets.filter(snippet => snippet.key !== key)
+        this._writeToFile(this.snippets)
     }
+
+    updateSnippets(snippets) {
+        console.log(snippets)
+        this.snippets = snippets
+        this._writeToFile(this.snippets)
+        // this.propagateSnippetsToViews()
+    }
+
+    updateSnippet(snippet) {
+        console.log(snippet)
+        this.snippets = this.snippets.map(s => (s.key === snippet.key) ? snippet : s)
+        this._writeToFile(this.snippets)
+        // this.propagateSnippetsToViews()
+    }
+
+    // propagateSnippetsToViews() {
+    //     const preferencesWindow = require('../windows/preferences')
+    //     const popupWindow = require('../windows/popup')
+
+    //     preferencesWindow.ctx.webContents.executeJavaScript(`vm.reloadSnippets();`)
+    //     popupWindow.ctx.webContents.executeJavaScript(`vm.reloadSnippet();`)
+    // }
 
     isChar(keycode) {
         return keycode in charTable
@@ -55,11 +87,6 @@ class SnippetsManager {
 
     isBackspace(keycode) {
         return keycode == 14
-    }
-
-    updateSnippets(snippets) {
-        this.snippets = snippets
-        this.configFile._writeToFile(snippets)
     }
 
     _onKeyUp(e) {
@@ -93,24 +120,16 @@ class SnippetsManager {
     }
 
     _replaceSnippetIfMatchFound() {
-        let match = ''
-        let snippet = ''
+        const snippet = this.snippets.filter(snippet => new RegExp(`.*${snippet.key}$`, 'i').test(this.buffer))[0]
 
-        for (snippet of Object.keys(this.snippets)) {
-            if (new RegExp(`.*${snippet}$`, 'i').test(this.buffer)) {
-                match = this.snippets[snippet]
-                break
-            }
-        }
-
-        if (match) {
-            for (let i = 0; i < snippet.length; i++) {
+        if (snippet) {
+            for (let i = 0; i < snippet.key.length; i++) {
                 robot.keyTap('backspace')
             }
 
             const clipboardContent = clipboard.readText()
 
-            clipboard.writeText(match)
+            clipboard.writeText(snippet.value)
 
             setTimeout(() => robot.keyTap('v', 'command'), 50)
             setTimeout(() => clipboard.writeText(clipboardContent), 500)

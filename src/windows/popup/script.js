@@ -1,13 +1,14 @@
 const Vue = require('vue/dist/vue')
-// const electron = require('electron')
-// const currentWindow = electron.remote.getCurrentWindow()
+const electron = require('electron')
+const currentWindow = electron.remote.getCurrentWindow()
 
 const vm = new Vue({
     el: '#app',
     data() {
         return {
             isAttached: true,
-            snippet: null,
+            editing: {},
+            snippets: [],
         }
     },
     methods: {
@@ -17,9 +18,12 @@ const vm = new Vue({
         attached() {
             this.isAttached = true
         },
-        setSnippet(snippet) {
+        edit(snippet) {
             console.log(snippet)
-            this.snippet = snippet
+            this.editing = snippet
         },
+    },
+    mounted() {
+        this.snippets = currentWindow.snippetsManager.snippets
     },
 })
