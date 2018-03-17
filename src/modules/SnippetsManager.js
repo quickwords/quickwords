@@ -47,7 +47,7 @@ class SnippetsManager {
     // }
 
     updateSnippets(snippets) {
-        console.log('hi', snippets[0].key)
+        console.log('hi', snippets)
         this.snippets = snippets
         this._writeToFile(this.snippets)
         this.propagateSnippetsToViews()
@@ -55,8 +55,10 @@ class SnippetsManager {
 
     propagateSnippetsToViews() {
         const preferencesWindow = require('../windows/preferences/controller')
+        const popupWindow = require('../windows/popup/controller')
 
         preferencesWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
+        popupWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
     }
 
     isChar(keycode) {
@@ -110,8 +112,28 @@ class SnippetsManager {
         }
     }
 
+    _evaluate(code, input) {
+        let response
+
+        try {
+            response = eval(`(${code})`)(input)
+        } catch (e) {
+            console.log('An error occured')
+        }
+
+        return response
+    }
+
     _replaceSnippetIfMatchFound() {
-        const snippet = this.snippets.filter(snippet => new RegExp(`.*${snippet.key}$`, 'i').test(this.buffer))[0]
+        let match = []
+
+        const snippet = this.snippets.filter(snippet => {
+            const key = (snippet.regex) ? snippet.key : snippet.key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+
+            match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)
+
+            return !! match
+        })[0]
 
         if (snippet) {
             for (let i = 0; i < snippet.key.length; i++) {
@@ -120,7 +142,11 @@ class SnippetsManager {
 
             const clipboardContent = clipboard.readText()
 
-            clipboard.writeText(snippet.value)
+            if (snippet.type === 'js') {
+                clipboard.writeText(this._evaluate(snippet.value, match[1]))
+            } else {
+                clipboard.writeText(snippet.value)
+            }
 
             setTimeout(() => robot.keyTap('v', 'command'), 50)
             setTimeout(() => clipboard.writeText(clipboardContent), 500)

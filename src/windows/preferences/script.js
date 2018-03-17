@@ -34,7 +34,7 @@ const vm = new Vue({
             // ]).popup(currentWindow)
         },
         select(snippet) {
-            console.log(snippet)
+            console.log('c', snippet)
 
             if (snippet.selected) {
                 return snippet.selected = false
@@ -62,8 +62,11 @@ const vm = new Vue({
 
             this.snippets.push(snippet)
 
-            this.showPopup(300, snippet)
+            console.log('a', this.snippets)
+
             this.sendSnippetsToBackend()
+
+            this.showPopup(300, snippet)
         },
         remove() {
             this.snippets = this.snippets.filter(snippet => ! snippet.selected)
@@ -78,7 +81,7 @@ const vm = new Vue({
             currentWindow.showPopup(top - this.$refs.rows.scrollTop, snippet)
         },
         updateSnippets(snippets) {
-            console.log(snippets)
+            console.log('b', snippets)
             this.snippets = snippets
         },
         sendSnippetsToBackend() {
