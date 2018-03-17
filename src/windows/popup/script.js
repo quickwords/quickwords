@@ -49,9 +49,9 @@ const vm = new Vue({
                 if ((typeof response !== 'function') || (typeof response('abc') !== 'string')) {
                     return this.error = 'JS code must be a callable that returns a string.'
                 }
-
-                this.error = ''
             }
+
+            this.error = ''
         },
         moved() {
             this.isAttached = false
