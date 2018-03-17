@@ -143,7 +143,7 @@ class SnippetsManager {
             const clipboardContent = clipboard.readText()
 
             if (snippet.type === 'js') {
-                clipboard.writeText(this._evaluate(snippet.value, match[1]))
+                clipboard.writeText(this._evaluate(snippet.value, match[1].toLowerCase()))
             } else {
                 clipboard.writeText(snippet.value)
             }
