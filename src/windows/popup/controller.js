@@ -2,8 +2,8 @@ const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 
-const WIDTH = 440
-const HEIGHT = 250
+const WIDTH = 700
+const HEIGHT = 530
 
 module.exports = {
     init() {
@@ -13,7 +13,6 @@ module.exports = {
             show: false,
             width: WIDTH,
             height: HEIGHT,
-            hasShadow: true,
             frame: false,
             transparent: true,
             parent: preferencesWindow.ctx,
@@ -38,12 +37,13 @@ module.exports = {
 
         return this.ctx
     },
-    attach(preferencesWindow, position) {
-        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width, preferencesWindow.ctx.getBounds().y + position - 125 + 18, true)
+    attach(preferencesWindow, position, snippet) {
+        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width - 10, preferencesWindow.ctx.getBounds().y + position - 258 + 18, true)
         this.ctx.setSize(WIDTH, HEIGHT, true)
         this.ctx.setParentWindow(preferencesWindow.ctx)
         this.ctx.show()
-        this.ctx.webContents.executeJavaScript('vm.attached()')
+        this.ctx.webContents.executeJavaScript('vm.attached();')
+        this.ctx.webContents.executeJavaScript(`vm.edit(${JSON.stringify(snippet)});`)
         this.isAttached = true
     },
 }

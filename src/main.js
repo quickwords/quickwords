@@ -1,4 +1,6 @@
+/* eslint "no-unused-vars": "off" */
 const config = require('../config')
+
 const { app, Tray, Menu } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
@@ -41,9 +43,16 @@ app.on('ready', () => {
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
     windows.preferences.preferencesManager = preferencesManager
+    windows.popup.snippetsManager = snippetsManager
 
-    windows.preferences.on('focus', () => { snippetsManager.shouldMatch = false })
+    windows.preferences.on('focus', () => {
+        snippetsManager.shouldMatch = false
+        windows.popup.hide()
+    })
     windows.preferences.on('blur', () => { snippetsManager.shouldMatch = true })
+
+    windows.popup.on('focus', () => { snippetsManager.shouldMatch = false })
+    windows.popup.on('blur', () => { snippetsManager.shouldMatch = true })
 
     doNotQuitAppOnWindowClosure(windows)
 

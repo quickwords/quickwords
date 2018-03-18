@@ -1,11 +1,9 @@
 .app {
   background-color: transparent;
-  width: 100%;
-  height: 100%;
-  padding-left: 20px;
+  padding: 20px;
+  padding-left: 30px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -21,29 +19,208 @@
   background-color: #faf9fa;
   position: relative;
   overflow: hidden;
+  border: 1px solid #a7a7a7;
+  -webkit-box-shadow: 1px 1px 25px #3e3e3e;
+          box-shadow: 1px 1px 25px #3e3e3e;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .app .text-wrapper textarea,
-.app .text-wrapper textarea:focus {
+.app .text-wrapper textarea:focus,
+.app .text-wrapper input {
   -webkit-app-region: no-drag;
   -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) inset, 0 2px 2px -2px rgba(0, 0, 0, 0.02) inset, 0 1px 4px 0 rgba(0, 0, 0, 0.04) inset;
           box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) inset, 0 2px 2px -2px rgba(0, 0, 0, 0.02) inset, 0 1px 4px 0 rgba(0, 0, 0, 0.04) inset;
   border: none;
   border-radius: 4px;
-  width: 100%;
-  height: 100%;
-  resize: none;
   outline: none;
 }
 
-.app .handle {
-  width: 0;
-  height: 0;
-  left: 0;
+.app .text-wrapper input {
+  padding: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.app .text-wrapper textarea {
+  width: 100%;
+  resize: none;
+}
+
+.app .handle,
+.app .handle-shadow {
+  width: 28px;
+  height: 28px;
+  left: 17px;
   top: calc(50% - 15px);
   position: absolute;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-right: 20px solid #faf9fa;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.app .handle {
+  z-index: 1;
+  background: #faf9fa;
+}
+
+.app .handle-shadow {
+  -webkit-box-shadow: -1px -1px 20px;
+          box-shadow: -1px -1px 20px;
+}
+
+.app .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.app .top > label {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.app .middle {
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.app .bottom {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.app .bottom select {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 15px;
+}
+
+.app .error {
+  display: block;
+  position: absolute;
+  bottom: .5rem;
+  right: .5rem;
+  height: .5rem;
+  width: .5rem;
+  border-radius: 1rem;
+  background: red;
+  border: 1px solid #e60000;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.emoji-invoker {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.emoji-invoker:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.emoji-invoker > svg {
+  fill: #b1c6d0;
+}
+
+.emoji-picker {
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 26px;
+  font-family: Montserrat;
+  border: 1px solid #ccc;
+  width: 15rem;
+  height: 20rem;
+  overflow: scroll;
+  padding: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: .5rem;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 8px #c7dbe6;
+          box-shadow: 1px 1px 8px #c7dbe6;
+}
+
+.emoji-picker__search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emoji-picker__search > input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-radius: 10rem;
+  border: 1px solid #ccc;
+  padding: .5rem 1rem;
+  outline: none;
+}
+
+.emoji-picker h5 {
+  margin-bottom: 0;
+  color: #b1b1b1;
+  text-transform: uppercase;
+  font-size: .8rem;
+  cursor: default;
+}
+
+.emoji-picker .emojis {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.emoji-picker .emojis:after {
+  content: "";
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.emoji-picker .emojis span {
+  padding: .2rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.emoji-picker .emojis span:hover {
+  background: #ececec;
+  cursor: pointer;
 }
 

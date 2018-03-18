@@ -1,13 +1,13 @@
 const { clipboard } = require('electron')
 const ioHook = require('iohook')
 const charTable = require('./charTable')
-const ConfigFileManager = require('./ConfigFileManager')
 const robot = require('robotjs')
+const fs = require('fs')
 
 class SnippetsManager {
     constructor() {
-        this.configFile = new ConfigFileManager()
-        this.snippets = this.configFile.getSnippets()
+        this._createFileIfNecessary()
+        this.snippets = this._readFile()
 
         this.buffer = ''
         this.modifierPressed = false
@@ -26,14 +26,18 @@ class SnippetsManager {
         ioHook.stop()
     }
 
-    addSnippet(key, value) {
-        this.snippets[key] = value
-        this.configFile.addSnippet(key, value)
+    updateSnippets(snippets) {
+        this.snippets = snippets
+        this._writeToFile(this.snippets)
+        this.propagateSnippetsToViews()
     }
 
-    removeSnippet(key) {
-        delete this.snippets[key]
-        this.configFile.removeSnippet(key)
+    propagateSnippetsToViews() {
+        const preferencesWindow = require('../windows/preferences/controller')
+        const popupWindow = require('../windows/popup/controller')
+
+        preferencesWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
+        popupWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
     }
 
     isChar(keycode) {
@@ -55,11 +59,6 @@ class SnippetsManager {
 
     isBackspace(keycode) {
         return keycode == 14
-    }
-
-    updateSnippets(snippets) {
-        this.snippets = snippets
-        this.configFile._writeToFile(snippets)
     }
 
     _onKeyUp(e) {
@@ -92,25 +91,41 @@ class SnippetsManager {
         }
     }
 
-    _replaceSnippetIfMatchFound() {
-        let match = ''
-        let snippet = ''
+    _evaluate(code, input) {
+        let response
 
-        for (snippet of Object.keys(this.snippets)) {
-            if (new RegExp(`.*${snippet}$`, 'i').test(this.buffer)) {
-                match = this.snippets[snippet]
-                break
-            }
+        try {
+            response = '' + eval(`(${code})`)(input)
+        } catch (e) {
+            console.log('An error occured')
         }
 
-        if (match) {
-            for (let i = 0; i < snippet.length; i++) {
+        return response
+    }
+
+    _replaceSnippetIfMatchFound() {
+        let match = []
+
+        const snippet = this.snippets.filter(snippet => {
+            const key = (snippet.regex) ? snippet.key : snippet.key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+
+            match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)
+
+            return !! match
+        })[0]
+
+        if (snippet) {
+            for (let i = 0; i < snippet.key.length; i++) {
                 robot.keyTap('backspace')
             }
 
             const clipboardContent = clipboard.readText()
 
-            clipboard.writeText(match)
+            if (snippet.type === 'js') {
+                clipboard.writeText(this._evaluate(snippet.value, match[1].toLowerCase()))
+            } else {
+                clipboard.writeText(snippet.value)
+            }
 
             setTimeout(() => robot.keyTap('v', 'command'), 50)
             setTimeout(() => clipboard.writeText(clipboardContent), 500)
@@ -129,6 +144,26 @@ class SnippetsManager {
         if (this.buffer.length > 20) {
             this.buffer = this.buffer.substring(1)
         }
+    }
+
+    _createFileIfNecessary() {
+        if (! fs.existsSync(process.env.SNIPPETS_PATH)) {
+            fs.writeFileSync(process.env.SNIPPETS_PATH, '{}', {
+                encoding: 'utf8',
+            })
+        }
+    }
+
+    _readFile() {
+        return JSON.parse(fs.readFileSync(process.env.SNIPPETS_PATH, {
+            encoding: 'utf8',
+        }))
+    }
+
+    _writeToFile(content) {
+        fs.writeFileSync(process.env.SNIPPETS_PATH, JSON.stringify(content), {
+            encoding: 'utf8',
+        })
     }
 }
 

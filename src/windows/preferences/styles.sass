@@ -55,6 +55,7 @@ $even-color: #fff
 .row
     display: flex
     background: $even-color
+    height: 40px
 
     &:nth-child(odd)
         background: $odd-color
@@ -70,6 +71,14 @@ $even-color: #fff
     .cell-wrong
         border-bottom: 3px solid rgba(240,0,0,0.6)
 
+    &--header
+        background: $even-color !important
+        height: auto
+
+        .cell
+            font-size: .8rem
+            padding: .3rem 10px
+
     .cell
         flex: 1
         font-size: .9rem
@@ -78,9 +87,24 @@ $even-color: #fff
         display: flex
         font-weight: 100
         font-family: $font
+        height: 100%
 
-        &:first-child
-            border-right: $table-border
+        &__key
+            display: flex
+            flex: 1
+            align-items: center
+
+        &__options
+            display: flex
+            align-items: center
+
+            &> div
+                background: #525252
+                color: #fff
+                font-size: 10px
+                border-radius: 50rem
+                padding: 5px 10px
+                margin-left: 10px
 
         input
             background: transparent
@@ -97,13 +121,6 @@ $even-color: #fff
 
             &[disabled]
                 pointer-events: none
-
-    &--header
-        background: $even-color !important
-
-        .cell
-            font-size: .8rem
-            padding: .3rem 10px
 
 .rows
     height: 10rem
