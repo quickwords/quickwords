@@ -172,6 +172,7 @@ module.exports = {
                     'ribbon': '🎀',
                     'closed_umbrella': '🌂',
                     'lipstick': '💄',
+                    'red_heart': '❤️',
                     'yellow_heart': '💛',
                     'blue_heart': '💙',
                     'purple_heart': '💜',

@@ -49,7 +49,7 @@
                     v-click-outside="hide"
                 >
                     <div class="emoji-picker__search">
-                        <input type="text" v-model="search" ref="search">
+                        <input type="text" v-model="search" ref="search" placeholder="Search...">
                     </div>
                     <div>
                         <div v-for="(emojis, category) in this.searchedEmojis">
