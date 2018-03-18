@@ -683,9 +683,12 @@ module.exports = {
         insert(emoji) {
             this.$emit('emoji', emoji)
         },
-        toggle(e) {
+        toggle() {
             this.display.visible = ! this.display.visible
-            if (this.display.visible) this.$nextTick(() => this.$refs.search.focus())
+
+            if (this.display.visible) {
+                this.$nextTick(() => this.$refs.search.focus())
+            }
         },
         hide() {
             this.display.visible = false
@@ -693,7 +696,7 @@ module.exports = {
     },
     directives: {
         'click-outside': {
-            bind(el, binding, vNode) {
+            bind(el, binding) {
                 if (typeof binding.value !== 'function') {
                     return
                 }
@@ -708,7 +711,7 @@ module.exports = {
 
                 document.addEventListener('click', handler)
             },
-            unbind(el, binding) {
+            unbind(el) {
                 document.removeEventListener('click', el.__vueClickOutside__)
 
                 el.__vueClickOutside__ = null
