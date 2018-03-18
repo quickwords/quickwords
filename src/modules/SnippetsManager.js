@@ -148,7 +148,7 @@ class SnippetsManager {
 
     _createFileIfNecessary() {
         if (! fs.existsSync(process.env.SNIPPETS_PATH)) {
-            fs.writeFileSync(process.env.SNIPPETS_PATH, '{}', {
+            fs.writeFileSync(process.env.SNIPPETS_PATH, '[]', {
                 encoding: 'utf8',
             })
         }

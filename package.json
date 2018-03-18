@@ -1,6 +1,6 @@
 {
   "name": "Quickwords",
-  "version": "v0.0.3-alpha",
+  "version": "v0.0.4-alpha",
   "description": "An open-source alternative to Textexpander.",
   "main": "src/main.js",
   "scripts": {
@@ -41,7 +41,8 @@
     "iohook": "^0.1.13",
     "node-fetch": "^2.1.1",
     "robotjs": "^0.5.1",
-    "vue": "^2.5.13"
+    "vue": "^2.5.13",
+    "webpack-merge": "^4.1.2"
   },
   "iohook": {
     "targets": [
