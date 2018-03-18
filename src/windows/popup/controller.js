@@ -2,8 +2,8 @@ const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 
-const WIDTH = 440
-const HEIGHT = 250
+const WIDTH = 700
+const HEIGHT = 530
 
 module.exports = {
     init() {
@@ -38,7 +38,7 @@ module.exports = {
         return this.ctx
     },
     attach(preferencesWindow, position, snippet) {
-        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width - 10, preferencesWindow.ctx.getBounds().y + position - 125 + 18, true)
+        this.ctx.setPosition(preferencesWindow.ctx.getBounds().x + preferencesWindow.ctx.getBounds().width - 10, preferencesWindow.ctx.getBounds().y + position - 258 + 18, true)
         this.ctx.setSize(WIDTH, HEIGHT, true)
         this.ctx.setParentWindow(preferencesWindow.ctx)
         this.ctx.show()

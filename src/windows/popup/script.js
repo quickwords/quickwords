@@ -2,6 +2,8 @@ const Vue = require('vue/dist/vue')
 const { remote } = require('electron')
 const currentWindow = remote.getCurrentWindow()
 
+Vue.component('emoji-picker', require('./emojiPicker'))
+
 /* eslint "no-unused-vars": "off" */
 const vm = new Vue({
     el: '#app',
@@ -36,6 +38,9 @@ const vm = new Vue({
         },
     },
     methods: {
+        appendEmoji(emoji) {
+            this.editing.value += emoji
+        },
         validateInput() {
             if (this.editing.type === 'js') {
                 let response
