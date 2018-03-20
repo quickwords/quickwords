@@ -7,7 +7,7 @@ const HEIGHT = 530
 
 module.exports = {
     init() {
-        const preferencesWindow = require('../preferences/controller')
+        const preferencesWindow = require('../preferences')
 
         this.ctx = new BrowserWindow({
             show: false,

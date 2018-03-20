@@ -33,8 +33,8 @@ class SnippetsManager {
     }
 
     propagateSnippetsToViews() {
-        const preferencesWindow = require('../windows/preferences/controller')
-        const popupWindow = require('../windows/popup/controller')
+        const preferencesWindow = require('../windows/preferences')
+        const popupWindow = require('../windows/popup')
 
         preferencesWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
         popupWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
