@@ -92,15 +92,22 @@ class SnippetsManager {
     }
 
     _evaluate(code, input) {
-        let response
+        return new Promise((resolve, reject) => {
+            let response
 
-        try {
-            response = '' + eval(`(${code})`)(input)
-        } catch (e) {
-            console.log('An error occured')
-        }
+            try {
+                response = eval(`(${code})`)(input)
 
-        return response
+                if (typeof response === 'object' && typeof response.then === 'function') {
+                    response.then(data => resolve(data))
+                        .catch(error => reject(error))
+                } else {
+                    resolve('' + response)
+                }
+            } catch (e) {
+                reject(e)
+            }
+        })
     }
 
     _replaceSnippetIfMatchFound() {
@@ -122,13 +129,18 @@ class SnippetsManager {
             const clipboardContent = clipboard.readText()
 
             if (snippet.type === 'js') {
-                clipboard.writeText(this._evaluate(snippet.value, match[1].toLowerCase()))
+                this._evaluate(snippet.value, match[1].toLowerCase())
+                    .then(data => clipboard.writeText(data))
+                    .catch(error => clipboard.writeText('An error ocurred'))
+                    .then(() => {
+                        setTimeout(() => robot.keyTap('v', 'command'), 50)
+                        setTimeout(() => clipboard.writeText(clipboardContent), 500)
+                    })
             } else {
                 clipboard.writeText(snippet.value)
+                setTimeout(() => robot.keyTap('v', 'command'), 50)
+                setTimeout(() => clipboard.writeText(clipboardContent), 500)
             }
-
-            setTimeout(() => robot.keyTap('v', 'command'), 50)
-            setTimeout(() => clipboard.writeText(clipboardContent), 500)
         }
     }
 

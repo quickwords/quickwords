@@ -51,9 +51,9 @@ const vm = new Vue({
                     return this.error = e
                 }
 
-                if ((typeof response !== 'function') || (typeof response('abc') !== 'string')) {
-                    return this.error = 'JS code must be a callable that returns a string.'
-                }
+                // if ((typeof response !== 'function') || (typeof response('abc') !== 'string')) {
+                //     return this.error = 'JS code must be a callable that returns a string.'
+                // }
             }
 
             this.error = ''
