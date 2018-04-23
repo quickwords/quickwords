@@ -62,6 +62,9 @@ class SnippetsManager {
     }
 
     _onKeyUp(e) {
+        const keymap = require('native-keymap')
+        console.log(keymap.getKeyMap())
+
         if (! this.shouldMatch) {
             return
         }
