@@ -3,6 +3,12 @@ const ioHook = require('iohook')
 const charTable = require('./charTable')
 const robot = require('robotjs')
 const fs = require('fs')
+const chars = require('./chars')
+const keymap = require('native-keymap').getKeyMap()
+const _ = require('lodash')
+
+const BUFFER_LIMIT = 20 // amount of characters held in memory
+const KEY_BACKSPACE = 14
 
 class SnippetsManager {
     constructor() {
@@ -58,32 +64,53 @@ class SnippetsManager {
     }
 
     isBackspace(keycode) {
-        return keycode == 14
+        return keycode === KEY_BACKSPACE
+    }
+
+    _keycodeToUnicode(code) {
+        if (! code in chars) {
+            return false
+        }
+
+        const name = chars[code]
+
+        if (! name in keymap) {
+            return false
+        }
+
+        const value = _.get(keymap, `${name}.value`, false)
+
+        if (! value) {
+            return false
+        }
+
+        return value
     }
 
     _onKeyUp(e) {
-        const keymap = require('native-keymap')
-        console.log(keymap.getKeyMap())
-
         if (! this.shouldMatch) {
             return
-        }
-
-        if (this.isModifier(e.keycode)) {
-            return this.modifierPressed = false
         }
 
         if (this.isBackspace(e.keycode)) {
             return this._shortenBufferBy(1)
         }
 
-        if (this.modifierPressed || ! this.isChar(e.keycode)) {
-            return
-        }
+        // if (this.isModifier(e.keycode)) {
+        //     return this.modifierPressed = false
+        // }
 
-        this._addCharToBuffer(e.keycode)
-        this._shortenBufferIfNecessary()
-        this._replaceSnippetIfMatchFound()
+        // if (this.modifierPressed || ! this.isChar(e.keycode)) {
+        //     return
+        // }
+
+        const character = this._keycodeToUnicode(e.keycode)
+
+        if (character) {
+            this._addCharToBuffer(character)
+            this._shortenBufferIfNecessary()
+            this._replaceSnippetIfMatchFound()
+        }
 
         console.log(this.buffer)
     }
@@ -94,61 +121,69 @@ class SnippetsManager {
         }
     }
 
-    _evaluate(code, input) {
-        return new Promise((resolve, reject) => {
-            let response
+    async _evaluate(matchedString, code) {
+        'use strict'
 
-            try {
-                response = eval(`(${code})`)(input)
+        const executable = eval(`(${code})`)
 
-                if (typeof response === 'object' && typeof response.then === 'function') {
-                    response.then(data => resolve(data))
-                        .catch(error => reject(error))
-                } else {
-                    resolve('' + response)
-                }
-            } catch (e) {
-                reject(e)
-            }
-        })
+        if (! _.isFunction(executable)) {
+            throw new Error('User-provided code is not a function')
+        }
+
+        return await executable(matchedString)
     }
 
     _replaceSnippetIfMatchFound() {
-        let match = []
+        for (const snippet of this.snippets) {
+            let key = snippet.key
 
-        const snippet = this.snippets.filter(snippet => {
-            const key = (snippet.regex) ? snippet.key : snippet.key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-
-            match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)
-
-            return !! match
-        })[0]
-
-        if (snippet) {
-            for (let i = 0; i < snippet.key.length; i++) {
-                robot.keyTap('backspace')
+            if (! snippet.regex) {
+                key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // escape all regex-special characters
             }
 
-            const clipboardContent = clipboard.readText()
+            const match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)
+            const matchedString = _.get(match, 1, false)
 
-            if (snippet.type === 'js') {
-                this._evaluate(snippet.value, match[1].toLowerCase())
-                    .then(data => clipboard.writeText(data))
-                    .catch(error => clipboard.writeText('An error ocurred'))
-                    .then(() => {
-                        setTimeout(() => robot.keyTap('v', 'command'), 50)
-                        setTimeout(() => clipboard.writeText(clipboardContent), 500)
-                    })
-            } else {
-                clipboard.writeText(snippet.value)
-                setTimeout(() => robot.keyTap('v', 'command'), 50)
-                setTimeout(() => clipboard.writeText(clipboardContent), 500)
+            if (matchedString) {
+                for (let i = 0; i < matchedString.length; i++) {
+                    robot.keyTap('backspace')
+                }
+
+                if (snippet.type === 'js') {
+                    this._handleJavascriptSnippet(matchedString, snippet.value)
+                } else {
+                    this._handlePlainTextSnippet(snippet.value)
+                }
             }
         }
     }
 
-    _addCharToBuffer(keycode) {
-        this.buffer += charTable[keycode]
+    async _handleJavascriptSnippet(matchedString, code) {
+        const clipboardContent = clipboard.readText()
+
+        try {
+            const data = await this._evaluate(matchedString, code)
+
+            clipboard.writeText(data)
+        } catch (error) {
+            clipboard.writeText('An error ocurred')
+        } finally {
+            setTimeout(() => robot.keyTap('v', 'command'), 50)
+            setTimeout(() => clipboard.writeText(clipboardContent), 500)
+        }
+    }
+
+    _handlePlainTextSnippet(value) {
+        const clipboardContent = clipboard.readText()
+
+        clipboard.writeText(value)
+
+        setTimeout(() => robot.keyTap('v', 'command'), 50)
+        setTimeout(() => clipboard.writeText(clipboardContent), 500)
+    }
+
+    _addCharToBuffer(character) {
+        this.buffer += character
     }
 
     _shortenBufferBy(amount) {
@@ -156,7 +191,7 @@ class SnippetsManager {
     }
 
     _shortenBufferIfNecessary() {
-        if (this.buffer.length > 20) {
+        if (this.buffer.length > BUFFER_LIMIT) {
             this.buffer = this.buffer.substring(1)
         }
     }
