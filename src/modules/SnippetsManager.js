@@ -8,7 +8,14 @@ const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
 
 const BUFFER_LIMIT = 20 // amount of characters held in memory
-const KEY_BACKSPACE = 14
+const KEY_BACKSPACE = 'Backspace'
+const KEY_SHIFT_LEFT = 'ShiftLeft'
+const KEY_ALT_LEFT = 'AltLeft'
+const KEY_SHIFT_RIGHT = 'ShiftRight'
+const KEY_ALT_RIGHT = 'AltRight'
+const MODIFIER_NONE = 0
+const MODIFIER_SHIFT = 1
+const MODIFIER_ALT = 2
 
 class SnippetsManager {
     constructor() {
@@ -16,7 +23,7 @@ class SnippetsManager {
         this.snippets = this._readFile()
 
         this.buffer = ''
-        this.modifierPressed = false
+        this.modifier = MODIFIER_NONE
         this.shouldMatch = true
 
         robot.setKeyboardDelay(0)
@@ -46,39 +53,48 @@ class SnippetsManager {
         popupWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
     }
 
-    isChar(keycode) {
-        return keycode in charTable
-    }
-
     isModifier(keycode) {
         return [
-            29, // L CTRL
-            97, // R CTRL
-            42, // L SHIFT
-            54, // R SHIFT
-            56, // L ALT
-            100, // R ALT
-            3675, // L META
-            3676, // R META
-        ].includes(keycode)
+            KEY_SHIFT_LEFT,
+            KEY_ALT_LEFT,
+            KEY_SHIFT_RIGHT,
+            KEY_ALT_RIGHT,
+        ].includes(this._getCharNameFromKeycode(keycode))
+    }
+
+    _getCharNameFromKeycode(keycode) {
+        return _.get(chars, keycode, null)
     }
 
     isBackspace(keycode) {
-        return keycode === KEY_BACKSPACE
+        return this._getCharNameFromKeycode(keycode) === KEY_BACKSPACE
     }
 
-    _keycodeToUnicode(code) {
-        if (! code in chars) {
+    _keycodeToUnicode(keycode) {
+        const name = this._getCharNameFromKeycode(keycode)
+
+        if (! name || ! (name in keymap)) {
             return false
         }
 
-        const name = chars[code]
+        let value
 
-        if (! name in keymap) {
-            return false
+        switch (this.modifier) {
+            case MODIFIER_ALT:
+                value = _.get(keymap, `${name}.withAltGr`, false)
+                break
+            case MODIFIER_SHIFT:
+                value = _.get(keymap, `${name}.withShift`, false)
+                break
+            case MODIFIER_ALT + MODIFIER_SHIFT:
+                value = _.get(keymap, `${name}.withShiftAltGr`, false)
+                break
+            case MODIFIER_NONE:
+                value = _.get(keymap, `${name}.value`, false)
+                break
+            default:
+                // nothing to do here
         }
-
-        const value = _.get(keymap, `${name}.value`, false)
 
         if (! value) {
             return false
@@ -93,16 +109,35 @@ class SnippetsManager {
         }
 
         if (this.isBackspace(e.keycode)) {
-            return this._shortenBufferBy(1)
+            this._shortenBufferBy(1)
+            return
         }
 
-        // if (this.isModifier(e.keycode)) {
-        //     return this.modifierPressed = false
-        // }
+        if (this.isModifier(e.keycode)) {
+            // @todo Make a PR to iohook, so that the library returns what
+            // modifiers are pressed. Currently I am doing a timeout,
+            // but it is NOT scalable/100% working at all.
+            setTimeout(() => {
+                // console.log('Released modifier: ', chars[e.keycode])
 
-        // if (this.modifierPressed || ! this.isChar(e.keycode)) {
-        //     return
-        // }
+                this.modifier = MODIFIER_NONE
+
+                if (
+                    (this.modifier === MODIFIER_SHIFT || this.modifier === MODIFIER_SHIFT + MODIFIER_ALT)
+                    && (modifier === 'ShiftLeft' || modifier === 'ShiftRight')
+                ) {
+                    this.modifier -= MODIFIER_SHIFT
+                }
+
+                if (
+                    (this.modifier === MODIFIER_ALT || this.modifier === MODIFIER_SHIFT + MODIFIER_ALT)
+                    && (modifier === 'AltLeft' || modifier === 'AltRight')
+                ) {
+                    this.modifier -= MODIFIER_ALT
+                }
+            }, 50)
+            return
+        }
 
         const character = this._keycodeToUnicode(e.keycode)
 
@@ -110,6 +145,8 @@ class SnippetsManager {
             this._addCharToBuffer(character)
             this._shortenBufferIfNecessary()
             this._replaceSnippetIfMatchFound()
+
+            // console.log(character, this.modifier ? ' with a modifier' + this.modifier : '')
         }
 
         console.log(this.buffer)
@@ -117,7 +154,25 @@ class SnippetsManager {
 
     _onKeyDown(e) {
         if (this.isModifier(e.keycode)) {
-            this.modifierPressed = true
+            // console.log('Pressed modifier: ', chars[e.keycode])
+
+            const modifier = this._getCharNameFromKeycode(e.keycode)
+
+            if (
+                this.modifier !== MODIFIER_SHIFT
+                && this.modifier !== MODIFIER_SHIFT + MODIFIER_ALT
+                && (modifier === 'ShiftLeft' || modifier === 'ShiftRight')
+            ) {
+                this.modifier += MODIFIER_SHIFT
+            }
+
+            if (
+                this.modifier !== MODIFIER_ALT
+                && this.modifier !== MODIFIER_SHIFT + MODIFIER_ALT
+                && (modifier === 'AltLeft' || modifier === 'AltRight')
+            ) {
+                this.modifier += MODIFIER_ALT
+            }
         }
     }
 
@@ -138,7 +193,8 @@ class SnippetsManager {
             let key = snippet.key
 
             if (! snippet.regex) {
-                key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') // escape all regex-special characters
+                // escape all regex-special characters
+                key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
             }
 
             const match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)

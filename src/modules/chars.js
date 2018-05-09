@@ -54,4 +54,15 @@ module.exports = {
     '52': 'Period',
     '53': 'Slash',
     '58': 'CapsLock',
+
+    '29': 'ControlLeft',
+    '42': 'ShiftLeft',
+    '56': 'AltLeft',
+    '3675': 'MetaLeft',
+
+    '': 'ControlRight',
+
+    '54': 'ShiftRight',
+    '3640': 'AltRight',
+    '3676': 'MetaRight',
 }
