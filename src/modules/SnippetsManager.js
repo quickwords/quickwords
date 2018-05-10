@@ -120,7 +120,7 @@ class SnippetsManager {
             setTimeout(() => {
                 // console.log('Released modifier: ', chars[e.keycode])
 
-                this.modifier = MODIFIER_NONE
+                const modifier = this._getCharNameFromKeycode(e.keycode)
 
                 if (
                     (this.modifier === MODIFIER_SHIFT || this.modifier === MODIFIER_SHIFT + MODIFIER_ALT)
@@ -185,7 +185,13 @@ class SnippetsManager {
             throw new Error('User-provided code is not a function')
         }
 
-        return await executable(matchedString)
+        let data = await executable(matchedString)
+
+        if (! _.isString(data)) {
+            data = JSON.stringify(data)
+        }
+
+        return data
     }
 
     _replaceSnippetIfMatchFound() {
@@ -197,7 +203,7 @@ class SnippetsManager {
                 key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
             }
 
-            const match = new RegExp(`.*(${key})$`, 'i').exec(this.buffer)
+            const match = new RegExp(`.*(${key})$`).exec(this.buffer)
             const matchedString = _.get(match, 1, false)
 
             if (matchedString) {

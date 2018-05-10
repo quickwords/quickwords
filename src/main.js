@@ -1,4 +1,3 @@
-/* eslint "no-unused-vars": "off" */
 const config = require('../config')
 
 const { app, Tray, Menu } = require('electron')
@@ -81,7 +80,6 @@ app.on('ready', () => {
             .catch(() => {})
     }, 1000)
 
-
     // This menu does not show up nowhere, but it does register shortcuts like copy-paste, close and minimize
     if (process.env.ENVIRONMENT === 'production') {
         Menu.setApplicationMenu(Menu.buildFromTemplate([
@@ -135,4 +133,3 @@ app.on('before-quit', () => {
     unregisterWindowListeners(windows)
     snippetsManager.destructor()
 })
-
