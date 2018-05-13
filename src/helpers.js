@@ -3,10 +3,6 @@ const fetch = require('node-fetch')
 const path = require('path')
 
 module.exports = {
-    tap(object, callback) {
-        callback(object)
-        return object
-    },
     doNotQuitAppOnWindowClosure(windows) {
         Object.keys(windows).forEach(key => windows[key].on('close', e => {
             e.preventDefault()
