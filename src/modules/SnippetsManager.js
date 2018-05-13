@@ -216,6 +216,8 @@ class SnippetsManager {
                 } else {
                     this._handlePlainTextSnippet(snippet.value)
                 }
+
+                break
             }
         }
     }
