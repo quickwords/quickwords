@@ -15,8 +15,15 @@ module.exports = {
     async checkForNewVersion() {
         const currentVersion = require('../package.json').version.split('.')
 
-        const response = await fetch('https://api.github.com/repos/quickwords/quickwords/releases/latest')
-        const data = await response.json()
+        let response
+        let data
+
+        try {
+            response = await fetch('https://api.github.com/repos/quickwords/quickwords/releases/latest')
+            data = await response.json()
+        } catch (e) {
+            return false
+        }
 
         const currentNewestVersion = data.tag_name.split('.')
         const url = data.html_url
