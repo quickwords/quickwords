@@ -6,7 +6,7 @@ new Vue({
     el: '#app',
     data() {
         return {
-            config: config,
+            config,
         }
     },
     mounted() {
