@@ -12,4 +12,8 @@ const config = merge({
     GT_URL: 'https://github.com/gtluszcz',
 }, require(`./${process.platform}`))
 
-module.exports = process.env = merge(process.env, config)
+function load() {
+    process.env = merge(process.env, config)
+}
+
+module.exports = { load }

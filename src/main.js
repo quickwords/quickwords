@@ -1,3 +1,6 @@
+const config = require('../config')
+config.load()
+
 const { app, Tray, Menu } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
