@@ -1,6 +1,5 @@
 const { clipboard } = require('electron')
 const ioHook = require('iohook')
-const charTable = require('./charTable')
 const robot = require('robotjs')
 const fs = require('fs')
 const chars = require('./chars')
