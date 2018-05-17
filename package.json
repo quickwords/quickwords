@@ -45,6 +45,7 @@
     "node-fetch": "^2.1.2",
     "robotjs": "^0.5.1",
     "vue": "^2.5.16",
+    "vue-emoji-picker": "^1.0.0",
     "webpack-merge": "^4.1.2"
   },
   "iohook": {

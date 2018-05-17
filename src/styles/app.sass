@@ -1,14 +1,82 @@
-// This injects Tailwind's base styles, which is a combination of Normalize.css and some additional base styles.
+// Tailwind's base styles (a combination of Normalize.css and some additional base styles).
 @tailwind preflight
 
-// This injects any component classes registered by plugins.
+body
+    -webkit-app-region: drag
+
+input, textarea, .clickable
+    -webkit-app-region: no-drag
+
+select
+    -webkit-appearance: none
+
+// Component classes registered by plugins.
 @tailwind components
 
-// Here you would add any of your custom component classes; stuff that you'd want
-// loaded *before* the utilities so that the utilities could still override them.
+// Custom component classes. Before the utilities so that the utilities could still override them.
+.editing
+    transition: 1s all
+    transform: translateY(-200%)
+
+.logo
+    transition: 1s all
+    position: absolute
+    bottom: 50%
+    left: 50%
+    transform: translate(-50%, 50%)
+    width: 12rem
+
+.active .editing
+    transform: translateY(0)
+
+.active .logo
+    width: 8rem
+    transform: translate(-50%, 0)
+    bottom: 0
+    padding-bottom: 2rem
+
+.status-visible
+    opacity: 1
+    top: 0
+
+.status-hidden
+    top: 1rem
+    opacity: 0
+    transition: .5s all
+
+.emoji-invoker
+    transition: all 0.2s
+
+.emoji-invoker:hover
+    transform: scale(1.1)
+
+.emojis:after
+    content: ""
+    flex: auto
 
 
-// This injects all of Tailwind's utility classes, generated based on your config file.
+// Tailwind's utility classes.
 @tailwind utilities
 
-// Here you would add any custom utilities you need that don't come out of the box with Tailwind.
+// Custom utilities.
+.flex-2
+    flex: 2
+
+.flex-3
+    flex: 3
+
+.r-4
+    right: 1rem
+
+.t-6
+    top: 1.5rem
+
+.r-6
+    right: 1.5rem
+
+.h-96
+    height: 24rem
+
+.center-y
+    top: 50%
+    transform: translateY(-50%)

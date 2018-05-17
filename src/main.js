@@ -6,7 +6,6 @@ const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
 const preferencesWindow = require('./windows/preferences')
-const popup = require('./windows/popup')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
@@ -38,21 +37,15 @@ app.on('ready', () => {
 
     windows.about = aboutWindow.init()
     windows.preferences = preferencesWindow.init()
-    windows.popup = popup.init()
 
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager
     windows.preferences.preferencesManager = preferencesManager
-    windows.popup.snippetsManager = snippetsManager
 
     windows.preferences.on('focus', () => {
         snippetsManager.shouldMatch = false
-        windows.popup.hide()
     })
     windows.preferences.on('blur', () => { snippetsManager.shouldMatch = true })
-
-    windows.popup.on('focus', () => { snippetsManager.shouldMatch = false })
-    windows.popup.on('blur', () => { snippetsManager.shouldMatch = true })
 
     doNotQuitAppOnWindowClosure(windows)
 

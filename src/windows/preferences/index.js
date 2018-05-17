@@ -6,10 +6,10 @@ module.exports = {
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            minWidth: 470,
-            minHeight: 470,
-            width: 430,
-            height: 470,
+            minWidth: 900,
+            minHeight: 360,
+            width: 940,
+            height: 600,
             titleBarStyle: 'hidden',
         })
 
@@ -18,14 +18,6 @@ module.exports = {
             protocol: 'file:',
             slashes: true,
         }))
-
-        this.ctx.showPopup = (position, snippet) => {
-            const popupWindow = require('../popup')
-
-            popupWindow.attach(this, position, snippet)
-
-            // this.ctx.focus()
-        }
 
         return this.ctx
     },

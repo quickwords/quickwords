@@ -41,15 +41,10 @@ class SnippetsManager {
     updateSnippets(snippets) {
         this.snippets = snippets
         this._writeToFile(this.snippets)
-        this.propagateSnippetsToViews()
     }
 
-    propagateSnippetsToViews() {
-        const preferencesWindow = require('../windows/preferences')
-        const popupWindow = require('../windows/popup')
-
-        preferencesWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
-        popupWindow.ctx.webContents.executeJavaScript(`vm.updateSnippets(${JSON.stringify(this.snippets)});`)
+    getSnippets() {
+        return this.snippets
     }
 
     isModifier(keycode) {

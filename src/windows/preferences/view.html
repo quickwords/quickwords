@@ -8,49 +8,117 @@
         <link rel="stylesheet" href="../../../assets/fonts/fonts.css">
         <link rel="stylesheet" href="../../styles/app.css">
     </head>
-    <body style="-webkit-app-region: drag">
-        <div id="app" class="app flex-column" @click.self="unselectAll">
-            <div class="wrapper" @click.self="unselectAll">
-                <div class="top-bar">
-                    <span class="circle"></span>
-                    <span class="circle"></span>
-                    <span class="circle"></span>
-                </div>
-                <h1 class="title" @click.self="unselectAll"><img class="downlogo" src="../../../assets/logo.svg" alt="">Preferences</h1>
-                <div id="snippets-table" class="snippets-table">
-                    <div class="row row--header">
-                        <div class="cell">key</div>
+    <body>
+        <div class="flex h-screen bg-grey-darkest text-white font-sans" id="app">
+            <div class="flex flex-col flex-2 p-8">
+                <h1 class="mb-8">Snippets</h1>
+                <div class="mb-8 overflow-y-scroll flex-1">
+                    <div
+                        class="items-center h-12 flex py-4 px-6 mb-4 rounded bg-grey-darker cursor-pointer clickable"
+                        v-for="snippet in snippets"
+                        :key="snippet.id"
+                        @click="edit(snippet)"
+                    >
+                        <span class="flex-1">{{ snippet.key }}</span>
+                        <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.regex">regex</span>
+                        <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
+                        <span class="flex items-center ml-2" @click.stop="remove(snippet)"><icon-remove class="h-6 w-6 fill-current"></icon-remove></span>
                     </div>
-                    <div class="rows" ref="rows" @click.self="unselectAll">
-                        <div
-                            class="row"
-                            v-for="snippet in snippets"
-                            :class="{ 'row--selected': snippet.selected }"
-                            @dblclick="showPopup($event.target.offsetTop, snippet)"
-                            @click.exact="select(snippet)"
-                            @click.ctrl="selectNext(snippet)"
-                            @click.meta="selectNext(snippet)"
-                        >
-                            <div class="cell">
-                                <div class="cell__key">{{ snippet.key }}</div>
-                                <div class="cell__options">
-                                    <div class="cell__options__regex" v-if="snippet.regex">regex</div>
-                                    <div class="cell__options__js" v-if="snippet.type === 'js'">js</div>
+                </div>
+                <div class="flex justify-end">
+                    <button class="flex items-center justify-center w-8 h-8 text-white" @click="add">
+                        <icon-plus class="fill-current w-full h-full"></icon-plus>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-3 p-8 flex flex-col relative shadow-lg" :class="editing ? 'active' : ''">
+                <div class="flex-1 mb-16 editing">
+                    <div v-if="editing" class="flex flex-col h-full">
+                        <div class="flex mb-4">
+                            <input
+                                class="rounded p-4 mr-4 text-grey-darkest flex-1"
+                                type="text"
+                                placeholder="Trigger"
+                                v-model="editing.key"
+                            >
+                            <label for="regex" class="flex justify-center items-center cursor-pointer">
+                                <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
+                                <div class="mr-2">
+                                    <icon-checkbox v-if="editing.regex" :checked="true" class="text-blue-light fill-current"></icon-checkbox>
+                                    <icon-checkbox v-else :checked="false" class="fill-current"></icon-checkbox>
                                 </div>
+
+                                Use regular expression
+                            </label>
+                        </div>
+                        <div class="relative flex flex-col flex-1 mb-4">
+                            <textarea
+                                class="rounded flex-1 p-4 text-grey-darkest resize-none"
+                                placeholder="Substitute with..."
+                                v-model="editing.value"
+                                @keydown="save"
+                                :class="(editing.type === 'js') ? 'font-mono' : 'font-sans'"
+                            ></textarea>
+                            <emoji-picker @emoji="append" :search="search">
+                                <div
+                                    class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker text-grey"
+                                    slot="emoji-invoker"
+                                    slot-scope="{ events }"
+                                    v-on="events"
+                                >
+                                    <icon-face class="h-8 w-8 fill-current"></icon-face>
+                                </div>
+                                <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+                                    <div class="absolute z-10 border w-64 h-96 overflow-scroll p-4 rounded bg-white shadow t-6 r-6">
+                                        <div class="flex">
+                                            <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="search" v-focus>
+                                        </div>
+                                        <div>
+                                            <div v-for="(emojiGroup, category) in emojis">
+                                                <h5 class="text-grey-darker uppercase text-sm cursor-default mb-2 mt-4">{{ category }}</h5>
+                                                <div class="flex flex-wrap justify-between emojis">
+                                                    <span
+                                                        class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
+                                                        v-for="(emoji, emojiName) in emojiGroup"
+                                                        @click="insert(emoji)"
+                                                        :title="emojiName"
+                                                    >{{ emoji }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </emoji-picker>
+                            <div class="absolute pin-r pin-b p-4 text-grey-darker text-sm pointer-events-none">
+                                <span class="relative" :class="(statusVisible) ? 'status-visible' : 'status-hidden'">{{ status }}</span>
                             </div>
                         </div>
+                        <div class="relative flex">
+                            <select v-model="editing.type" class="p-4 rounded flex-1" @change="changedType">
+                                <option value="plain">Plain text</option>
+                                <option value="js">JavaScript</option>
+                            </select>
+                            <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
+                        </div>
+                    </div>
+                    <div v-else class="flex flex-col h-full">
+                        <input
+                            class="mb-4 p-4"
+                            type="text"
+                            placeholder="Trigger"
+                        >
+                        <textarea
+                            class="flex-1 p-4"
+                            placeholder="Substitute with..."
+                        ></textarea>
                     </div>
                 </div>
-
-                <div class="keys" @click.self="unselectAll">
-                    <button type="button" @click="add">+</button><button type="button" @click="remove">-</button>
+                <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
+                    <div class="w-full opacity-50">
+                        <icon-logo-mono></icon-logo-mono>
+                    </div>
                 </div>
-
-                <div class="checkboxes" @click.self="unselectAll">
-                    <label for="startup">
-                        <input type="checkbox" id="startup" v-model="autoLaunch"> Launch Quickwords at system startup
-                    </label>
-                </div>
+                <div class="h-12"></div>
             </div>
         </div>
 
