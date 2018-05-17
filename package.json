@@ -1,6 +1,6 @@
 {
   "name": "Quickwords",
-  "version": "v0.0.4-alpha",
+  "version": "v0.0.5-alpha",
   "description": "An open-source alternative to Textexpander.",
   "main": "src/main.js",
   "scripts": {
@@ -9,15 +9,13 @@
     "prod": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "node_modules/.bin/eslint --ext .js,.vue src",
     "pack": "build --dir",
-    "dist": "build --icon=\"assets/icon.icns\""
+    "dist": "build"
   },
   "build": {
     "appId": "co.quickwords.quickwords",
     "productName": "Quickwords",
-    "mac": {
-      "directories": {
-        "buildResources": "assets"
-      }
+    "directories": {
+      "buildResources": "assets"
     }
   },
   "repository": "https://github.com/electron/electron-quick-start",
