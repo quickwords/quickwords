@@ -13,10 +13,7 @@
   },
   "build": {
     "appId": "co.quickwords.quickwords",
-    "productName": "Quickwords",
-    "directories": {
-      "buildResources": "assets"
-    }
+    "productName": "Quickwords"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
