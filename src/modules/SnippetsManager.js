@@ -8,6 +8,7 @@ const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
 
 const BUFFER_LIMIT = 20 // amount of characters held in memory
+const KEY_BACKSPACE = 'Backspace'
 
 class SnippetsManager {
     constructor() {
