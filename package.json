@@ -9,11 +9,16 @@
     "prod": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "node_modules/.bin/eslint --ext .js,.vue src",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build --icon=\"assets/icon.icns\""
   },
   "build": {
     "appId": "co.quickwords.quickwords",
-    "productName": "Quickwords"
+    "productName": "Quickwords",
+    "mac": {
+      "directories": {
+        "buildResources": "assets"
+      }
+    }
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
