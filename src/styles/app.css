@@ -3748,6 +3748,36 @@ select {
           box-shadow: none;
 }
 
+.hover\:shadow:hover {
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+}
+
+.hover\:shadow-md:hover {
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+}
+
+.hover\:shadow-lg:hover {
+  -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+          box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+}
+
+.hover\:shadow-xlg:hover {
+  -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+          box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+}
+
+.hover\:shadow-inner:hover {
+  -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+          box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+}
+
+.hover\:shadow-none:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .fill-current {
   fill: currentColor;
 }
@@ -4748,6 +4778,11 @@ select {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.transition {
+  -webkit-transition: .5s all;
+  transition: .5s all;
 }
 
 @media (min-width: 576px) {
@@ -7759,6 +7794,36 @@ select {
   }
 
   .sm\:shadow-none {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+
+  .sm\:hover\:shadow:hover {
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  }
+
+  .sm\:hover\:shadow-md:hover {
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+  }
+
+  .sm\:hover\:shadow-lg:hover {
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+  }
+
+  .sm\:hover\:shadow-xlg:hover {
+    -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+  }
+
+  .sm\:hover\:shadow-inner:hover {
+    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+  }
+
+  .sm\:hover\:shadow-none:hover {
     -webkit-box-shadow: none;
             box-shadow: none;
   }
@@ -11737,6 +11802,36 @@ select {
             box-shadow: none;
   }
 
+  .md\:hover\:shadow:hover {
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  }
+
+  .md\:hover\:shadow-md:hover {
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+  }
+
+  .md\:hover\:shadow-lg:hover {
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+  }
+
+  .md\:hover\:shadow-xlg:hover {
+    -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+  }
+
+  .md\:hover\:shadow-inner:hover {
+    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+  }
+
+  .md\:hover\:shadow-none:hover {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+
   .md\:text-left {
     text-align: left;
   }
@@ -15711,6 +15806,36 @@ select {
             box-shadow: none;
   }
 
+  .lg\:hover\:shadow:hover {
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  }
+
+  .lg\:hover\:shadow-md:hover {
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+  }
+
+  .lg\:hover\:shadow-lg:hover {
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+  }
+
+  .lg\:hover\:shadow-xlg:hover {
+    -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+  }
+
+  .lg\:hover\:shadow-inner:hover {
+    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+  }
+
+  .lg\:hover\:shadow-none:hover {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+
   .lg\:text-left {
     text-align: left;
   }
@@ -19681,6 +19806,36 @@ select {
   }
 
   .xl\:shadow-none {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+
+  .xl\:hover\:shadow:hover {
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  }
+
+  .xl\:hover\:shadow-md:hover {
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .12), 0 2px 4px 0 rgba(0, 0, 0, .08);
+  }
+
+  .xl\:hover\:shadow-lg:hover {
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+  }
+
+  .xl\:hover\:shadow-xlg:hover {
+    -webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04);
+  }
+
+  .xl\:hover\:shadow-inner:hover {
+    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, .06);
+  }
+
+  .xl\:hover\:shadow-none:hover {
     -webkit-box-shadow: none;
             box-shadow: none;
   }

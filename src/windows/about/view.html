@@ -9,21 +9,21 @@
         <link rel="stylesheet" href="../../styles/app.css">
     </head>
     <body>
-        <div id="app" class="app flex-column">
-            <div class="logo">
-                <a :href="config.WEBSITE_URL"><img src="../../../assets/logo.svg" alt="Quickwords"></a>
+        <div class="flex flex-col items-center h-screen bg-grey-darkest text-white font-sans p-4 pb-8" id="app">
+            <div class="mt-8 w-48">
+                <a :href="config.WEBSITE_URL"><icon-logo-mono class="w-full opacity-50"></icon-logo-mono></a>
             </div>
-            <span>
-                <a :href="config.DC_URL" class="hidden-link">Dariusz Czajkowski</a>
-                &amp; <a :href="config.GT_URL" class="hidden-link">Grzegorz Tłuszcz</a>
-            </span>
-            <div class="buttons">
-                <a class="button" :href="config.GITHUB_URL">GitHub</a>
-                <a class="button" :href="config.DONATION_URL">Donate</a>
+            <div class="text-sm mt-8">
+                <a :href="config.DC_URL" class="no-underline text-white">Dariusz Czajkowski</a>
+                &amp; <a :href="config.GT_URL" class="no-underline text-white">Grzegorz Tłuszcz</a>
             </div>
-            <span class="footer">
-                version: {{ config.VERSION }}
-            </span>
+            <div class="mt-8 flex-1">
+                <a :hover="config.GITHUB_URL" class="px-4 py-2 bg-white shadow-md hover:shadow-lg transition text-black">GitHub</a>
+                <a :hover="config.DONATION_URL" class="px-4 py-2 bg-white shadow-md hover:shadow-lg transition ml-4 text-black">Donate</a>
+            </div>
+            <div class="text-sm">
+                {{ config.VERSION }}
+            </div>
         </div>
 
         <script src="./script.js"></script>

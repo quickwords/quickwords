@@ -6,7 +6,7 @@ module.exports = {
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            width: 300,
+            width: 340,
             height: 290,
             resizable: false,
             titleBarStyle: 'hidden',
