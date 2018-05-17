@@ -16,4 +16,4 @@ function load() {
     process.env = merge(process.env, config)
 }
 
-module.exports = { load }
+module.exports = { load, config }

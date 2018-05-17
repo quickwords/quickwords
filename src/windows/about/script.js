@@ -1,6 +1,6 @@
 const { shell } = require('electron')
 const Vue = require('vue/dist/vue')
-const config = require('../../../config')
+const { config } = require('../../../config')
 
 new Vue({
     el: '#app',
