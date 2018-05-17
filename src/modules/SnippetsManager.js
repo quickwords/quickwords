@@ -20,7 +20,7 @@ class SnippetsManager {
 
         robot.setKeyboardDelay(0)
 
-        ioHook.on('keyup', e => this._onKeyUp(e))
+        ioHook.on('keydown', e => this._onKeyDown(e))
 
         ioHook.start()
     }
@@ -78,7 +78,7 @@ class SnippetsManager {
         return value
     }
 
-    _onKeyUp({ keycode, shiftKey, altKey }) {
+    _onKeyDown({ keycode, shiftKey, altKey }) {
         if (! this.shouldMatch) {
             return
         }
