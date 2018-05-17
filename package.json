@@ -32,8 +32,10 @@
     "electron-builder": "^20.13.3",
     "electron-reload": "^1.2.2",
     "eslint": "^4.19.1",
+    "glob-all": "^3.1.0",
     "laravel-mix": "^2.1.11",
     "node-sass": "^4.9.0",
+    "purgecss-webpack-plugin": "^0.22.1",
     "tailwindcss": "^0.5.3"
   },
   "dependencies": {
