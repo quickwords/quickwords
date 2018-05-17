@@ -1,13 +1,13 @@
 const config = require('../config')
 config.load()
 
-const { app, Tray, Menu } = require('electron')
+const { app, Tray } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
 const preferencesWindow = require('./windows/preferences')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
-const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion } = require('./helpers')
+const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion, registerNativeShortcuts } = require('./helpers')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
 
@@ -45,7 +45,9 @@ app.on('ready', () => {
     windows.preferences.on('focus', () => {
         snippetsManager.shouldMatch = false
     })
-    windows.preferences.on('blur', () => { snippetsManager.shouldMatch = true })
+    windows.preferences.on('blur', () => {
+        snippetsManager.shouldMatch = true
+    })
 
     doNotQuitAppOnWindowClosure(windows)
 
@@ -56,50 +58,8 @@ app.on('ready', () => {
 
     setTimeout(checkForNewVersion, 1000)
 
-    // This menu does not show up nowhere, but it does register shortcuts like copy-paste, close and minimize
     if (process.env.ENVIRONMENT === 'production') {
-        Menu.setApplicationMenu(Menu.buildFromTemplate([
-            {
-                label: 'Quickwords',
-                submenu: [
-                    {
-                        label: 'About Quickwords',
-                        click() {
-                            windows.about.show()
-                        },
-                    },
-                    { type: 'separator' },
-                    {
-                        label: 'Quit',
-                        accelerator: 'Command+Q',
-                        click() {
-                            app.quit()
-                        },
-                    },
-                ],
-            },
-            {
-                label: 'Edit',
-                submenu: [
-                    { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
-                    { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
-                    { type: 'separator' },
-                    { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-                    { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-                    { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-                    { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
-                ],
-            },
-            {
-                label: 'Window',
-                submenu: [
-                    { label: 'Minimize', accelerator: 'Command+M', selector: 'performMiniaturize:' },
-                    { label: 'Close', accelerator: 'Command+W', selector: 'performClose:' },
-                    { type: 'separator' },
-                    { label: 'Bring All to Front', selector: 'arrangeInFront:' },
-                ],
-            },
-        ]))
+        registerNativeShortcuts(app, windows)
     }
 })
 
