@@ -39,7 +39,7 @@
   "dependencies": {
     "auto-launch": "^5.0.5",
     "electron-is-dev": "^0.3.0",
-    "iohook": "^0.1.16",
+    "iohook": "^0.2.0",
     "lodash": "^4.17.10",
     "native-keymap": "^1.2.5",
     "node-fetch": "^2.1.2",
