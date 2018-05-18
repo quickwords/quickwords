@@ -5,6 +5,7 @@ const fs = require('fs')
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
+const defaultSnippets = require('./defaultSnippets')
 
 const BUFFER_LIMIT = 20 // amount of characters held in memory
 const KEY_BACKSPACE = 'Backspace'
@@ -12,7 +13,7 @@ const KEY_BACKSPACE = 'Backspace'
 class SnippetsManager {
     constructor(store) {
         this.store = store
-        this.snippets = this.store.get('snippets', [])
+        this.snippets = this.store.get('snippets', defaultSnippets)
 
         this.buffer = ''
         this.shouldMatch = true
