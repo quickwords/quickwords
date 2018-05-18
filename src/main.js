@@ -8,11 +8,12 @@ const aboutWindow = require('./windows/about')
 const preferencesWindow = require('./windows/preferences')
 const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion, registerNativeShortcuts } = require('./helpers')
+const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
-
 let appIcon
-const snippetsManager = new SnippetsManager()
+const store = new Store()
+const snippetsManager = new SnippetsManager(store)
 const windows = {}
 
 if (process.env.ENVIRONMENT === 'development') {
@@ -27,10 +28,9 @@ if (process.env.ENVIRONMENT === 'development') {
 app.dock.hide()
 
 app.on('ready', () => {
-    const preferencesManager = new PreferencesManager()
-    const isFirstLaunch = preferencesManager.init()
+    const preferencesManager = new PreferencesManager(store)
 
-    if (isFirstLaunch) {
+    if (preferencesManager.isFirstLaunch()) {
         app.relaunch()
         return app.exit(0)
     }

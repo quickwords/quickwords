@@ -10,9 +10,9 @@ const BUFFER_LIMIT = 20 // amount of characters held in memory
 const KEY_BACKSPACE = 'Backspace'
 
 class SnippetsManager {
-    constructor() {
-        this._createFileIfNecessary()
-        this.snippets = this._readFile()
+    constructor(store) {
+        this.store = store
+        this.snippets = this.store.get('snippets', [])
 
         this.buffer = ''
         this.shouldMatch = true
@@ -32,7 +32,7 @@ class SnippetsManager {
     /** Used by the renderer process */
     updateSnippets(snippets) {
         this.snippets = snippets
-        this._writeToFile(this.snippets)
+        this.store.set('snippets', this.snippets)
     }
 
     /** Used by the renderer process */
@@ -177,26 +177,6 @@ class SnippetsManager {
         if (this.buffer.length > BUFFER_LIMIT) {
             this.buffer = this.buffer.substring(1)
         }
-    }
-
-    _createFileIfNecessary() {
-        if (! fs.existsSync(process.env.SNIPPETS_PATH)) {
-            fs.writeFileSync(process.env.SNIPPETS_PATH, '[]', {
-                encoding: 'utf8',
-            })
-        }
-    }
-
-    _readFile() {
-        return JSON.parse(fs.readFileSync(process.env.SNIPPETS_PATH, {
-            encoding: 'utf8',
-        }))
-    }
-
-    _writeToFile(content) {
-        fs.writeFileSync(process.env.SNIPPETS_PATH, JSON.stringify(content), {
-            encoding: 'utf8',
-        })
     }
 }
 
