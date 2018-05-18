@@ -23,7 +23,7 @@ module.exports = [
     {
         'id': 4,
         'key': ';up .* ',
-        'value': "// After typing everything after ';up ' becomes uppercase (note the trailing space)\nfunction (trigger) {\n    return trigger.substr(3).toUpperCase()\n}\n",
+        'value': "// After typing everything after ';up ' becomes uppercase (note the trailing space)\nfunction (trigger) {\n    return trigger.substr(4).toUpperCase()\n}\n",
         'regex': true,
         'type': 'js'
     }
