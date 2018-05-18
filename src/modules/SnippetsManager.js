@@ -29,21 +29,23 @@ class SnippetsManager {
         ioHook.stop()
     }
 
+    /** Used by the renderer process */
     updateSnippets(snippets) {
         this.snippets = snippets
         this._writeToFile(this.snippets)
     }
 
+    /** Used by the renderer process */
     getSnippets() {
         return this.snippets
     }
 
-    _getCharNameFromKeycode(keycode) {
-        return _.get(chars, keycode, null)
-    }
-
     isBackspace(keycode) {
         return this._getCharNameFromKeycode(keycode) === KEY_BACKSPACE
+    }
+
+    _getCharNameFromKeycode(keycode) {
+        return _.get(chars, keycode, null)
     }
 
     _eventToUnicode({ keycode, shiftKey, altKey }) {
