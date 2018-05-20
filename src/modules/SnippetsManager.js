@@ -26,7 +26,6 @@ class SnippetsManager {
         ioHook.on('mouseclick', e => this._onMouseClick(e))
 
         ioHook.start()
-        console.log(keymap)
     }
 
     destructor() {
