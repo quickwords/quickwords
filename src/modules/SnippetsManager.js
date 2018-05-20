@@ -44,18 +44,7 @@ class SnippetsManager {
         return this.snippets
     }
 
-    needToResetBuffer(keycode, altKey) {
-        const click = this._getCharNameFromKeycode(keycode)
-
-        if (click === KEY_BACKSPACE && altKey === true) { return true }
-        else if (click === KEY_TAB) { return true }
-        else if (KEY_ARROWS.includes(click)) { return true }
-
-        return false
-
-    }
-
-    isBackspace(keycode) {
+    _isBackspace(keycode) {
         return this._getCharNameFromKeycode(keycode) === KEY_BACKSPACE
     }
 
@@ -88,27 +77,39 @@ class SnippetsManager {
 
         return value
     }
-    _onMouseClick(){
+
+    _resetBuffer() {
         this.buffer = ''
     }
 
-    _onKeyDown({ keycode, shiftKey, altKey }) {
+    _onMouseClick() {
+        this._resetBuffer()
+    }
 
-        if (this.needToResetBuffer(keycode, altKey)) {
-            this.buffer = ''
-            return
-        }
+    _shouldResetBuffer({ keycode, altKey }) {
+        const pressed = this._getCharNameFromKeycode(keycode)
 
+        return (pressed === KEY_BACKSPACE && altKey === true)
+            || (pressed === KEY_TAB)
+            || (KEY_ARROWS.includes(pressed))
+    }
+
+    _onKeyDown(e) {
         if (!this.shouldMatch) {
             return
         }
 
-        if (this.isBackspace(keycode)) {
+        if (this._shouldResetBuffer(e)) {
+            this._resetBuffer()
+            return
+        }
+
+        if (this._isBackspace(e.keycode)) {
             this._shortenBufferBy(1)
             return
         }
 
-        const character = this._eventToUnicode({ keycode, shiftKey, altKey })
+        const character = this._eventToUnicode(e)
 
         if (character) {
             this._addCharToBuffer(character)
