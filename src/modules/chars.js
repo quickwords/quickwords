@@ -37,6 +37,11 @@ module.exports = {
     '10': 'Digit9',
     '11': 'Digit0',
 
+    '57416': 'ArrowUp',
+    '57419': 'ArrowLeft',
+    '57421': 'ArrowRight',
+    '57424': 'ArrowDown',
+
     '28': 'Enter',
     '1': 'Escape',
     '14': 'Backspace',

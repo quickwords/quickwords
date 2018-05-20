@@ -9,6 +9,8 @@ const defaultSnippets = require('./defaultSnippets')
 
 const BUFFER_LIMIT = 20 // amount of characters held in memory
 const KEY_BACKSPACE = 'Backspace'
+const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+const KEY_TAB = 'Tab'
 
 class SnippetsManager {
     constructor(store) {
@@ -21,6 +23,7 @@ class SnippetsManager {
         robot.setKeyboardDelay(0)
 
         ioHook.on('keydown', e => this._onKeyDown(e))
+        ioHook.on('mouseclick', e => this._onMouseClick(e))
 
         ioHook.start()
     }
@@ -41,7 +44,7 @@ class SnippetsManager {
         return this.snippets
     }
 
-    isBackspace(keycode) {
+    _isBackspace(keycode) {
         return this._getCharNameFromKeycode(keycode) === KEY_BACKSPACE
     }
 
@@ -52,7 +55,7 @@ class SnippetsManager {
     _eventToUnicode({ keycode, shiftKey, altKey }) {
         const name = this._getCharNameFromKeycode(keycode)
 
-        if (! name || ! (name in keymap)) {
+        if (!name || !(name in keymap)) {
             return false
         }
 
@@ -68,24 +71,45 @@ class SnippetsManager {
             value = _.get(keymap, `${name}.value`, false)
         }
 
-        if (! value) {
+        if (!value) {
             return false
         }
 
         return value
     }
 
-    _onKeyDown({ keycode, shiftKey, altKey }) {
-        if (! this.shouldMatch) {
+    _resetBuffer() {
+        this.buffer = ''
+    }
+
+    _onMouseClick() {
+        this._resetBuffer()
+    }
+
+    _shouldResetBuffer({ keycode, altKey }) {
+        const pressed = this._getCharNameFromKeycode(keycode)
+
+        return (pressed === KEY_BACKSPACE && altKey === true)
+            || (pressed === KEY_TAB)
+            || (KEY_ARROWS.includes(pressed))
+    }
+
+    _onKeyDown(e) {
+        if (!this.shouldMatch) {
             return
         }
 
-        if (this.isBackspace(keycode)) {
+        if (this._shouldResetBuffer(e)) {
+            this._resetBuffer()
+            return
+        }
+
+        if (this._isBackspace(e.keycode)) {
             this._shortenBufferBy(1)
             return
         }
 
-        const character = this._eventToUnicode({ keycode, shiftKey, altKey })
+        const character = this._eventToUnicode(e)
 
         if (character) {
             this._addCharToBuffer(character)
@@ -101,13 +125,13 @@ class SnippetsManager {
 
         const executable = eval(`(${code})`)
 
-        if (! _.isFunction(executable)) {
+        if (!_.isFunction(executable)) {
             throw new Error('User-provided code is not a function')
         }
 
         let data = await executable(matchedString)
 
-        if (! _.isString(data)) {
+        if (!_.isString(data)) {
             data = JSON.stringify(data)
         }
 
@@ -118,7 +142,7 @@ class SnippetsManager {
         for (const snippet of this.snippets) {
             let key = snippet.key
 
-            if (! snippet.regex) {
+            if (!snippet.regex) {
                 // escape all regex-special characters
                 key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
             }
