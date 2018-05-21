@@ -36,7 +36,7 @@ module.exports = {
             const notification = new Notification({
                 title: 'New Version Available',
                 body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                icon: path.join(__dirname, '../build/icon.icns'),
+                icon: path.join(__dirname, '../../build/icon.icns'),
             })
 
             notification.on('click', () => shell.openExternal(url))

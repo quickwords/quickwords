@@ -1,12 +1,12 @@
-const config = require('../config')
+const config = require('../../config')
 config.load()
 
 const { app, Tray } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
-const preferencesWindow = require('./windows/preferences')
-const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
+const mainWindow = require('./windows/main')
+const iconPath = path.join(__dirname, '../../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion, registerNativeShortcuts } = require('./helpers')
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
@@ -20,7 +20,7 @@ if (process.env.ENVIRONMENT === 'development') {
     require('electron-reload')([
         path.join(__dirname),
     ], {
-        electron: require(path.join(__dirname, '../node_modules/electron')),
+        electron: require(path.join(__dirname, '../../node_modules/electron')),
         ignored: /.*\.sass/,
     })
 }
@@ -36,7 +36,7 @@ app.on('ready', () => {
     }
 
     windows.about = aboutWindow.init()
-    windows.preferences = preferencesWindow.init()
+    windows.preferences = mainWindow.init()
 
     windows.about.snippetsManager = snippetsManager
     windows.preferences.snippetsManager = snippetsManager

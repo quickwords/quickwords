@@ -1,6 +1,6 @@
 const { Menu } = require('electron')
 const aboutWindow = require('../windows/about')
-const preferencesWindow = require('../windows/preferences')
+const preferencesWindow = require('../windows/main')
 const { checkForNewVersion } = require('../helpers')
 
 module.exports = Menu.buildFromTemplate([

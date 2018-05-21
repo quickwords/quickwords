@@ -1,7 +1,6 @@
 const { clipboard } = require('electron')
 const ioHook = require('iohook')
 const robot = require('robotjs')
-const fs = require('fs')
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
