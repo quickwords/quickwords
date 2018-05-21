@@ -9,12 +9,13 @@
         <link rel="stylesheet" href="../../styles/app.css">
     </head>
     <body>
-        <div class="flex h-screen bg-grey-darkest text-white font-sans" id="app">
+        <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
             <div class="flex flex-col flex-2 p-8">
                 <h1 class="mb-8">Snippets</h1>
                 <div class="mb-8 overflow-y-scroll flex-1">
                     <div
-                        class="items-center h-12 flex py-4 px-6 mb-4 rounded bg-grey-darker cursor-pointer clickable"
+                        class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable"
+                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
                         v-for="snippet in snippets"
                         :key="snippet.id"
                         @click="edit(snippet)"
@@ -22,11 +23,13 @@
                         <span class="flex-1">{{ snippet.key }}</span>
                         <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.regex">regex</span>
                         <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                        <span class="flex items-center ml-2" @click.stop="remove(snippet)"><icon-remove class="h-6 w-6 fill-current"></icon-remove></span>
+                        <span class="flex items-center ml-2" :class="['', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                            <icon-remove class="h-6 w-6 fill-current"></icon-remove>
+                        </span>
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button class="flex items-center justify-center w-8 h-8 text-white" @click="add">
+                    <button class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
                         <icon-plus class="fill-current w-full h-full"></icon-plus>
                     </button>
                 </div>
@@ -37,6 +40,7 @@
                         <div class="flex mb-4">
                             <input
                                 class="rounded p-4 mr-4 text-grey-darkest flex-1"
+                                :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                                 type="text"
                                 placeholder="Trigger"
                                 v-model="editing.key"
@@ -44,8 +48,17 @@
                             <label for="regex" class="flex justify-center items-center cursor-pointer">
                                 <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                                 <div class="mr-2">
-                                    <icon-checkbox v-if="editing.regex" :checked="true" class="text-blue-light fill-current"></icon-checkbox>
-                                    <icon-checkbox v-else :checked="false" class="fill-current"></icon-checkbox>
+                                    <icon-checkbox
+                                        v-if="editing.regex"
+                                        :checked="true"
+                                        class="text-brand-blue fill-current w-6 h-6"
+                                    ></icon-checkbox>
+                                    <icon-checkbox
+                                        v-else
+                                        :checked="false"
+                                        class="fill-current w-6 h-6"
+                                        :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
+                                    ></icon-checkbox>
                                 </div>
 
                                 Use regular expression
@@ -57,11 +70,12 @@
                                 placeholder="Substitute with..."
                                 v-model="editing.value"
                                 @keydown="save"
-                                :class="(editing.type === 'js') ? 'font-mono' : 'font-sans'"
+                                :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono text-sm' : ' font-sans')"
                             ></textarea>
                             <emoji-picker @emoji="append" :search="search">
                                 <div
-                                    class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker text-grey"
+                                    class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
+                                    :class="['text-grey', ''][theme]"
                                     slot="emoji-invoker"
                                     slot-scope="{ events }"
                                     v-on="events"
@@ -94,7 +108,12 @@
                             </div>
                         </div>
                         <div class="relative flex">
-                            <select v-model="editing.type" class="p-4 rounded flex-1" @change="changedType">
+                            <select
+                                v-model="editing.type"
+                                class="p-4 rounded flex-1"
+                                :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                                @change="changedType"
+                            >
                                 <option value="plain">Plain text</option>
                                 <option value="js">JavaScript</option>
                             </select>
@@ -102,20 +121,25 @@
                         </div>
                     </div>
                     <div v-else class="flex flex-col h-full">
+                            <!-- class="rounded p-4 mr-4 text-grey-darkest flex-1" -->
+                            <!-- class="rounded flex-1 p-4 text-grey-darkest resize-none" -->
                         <input
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                             class="mb-4 p-4"
                             type="text"
                             placeholder="Trigger"
                         >
                         <textarea
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                             class="flex-1 p-4"
                             placeholder="Substitute with..."
                         ></textarea>
                     </div>
                 </div>
                 <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
-                    <div class="w-full opacity-50">
-                        <icon-logo-mono></icon-logo-mono>
+                    <div class="w-full" :class="['opacity-25', ''][theme]">
+                        <icon-logo v-if="theme === 0"></icon-logo>
+                        <icon-logo-mono v-else></icon-logo-mono>
                     </div>
                 </div>
                 <div class="h-12"></div>
