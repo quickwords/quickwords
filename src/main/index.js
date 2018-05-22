@@ -45,7 +45,6 @@ app.on('ready', () => {
     windows.about = aboutWindow.init()
     windows.main = mainWindow.init()
 
-    windows.main.snippetsManager = snippetsManager
     windows.about.preferencesManager = preferencesManager
     windows.main.preferencesManager = preferencesManager
 
