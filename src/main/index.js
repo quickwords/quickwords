@@ -18,7 +18,7 @@ const store = new Store({
         theme: 0,
         autoLaunch: true,
         snippets: defaultSnippets,
-    }
+    },
 })
 const snippetsManager = new SnippetsManager(store)
 const windows = {}
