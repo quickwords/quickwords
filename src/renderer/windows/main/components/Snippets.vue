@@ -131,8 +131,8 @@
             </div>
             <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
                 <div class="w-full" :class="['opacity-25', ''][theme]">
-                    <icon-logo v-if="theme === 0"></icon-logo>
-                    <icon-logo-mono v-else></icon-logo-mono>
+                    <icon-logo-mono v-if="theme === 0"></icon-logo-mono>
+                    <icon-logo v-else></icon-logo>
                 </div>
             </div>
             <div class="h-12"></div>
@@ -144,14 +144,14 @@
     import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
 
-    import ArrowDown from './Icons/ArrowDown'
-    import ArrowLeft from './Icons/ArrowLeft'
-    import Checkbox from './Icons/Checkbox'
-    import Face from './Icons/Face'
-    import Logo from './Icons/Logo'
-    import LogoMono from './Icons/LogoMono'
-    import Plus from './Icons/Plus'
-    import Remove from './Icons/Remove'
+    import ArrowDown from '../../../icons/ArrowDown'
+    import ArrowLeft from '../../../icons/ArrowLeft'
+    import Checkbox from '../../../icons/Checkbox'
+    import Face from '../../../icons/Face'
+    import Logo from '../../../icons/Logo'
+    import LogoMono from '../../../icons/LogoMono'
+    import Plus from '../../../icons/Plus'
+    import Remove from '../../../icons/Remove'
 
     export default {
         components: {
