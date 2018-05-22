@@ -36,16 +36,15 @@ app.on('ready', () => {
     }
 
     windows.about = aboutWindow.init()
-    windows.preferences = mainWindow.init()
+    windows.main = mainWindow.init()
 
-    windows.about.snippetsManager = snippetsManager
-    windows.preferences.snippetsManager = snippetsManager
-    windows.preferences.preferencesManager = preferencesManager
+    windows.main.snippetsManager = snippetsManager
+    windows.main.preferencesManager = preferencesManager
 
-    windows.preferences.on('focus', () => {
+    windows.main.on('focus', () => {
         snippetsManager.shouldMatch = false
     })
-    windows.preferences.on('blur', () => {
+    windows.main.on('blur', () => {
         snippetsManager.shouldMatch = true
     })
 
