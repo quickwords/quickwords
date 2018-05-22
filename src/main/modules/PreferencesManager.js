@@ -1,5 +1,4 @@
 const AutoLaunch = require('auto-launch')
-const path = require('path')
 
 class PreferencesManager {
     constructor(store) {
