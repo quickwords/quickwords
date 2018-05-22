@@ -1,6 +1,6 @@
 const { Menu } = require('electron')
 const aboutWindow = require('../windows/about')
-const preferencesWindow = require('../windows/main')
+const mainWindow = require('../windows/main')
 const { checkForNewVersion } = require('../helpers')
 
 module.exports = Menu.buildFromTemplate([
@@ -16,10 +16,19 @@ module.exports = Menu.buildFromTemplate([
         type: 'separator',
     },
     {
-        label: 'Preferences',
-        accelerator: 'Command+,',
+        label: 'Snippets',
+        // accelerator: 'Command+S',
         click() {
-            preferencesWindow.ctx.show()
+            mainWindow.navigate('Snippets')
+            setTimeout(() => mainWindow.ctx.show(), 500)
+        },
+    },
+    {
+        label: 'Preferences',
+        // accelerator: 'Command+,',
+        click() {
+            mainWindow.navigate('Preferences')
+            setTimeout(() => mainWindow.ctx.show(), 500)
         },
     },
     {
@@ -38,7 +47,7 @@ module.exports = Menu.buildFromTemplate([
     // },
     {
         label: 'Quit',
-        accelerator: 'Command+Q',
+        // accelerator: 'Command+Q',
         role: 'quit',
     },
 ])
