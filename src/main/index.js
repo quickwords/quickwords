@@ -11,8 +11,15 @@ const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersi
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
+const defaultSnippets = require('./modules/defaultSnippets')
 let appIcon
-const store = new Store()
+const store = new Store({
+    defaults: {
+        theme: 0,
+        autoLaunch: true,
+        snippets: defaultSnippets,
+    }
+})
 const snippetsManager = new SnippetsManager(store)
 const windows = {}
 

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+const store = window.require('electron').remote.getCurrentWindow().preferencesManager.store
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,9 +13,11 @@ export default new Vuex.Store({
     mutations: {
         snippets(state, snippets) {
             state.snippets = snippets
+            store.set('snippets', snippets)
         },
         theme(state, theme) {
             state.theme = theme
+            store.set('theme', theme)
         },
     },
     getters: {
@@ -22,6 +26,12 @@ export default new Vuex.Store({
         },
         theme(state) {
             return state.theme
+        },
+    },
+    actions: {
+        init({ commit }) {
+            commit('snippets', store.get('snippets'))
+            commit('theme', store.get('theme'))
         },
     },
 })

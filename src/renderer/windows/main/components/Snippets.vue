@@ -144,8 +144,6 @@
     import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
 
-    const currentWindow = window.require('electron').remote.getCurrentWindow()
-
     import ArrowDown from './Icons/ArrowDown'
     import ArrowLeft from './Icons/ArrowLeft'
     import Checkbox from './Icons/Checkbox'
@@ -173,6 +171,7 @@
                 search: '',
                 status: 'Saving...',
                 statusVisible: false,
+                snippets: [],
             }
         },
         computed: {
@@ -184,19 +183,11 @@
                     this.$store.commit('theme', theme)
                 },
             },
-            snippets: {
-                get() {
-                    return this.$store.getters.snippets
-                },
-                set(snippets) {
-                    this.$store.commit('snippets', snippets)
-                },
-            },
         },
         watch: {
             snippets: {
                 handler() {
-                    this.sendSnippetsToBackend()
+                    this.$store.commit('snippets', this.snippets)
                 },
                 deep: true,
             },
@@ -238,9 +229,6 @@
             hideStatus: _.debounce(function () {
                 this.statusVisible = false
             }, 3000),
-            sendSnippetsToBackend() {
-                currentWindow.snippetsManager.updateSnippets(this.snippets)
-            },
             changedType() {
                 if (this.editing.type === 'js' && !this.editing.value) {
                     this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction (trigger) {\n  return trigger.toUpperCase()\n}\n'
@@ -255,7 +243,7 @@
             },
         },
         created() {
-            this.snippets = JSON.parse(JSON.stringify(currentWindow.snippetsManager.getSnippets()))
+            this.snippets = JSON.parse(JSON.stringify(this.$store.getters.snippets))
         },
     }
 </script>
