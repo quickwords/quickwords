@@ -6,9 +6,6 @@
 
         <input type="radio" name="theme" :value="0" v-model="theme"> theme 0
         <input type="radio" name="theme" :value="1" v-model="theme"> theme 1
-        <!-- <label for="theme">
-            <input type="checkbox" id="theme" v-model="theme"> Theme
-        </label> -->
     </div>
 </template>
 
