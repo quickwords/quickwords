@@ -4,7 +4,7 @@ module.exports = [
         'key': ';qw',
         'value': 'Quickwords. Write your documents faster. Make everything quicker!',
         'regex': false,
-        'type': 'plain'
+        'type': 'plain',
     },
     {
         'id': 2,
