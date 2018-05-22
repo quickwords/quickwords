@@ -2,7 +2,7 @@
   "name": "Quickwords",
   "version": "v0.0.6-alpha",
   "description": "An open-source alternative to Textexpander.",
-  "main": "out/main/main.js",
+  "main": "out/main/index.js",
   "scripts": {
     "start": "electron .",
     "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
