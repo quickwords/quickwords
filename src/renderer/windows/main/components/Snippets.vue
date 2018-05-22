@@ -83,13 +83,14 @@
                                         <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="search" v-focus>
                                     </div>
                                     <div>
-                                        <div v-for="(emojiGroup, category) in emojis">
+                                        <div v-for="(emojiGroup, category) in emojis" :key="category">
                                             <h5 class="text-grey-darker uppercase text-sm cursor-default mb-2 mt-4">{{ category }}</h5>
                                             <div class="flex flex-wrap justify-between emojis">
                                                 <span
                                                     class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
                                                     v-for="(emoji, emojiName) in emojiGroup"
                                                     @click="insert(emoji)"
+                                                    :key="emojiName"
                                                     :title="emojiName"
                                                 >{{ emoji }}</span>
                                             </div>

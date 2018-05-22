@@ -39,7 +39,8 @@ app.on('ready', () => {
 
     if (preferencesManager.isFirstLaunch()) {
         app.relaunch()
-        return app.exit(0)
+        app.exit(0)
+        return
     }
 
     windows.about = aboutWindow.init()
