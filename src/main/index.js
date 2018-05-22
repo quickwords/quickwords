@@ -46,6 +46,7 @@ app.on('ready', () => {
     windows.main = mainWindow.init()
 
     windows.main.snippetsManager = snippetsManager
+    windows.about.preferencesManager = preferencesManager
     windows.main.preferencesManager = preferencesManager
 
     windows.main.on('focus', () => {
