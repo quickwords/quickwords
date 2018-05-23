@@ -6,15 +6,14 @@ module.exports = {
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            minWidth: 900,
-            minHeight: 360,
-            width: 940,
-            height: 600,
+            width: 340,
+            height: 290,
+            resizable: false,
             titleBarStyle: 'hidden',
         })
 
         this.ctx.loadURL(url.format({
-            pathname: path.join(__dirname, 'view.html'),
+            pathname: path.join(__dirname, '../../renderer/windows/about/index.html'),
             protocol: 'file:',
             slashes: true,
         }))

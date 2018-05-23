@@ -1,8 +1,4 @@
 const AutoLaunch = require('auto-launch')
-const path = require('path')
-const fs = require('fs')
-const os = require('os')
-const configFile = path.join(os.homedir(), 'Library/Application Support/Quickwords', 'config.json')
 
 class PreferencesManager {
     constructor(store) {

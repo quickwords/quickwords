@@ -1,18 +1,25 @@
-const config = require('../config')
+const config = require('../../config')
 config.load()
 
 const { app, Tray } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
-const preferencesWindow = require('./windows/preferences')
-const iconPath = path.join(__dirname, '../assets/iconTemplate.png')
+const mainWindow = require('./windows/main')
+const iconPath = path.join(__dirname, '../../assets/iconTemplate.png')
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion, registerNativeShortcuts } = require('./helpers')
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
+const defaultSnippets = require('./modules/defaultSnippets')
 let appIcon
-const store = new Store()
+const store = new Store({
+    defaults: {
+        theme: 0,
+        autoLaunch: true,
+        snippets: defaultSnippets,
+    },
+})
 const snippetsManager = new SnippetsManager(store)
 const windows = {}
 
@@ -20,7 +27,7 @@ if (process.env.ENVIRONMENT === 'development') {
     require('electron-reload')([
         path.join(__dirname),
     ], {
-        electron: require(path.join(__dirname, '../node_modules/electron')),
+        electron: require(path.join(__dirname, '../../node_modules/electron')),
         ignored: /.*\.sass/,
     })
 }
@@ -32,20 +39,20 @@ app.on('ready', () => {
 
     if (preferencesManager.isFirstLaunch()) {
         app.relaunch()
-        return app.exit(0)
+        app.exit(0)
+        return
     }
 
     windows.about = aboutWindow.init()
-    windows.preferences = preferencesWindow.init()
+    windows.main = mainWindow.init()
 
-    windows.about.snippetsManager = snippetsManager
-    windows.preferences.snippetsManager = snippetsManager
-    windows.preferences.preferencesManager = preferencesManager
+    windows.about.preferencesManager = preferencesManager
+    windows.main.preferencesManager = preferencesManager
 
-    windows.preferences.on('focus', () => {
+    windows.main.on('focus', () => {
         snippetsManager.shouldMatch = false
     })
-    windows.preferences.on('blur', () => {
+    windows.main.on('blur', () => {
         snippetsManager.shouldMatch = true
     })
 

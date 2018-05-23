@@ -3,17 +3,21 @@ const path = require('path')
 const url = require('url')
 
 module.exports = {
+    navigate(to) {
+        this.ctx.webContents.executeJavaScript(`window.vm.$router.push({ name: '${to}' })`)
+    },
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            width: 340,
-            height: 290,
-            resizable: false,
+            minWidth: 900,
+            minHeight: 360,
+            width: 940,
+            height: 600,
             titleBarStyle: 'hidden',
         })
 
         this.ctx.loadURL(url.format({
-            pathname: path.join(__dirname, 'view.html'),
+            pathname: path.join(__dirname, '../../renderer/windows/main/index.html'),
             protocol: 'file:',
             slashes: true,
         }))

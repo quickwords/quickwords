@@ -1,11 +1,9 @@
 const { clipboard } = require('electron')
 const ioHook = require('iohook')
 const robot = require('robotjs')
-const fs = require('fs')
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
-const defaultSnippets = require('./defaultSnippets')
 
 const BUFFER_LIMIT = 20 // amount of characters held in memory
 const KEY_BACKSPACE = 'Backspace'
@@ -15,7 +13,6 @@ const KEY_TAB = 'Tab'
 class SnippetsManager {
     constructor(store) {
         this.store = store
-        this.snippets = this.store.get('snippets', defaultSnippets)
 
         this.buffer = ''
         this.shouldMatch = true
@@ -31,17 +28,6 @@ class SnippetsManager {
     destructor() {
         ioHook.unload()
         ioHook.stop()
-    }
-
-    /** Used by the renderer process */
-    updateSnippets(snippets) {
-        this.snippets = snippets
-        this.store.set('snippets', this.snippets)
-    }
-
-    /** Used by the renderer process */
-    getSnippets() {
-        return this.snippets
     }
 
     _isBackspace(keycode) {
@@ -139,7 +125,7 @@ class SnippetsManager {
     }
 
     _replaceSnippetIfMatchFound() {
-        for (const snippet of this.snippets) {
+        for (const snippet of this.store.get('snippets')) {
             let key = snippet.key
 
             if (!snippet.regex) {

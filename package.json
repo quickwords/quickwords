@@ -2,7 +2,7 @@
   "name": "Quickwords",
   "version": "v0.0.6-alpha",
   "description": "An open-source alternative to Textexpander.",
-  "main": "src/main.js",
+  "main": "out/main/index.js",
   "scripts": {
     "start": "electron .",
     "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -32,6 +32,7 @@
     "electron-builder": "^20.14.5",
     "electron-reload": "^1.2.2",
     "eslint": "^4.19.1",
+    "eslint-plugin-vue": "^4.5.0",
     "glob-all": "^3.1.0",
     "laravel-mix": "^2.1.11",
     "node-sass": "^4.9.0",
@@ -49,6 +50,8 @@
     "robotjs": "^0.5.1",
     "vue": "^2.5.16",
     "vue-emoji-picker": "^1.0.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
     "webpack-merge": "^4.1.2"
   },
   "iohook": {

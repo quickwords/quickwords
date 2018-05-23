@@ -1,3 +1,7 @@
 {
-    "/src/styles/app.css": "/src/styles/app.css"
+    "/out/renderer/windows/about/script.js": "/out/renderer/windows/about/script.js",
+    "/out/renderer/styles/app.css": "/out/renderer/styles/app.css",
+    "/out/renderer/windows/main/script.js": "/out/renderer/windows/main/script.js",
+    "/out/renderer/windows/about/index.html": "/out/renderer/windows/about/index.html",
+    "/out/renderer/windows/main/index.html": "/out/renderer/windows/main/index.html"
 }
