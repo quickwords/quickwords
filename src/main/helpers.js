@@ -14,7 +14,7 @@ module.exports.unregisterWindowListeners = function (windows) {
 }
 
 module.exports.checkForNewVersion = async function () {
-    const currentVersion = require('../package.json').version.split('.')
+    const currentVersion = require('../../package.json').version.split('.')
 
     let response
     let data
