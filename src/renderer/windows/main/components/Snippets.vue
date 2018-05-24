@@ -18,7 +18,7 @@
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar">
+            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar" ref="list">
                 <div
                     class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable border border-transparent"
                     :class="{
@@ -174,6 +174,7 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
 
@@ -249,6 +250,8 @@
 
                 this.snippets.push(newSnippet)
                 this.editing = newSnippet
+
+                Vue.nextTick(() => this.$refs.list.scrollTop = this.$refs.list.scrollHeight)
             },
             append(emoji) {
                 this.editing.value += emoji
