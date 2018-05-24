@@ -20,8 +20,13 @@
             </div>
             <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar">
                 <div
-                    class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable"
-                    :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                    class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable border border-transparent"
+                    :class="{
+                        'bg-grey-darkest': theme === 0,
+                        'bg-grey-light': theme === 1,
+                        'border-white': editing && editing.id === snippet.id && theme === 0,
+                        'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
+                    }"
                     v-for="snippet in filteredSnippets"
                     :key="snippet.id"
                     @click="edit(snippet)"
