@@ -54,8 +54,13 @@
                         :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Stored characters</span>
-                        <input type="text/number" class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right outline-none" :class="['text-black','text-grey-lightest'][theme]" @keypress="isNumber(event)" v-model.number="bufferLength">
-
+                        <input
+                            type="text"
+                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right outline-none"
+                            :class="['text-black', 'text-grey-lightest'][theme]"
+                            @keypress="isNumber(event)"
+                            v-model.number="bufferLength"
+                        >
                     </label>
                 </div>
             </div>
@@ -124,6 +129,7 @@
                     if (bufferLength > MAX_BUFFER_LENGTH) {
                         bufferLength = MAX_BUFFER_LENGTH
                     }
+
                     this.$store.commit('bufferLength', bufferLength)
                 },
             },
@@ -132,15 +138,14 @@
             changeSection(page) {
                 this.section = page
             },
-            isNumber(evt) {
-                evt = (evt) ? evt : window.event
-                const charCode = (evt.which) ? evt.which : evt.keyCode
-                if ((charCode > 31 && (charCode < 48 || charCode > 57))) {
-                    evt.preventDefault()
+            isNumber(e) {
+                if ((e.keyCode > 31 && (e.keyCode < 48 || e.keyCode > 57))) {
+                    e.preventDefault()
+
                     return false
-                } else {
-                    return true
                 }
+
+                return true
             },
         },
     }
