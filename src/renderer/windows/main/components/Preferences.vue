@@ -32,13 +32,13 @@
                         <input type="checkbox" class="invisible" v-model="theme">
                         <div class="w-16 flex rounded overflow-hidden">
                             <div class="w-16 py-1 shadow-inner text-grey-darkest select-none flex-no-shrink text-center bg-blue-light transition" :class="{ '-ml-64': theme }">dark</div>
-                            <div class="w-16 py-1 text-grey-darkest flex-no-shrink select-none text-center bg-grey-darker text-grey-light">light</div>
+                            <div class="w-16 py-1 flex-no-shrink select-none text-center bg-grey-dark text-grey-lightest">light</div>
                         </div>
                     </label>
 
                     <label
                         @click="changeSection(null)"
-                        class="flex justify-between py-4 px-6 h-12 items-center rounded cursor-pointer"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Launch at system startup</span>
@@ -46,6 +46,21 @@
 
                         <icon-checkbox v-if="autoLaunch" :checked="true" class="w-6 h-6 text-blue-light fill-current"></icon-checkbox>
                         <icon-checkbox v-else :checked="false" class="w-6 h-6 fill-current"></icon-checkbox>
+                    </label>
+
+                    <label
+                        @click="changeSection(null)"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                    >
+                        <span class="select-none">Stored characters</span>
+                        <input
+                            type="text"
+                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right outline-none"
+                            :class="['text-black', 'text-grey-lightest'][theme]"
+                            @keypress="isNumber(event)"
+                            v-model.number="bufferLength"
+                        >
                     </label>
                 </div>
             </div>
@@ -73,6 +88,9 @@
 
     import PageManual from './PageManual'
     import PageShortcuts from './PageShortcuts'
+
+    const MAX_BUFFER_LENGTH = 1000
+    const MIN_BUFFER_LENGTH = 10
 
     export default {
         components: {
@@ -104,10 +122,33 @@
                     this.$store.commit('autoLaunch', autoLaunch)
                 },
             },
+            bufferLength: {
+                get() {
+                    return this.$store.getters.bufferLength
+                },
+                set(bufferLength) {
+                    if (bufferLength > MAX_BUFFER_LENGTH) {
+                        bufferLength = MAX_BUFFER_LENGTH
+                    } else if (bufferLength < MIN_BUFFER_LENGTH) {
+                        bufferLength = MIN_BUFFER_LENGTH
+                    }
+
+                    this.$store.commit('bufferLength', bufferLength)
+                },
+            },
         },
         methods: {
             changeSection(page) {
                 this.section = page
+            },
+            isNumber(e) {
+                if ((e.keyCode > 31 && (e.keyCode < 48 || e.keyCode > 57))) {
+                    e.preventDefault()
+
+                    return false
+                }
+
+                return true
             },
         },
     }

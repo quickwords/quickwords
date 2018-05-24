@@ -18,6 +18,7 @@ const store = new Store({
         theme: systemPreferences.isDarkMode() ? 0 : 1,
         autoLaunch: true,
         snippets: defaultSnippets,
+        bufferLength: 20,
     },
 })
 const snippetsManager = new SnippetsManager(store)
