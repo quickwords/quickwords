@@ -34,8 +34,8 @@
                 <div v-if="editing" class="flex flex-col h-full">
                     <div class="flex mb-4">
                         <input
-                            class="rounded p-4 mr-4 text-grey-darkest flex-1"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            class="rounded p-4 mr-4 flex-1"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
