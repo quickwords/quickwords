@@ -89,13 +89,27 @@
                                 <icon-face class="h-8 w-8 fill-current"></icon-face>
                             </div>
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                                <div class="absolute z-10 border w-64 h-96 overflow-scroll p-4 rounded bg-white shadow t-6 r-6">
+                                <div
+                                    class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
+                                    :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
+                                >
                                     <div class="flex">
-                                        <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="searchEmojis" v-focus>
+                                        <input
+                                            class="flex-1 rounded-full py-2 px-4"
+                                            :class="['bg-grey', 'bg-white border'][theme]"
+                                            type="text"
+                                            v-model="searchEmojis"
+                                            v-focus
+                                        >
                                     </div>
                                     <div>
                                         <div v-for="(emojiGroup, category) in emojis" :key="category">
-                                            <h5 class="text-grey-darker uppercase text-sm cursor-default mb-2 mt-4">{{ category }}</h5>
+                                            <h5
+                                                class="uppercase text-sm cursor-default mb-2 mt-4"
+                                                :class="['text-grey-darkest', 'text-grey-darker'][theme]"
+                                            >
+                                                {{ category }}
+                                            </h5>
                                             <div class="flex flex-wrap justify-between emojis">
                                                 <span
                                                     class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
