@@ -1,7 +1,7 @@
 const config = require('../../config')
 config.load()
 
-const { app, Tray } = require('electron')
+const { app, Tray, systemPreferences } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
@@ -15,7 +15,7 @@ const defaultSnippets = require('./modules/defaultSnippets')
 let appIcon
 const store = new Store({
     defaults: {
-        theme: 0,
+        theme: systemPreferences.isDarkMode() ? 0 : 1,
         autoLaunch: true,
         snippets: defaultSnippets,
     },
