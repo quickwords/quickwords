@@ -5,7 +5,6 @@ const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
 
-const BUFFER_LIMIT = 20 // amount of characters held in memory
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
@@ -185,7 +184,8 @@ class SnippetsManager {
     }
 
     _shortenBufferIfNecessary() {
-        if (this.buffer.length > BUFFER_LIMIT) {
+        console.log(this.store.get('bufferLength'))
+        if (this.buffer.length > this.store.get('bufferLength')) {
             this.buffer = this.buffer.substring(1)
         }
     }
