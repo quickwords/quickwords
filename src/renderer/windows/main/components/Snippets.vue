@@ -81,7 +81,9 @@
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono text-sm' : ' font-sans')"
+                            @keydown.meta="metaKeydown"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
+                            :style="`font-size: ${fontSize}px`"
                         ></textarea>
                         <emoji-picker @emoji="append" :search="searchEmojis">
                             <div
@@ -202,6 +204,7 @@
                 status: 'Saving...',
                 statusVisible: false,
                 snippets: [],
+                fontSize: 14,
             }
         },
         computed: {
@@ -271,6 +274,17 @@
             changedType() {
                 if (this.editing.type === 'js' && !this.editing.value) {
                     this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction (trigger) {\n  return trigger.toUpperCase()\n}\n'
+                }
+            },
+            metaKeydown(e) {
+                if (e.key === '=') {
+                    e.preventDefault()
+                    this.fontSize += 1
+                }
+
+                if (e.key === '-') {
+                    e.preventDefault()
+                    this.fontSize = (this.fontSize > 8) ? this.fontSize - 1 : 8
                 }
             },
         },
