@@ -1,12 +1,10 @@
 <template>
     <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
         <div class="flex flex-col flex-2 p-8">
-            <h1 class="flex">
-                <router-link :to="{ name: 'Preferences' }" class="no-underline text-inherit flex items-center">
-                    <icon-arrow-left class="fill-current h-8 w-8"></icon-arrow-left>
-                </router-link>
-                <span class="ml-4 flex-1">
-                    Snippets
+            <h1 class="flex items-center h-12">
+                <span class="flex-1">
+                    <span class="text-3xl">Snippets</span>
+                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -159,7 +157,6 @@
     import _ from 'lodash'
 
     import ArrowDown from '../../../icons/ArrowDown'
-    import ArrowLeft from '../../../icons/ArrowLeft'
     import Checkbox from '../../../icons/Checkbox'
     import Face from '../../../icons/Face'
     import Logo from '../../../icons/Logo'
@@ -170,7 +167,6 @@
     export default {
         components: {
             IconArrowDown: ArrowDown,
-            IconArrowLeft: ArrowLeft,
             IconCheckbox: Checkbox,
             IconFace: Face,
             IconLogo: Logo,
