@@ -106,21 +106,39 @@ class SnippetsManager {
     }
 
     async _evaluate(matchedString, code) {
-        'use strict'
+        return new Promise((resolve, reject) => {
+            'use strict'
 
-        const executable = eval(`(${code})`)
+            const timeout = setTimeout(() => reject('Promise timed out after 5 minutes of inactivity'), 5000)
 
-        if (!_.isFunction(executable)) {
-            throw new Error('User-provided code is not a function')
-        }
+            let executable
 
-        let data = await executable(matchedString)
+            try {
+                executable = eval(`
+                    const fetch = require('node-fetch');
+                    const exec = require('child_process').exec;
+                    (${code})
+                `)
+            } catch (e) {
+                reject('Syntax error in the snippet code')
+            }
 
-        if (!_.isString(data)) {
-            data = JSON.stringify(data)
-        }
+            if (!_.isFunction(executable)) {
+                reject('Used snippet code is not a function')
+            }
 
-        return data
+            const r = (data) => {
+                clearTimeout(timeout)
+
+                if (!_.isString(data)) {
+                    data = JSON.stringify(data)
+                }
+
+                resolve(data)
+            }
+
+            executable(matchedString).then(r).catch(r)
+        })
     }
 
     _replaceSnippetIfMatchFound() {
@@ -159,7 +177,7 @@ class SnippetsManager {
 
             clipboard.writeText(data)
         } catch (error) {
-            clipboard.writeText('An error ocurred')
+            clipboard.writeText(error)
         } finally {
             setTimeout(() => robot.keyTap('v', 'command'), 50)
             setTimeout(() => clipboard.writeText(clipboardContent), 500)
