@@ -184,7 +184,6 @@ class SnippetsManager {
     }
 
     _shortenBufferIfNecessary() {
-        console.log(this.store.get('bufferLength'))
         if (this.buffer.length > this.store.get('bufferLength')) {
             this.buffer = this.buffer.substring(1)
         }
