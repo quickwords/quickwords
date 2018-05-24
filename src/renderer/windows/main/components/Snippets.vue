@@ -7,7 +7,7 @@
                 </router-link>
                 <span class="ml-4">Snippets</span>
             </h1>
-            <div class="mb-8 overflow-y-scroll flex-1">
+            <div class="mb-8 overflow-y-scroll flex-1 padding-for-scrollbar">
                 <div
                     class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable"
                     :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
