@@ -90,6 +90,7 @@
     import PageShortcuts from './PageShortcuts'
 
     const MAX_BUFFER_LENGTH = 1000
+    const MIN_BUFFER_LENGTH = 10
 
     export default {
         components: {
@@ -128,6 +129,8 @@
                 set(bufferLength) {
                     if (bufferLength > MAX_BUFFER_LENGTH) {
                         bufferLength = MAX_BUFFER_LENGTH
+                    } else if (bufferLength < MIN_BUFFER_LENGTH) {
+                        bufferLength = MIN_BUFFER_LENGTH
                     }
 
                     this.$store.commit('bufferLength', bufferLength)
