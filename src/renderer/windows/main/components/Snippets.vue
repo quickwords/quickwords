@@ -18,10 +18,15 @@
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar">
+            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar" ref="list">
                 <div
-                    class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable"
-                    :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                    class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable border border-transparent"
+                    :class="{
+                        'bg-grey-darkest': theme === 0,
+                        'bg-grey-light': theme === 1,
+                        'border-white': editing && editing.id === snippet.id && theme === 0,
+                        'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
+                    }"
                     v-for="snippet in filteredSnippets"
                     :key="snippet.id"
                     @click="edit(snippet)"
@@ -76,7 +81,9 @@
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono text-sm' : ' font-sans')"
+                            @keydown.meta="metaKeydown"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
+                            :style="`font-size: ${fontSize}px`"
                         ></textarea>
                         <emoji-picker @emoji="append" :search="searchEmojis">
                             <div
@@ -89,13 +96,27 @@
                                 <icon-face class="h-8 w-8 fill-current"></icon-face>
                             </div>
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                                <div class="absolute z-10 border w-64 h-96 overflow-scroll p-4 rounded bg-white shadow t-6 r-6">
+                                <div
+                                    class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
+                                    :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
+                                >
                                     <div class="flex">
-                                        <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="searchEmojis" v-focus>
+                                        <input
+                                            class="flex-1 rounded-full py-2 px-4"
+                                            :class="['bg-grey', 'bg-white border'][theme]"
+                                            type="text"
+                                            v-model="searchEmojis"
+                                            v-focus
+                                        >
                                     </div>
                                     <div>
                                         <div v-for="(emojiGroup, category) in emojis" :key="category">
-                                            <h5 class="text-grey-darker uppercase text-sm cursor-default mb-2 mt-4">{{ category }}</h5>
+                                            <h5
+                                                class="uppercase text-sm cursor-default mb-2 mt-4"
+                                                :class="['text-grey-darkest', 'text-grey-darker'][theme]"
+                                            >
+                                                {{ category }}
+                                            </h5>
                                             <div class="flex flex-wrap justify-between emojis">
                                                 <span
                                                     class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
@@ -153,6 +174,7 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
 
@@ -183,6 +205,7 @@
                 status: 'Saving...',
                 statusVisible: false,
                 snippets: [],
+                fontSize: 14,
             }
         },
         computed: {
@@ -227,6 +250,8 @@
 
                 this.snippets.push(newSnippet)
                 this.editing = newSnippet
+
+                Vue.nextTick(() => this.$refs.list.scrollTop = this.$refs.list.scrollHeight)
             },
             append(emoji) {
                 this.editing.value += emoji
@@ -252,6 +277,17 @@
             changedType() {
                 if (this.editing.type === 'js' && !this.editing.value) {
                     this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction (trigger) {\n  return trigger.toUpperCase()\n}\n'
+                }
+            },
+            metaKeydown(e) {
+                if (e.key === '=') {
+                    e.preventDefault()
+                    this.fontSize += 1
+                }
+
+                if (e.key === '-') {
+                    e.preventDefault()
+                    this.fontSize = (this.fontSize > 8) ? this.fontSize - 1 : 8
                 }
             },
         },
