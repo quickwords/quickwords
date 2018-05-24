@@ -7,8 +7,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        snippets: [],
-        theme: 0,
+        snippets: null, // array
+        theme: null, // int
+        autoLaunch: null, // bool
     },
     mutations: {
         snippets(state, snippets) {
@@ -19,6 +20,10 @@ export default new Vuex.Store({
             state.theme = theme
             store.set('theme', theme)
         },
+        autoLaunch(state, autoLaunch) {
+            state.autoLaunch = autoLaunch
+            store.set('autoLaunch', autoLaunch)
+        },
     },
     getters: {
         snippets(state) {
@@ -27,11 +32,15 @@ export default new Vuex.Store({
         theme(state) {
             return state.theme
         },
+        autoLaunch(state) {
+            return state.autoLaunch
+        },
     },
     actions: {
         init({ commit }) {
             commit('snippets', store.get('snippets'))
             commit('theme', store.get('theme'))
+            commit('autoLaunch', store.get('autoLaunch'))
         },
     },
 })

@@ -23,15 +23,6 @@ const store = new Store({
 const snippetsManager = new SnippetsManager(store)
 const windows = {}
 
-if (process.env.ENVIRONMENT === 'development') {
-    require('electron-reload')([
-        path.join(__dirname),
-    ], {
-        electron: require(path.join(__dirname, '../../node_modules/electron')),
-        ignored: /.*\.sass/,
-    })
-}
-
 app.dock.hide()
 
 app.on('ready', () => {

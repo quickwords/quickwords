@@ -1,17 +1,28 @@
 <template>
     <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
         <div class="flex flex-col flex-2 p-8">
-            <h1 class="mb-8 flex">
-                <router-link :to="{ name: 'Preferences' }" class="no-underline text-inherit flex items-center">
-                    <icon-arrow-left class="fill-current h-8 w-8"></icon-arrow-left>
-                </router-link>
-                <span class="ml-4">Snippets</span>
+            <h1 class="flex items-center h-12">
+                <span class="flex-1">
+                    <span class="text-3xl">Snippets</span>
+                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
+                </span>
             </h1>
-            <div class="mb-8 overflow-y-scroll flex-1 padding-for-scrollbar">
+            <div class="mt-4 flex">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    v-model="searchSnippets"
+                    class="rounded flex-1 py-2 px-4"
+                    :class="['bg-grey-light text-grey-darkest', 'border text-grey-darkest'][theme]"
+                >
+                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
+                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
+            </div>
+            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar">
                 <div
                     class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable"
                     :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
-                    v-for="snippet in snippets"
+                    v-for="snippet in filteredSnippets"
                     :key="snippet.id"
                     @click="edit(snippet)"
                 >
@@ -34,8 +45,8 @@
                 <div v-if="editing" class="flex flex-col h-full">
                     <div class="flex mb-4">
                         <input
-                            class="rounded p-4 mr-4 text-grey-darkest flex-1"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            class="rounded p-4 mr-4 flex-1"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
@@ -67,7 +78,7 @@
                             @keydown="save"
                             :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono text-sm' : ' font-sans')"
                         ></textarea>
-                        <emoji-picker @emoji="append" :search="search">
+                        <emoji-picker @emoji="append" :search="searchEmojis">
                             <div
                                 class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
                                 :class="['text-grey', ''][theme]"
@@ -80,7 +91,7 @@
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
                                 <div class="absolute z-10 border w-64 h-96 overflow-scroll p-4 rounded bg-white shadow t-6 r-6">
                                     <div class="flex">
-                                        <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="search" v-focus>
+                                        <input class="flex-1 rounded-full border py-2 px-4" type="text" v-model="searchEmojis" v-focus>
                                     </div>
                                     <div>
                                         <div v-for="(emojiGroup, category) in emojis" :key="category">
@@ -146,7 +157,6 @@
     import _ from 'lodash'
 
     import ArrowDown from '../../../icons/ArrowDown'
-    import ArrowLeft from '../../../icons/ArrowLeft'
     import Checkbox from '../../../icons/Checkbox'
     import Face from '../../../icons/Face'
     import Logo from '../../../icons/Logo'
@@ -157,7 +167,6 @@
     export default {
         components: {
             IconArrowDown: ArrowDown,
-            IconArrowLeft: ArrowLeft,
             IconCheckbox: Checkbox,
             IconFace: Face,
             IconLogo: Logo,
@@ -169,7 +178,8 @@
         data() {
             return {
                 editing: null,
-                search: '',
+                searchEmojis: '',
+                searchSnippets: '',
                 status: 'Saving...',
                 statusVisible: false,
                 snippets: [],
@@ -183,6 +193,15 @@
                 set(theme) {
                     this.$store.commit('theme', theme)
                 },
+            },
+            filteredSnippets() {
+                if (!this.searchSnippets) {
+                    return this.snippets
+                }
+
+                const regex = new RegExp(`.*${this.searchSnippets}.*`)
+
+                return this.snippets.filter((snippet) => regex.test(snippet.key) || regex.test(snippet.value))
             },
         },
         watch: {
