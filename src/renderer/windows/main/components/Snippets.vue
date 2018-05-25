@@ -51,7 +51,7 @@
                     <div class="flex mb-4">
                         <input
                             class="rounded p-4 mr-4 flex-1"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
+                            :class="['bg-grey-darkest shadow-inner-normal text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
@@ -82,7 +82,7 @@
                             v-model="editing.value"
                             @keydown="save"
                             @keydown.meta="metaKeydown"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
+                            :class="['bg-grey-darkest shadow-inner-normal text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
                             :style="`font-size: ${fontSize}px`"
                         ></textarea>
                         <emoji-picker @emoji="append" :search="searchEmojis">
@@ -98,7 +98,7 @@
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
                                 <div
                                     class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
-                                    :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
+                                    :class="['bg-grey-dark shadow-inner-normal', 'border bg-grey-lightest'][theme]"
                                 >
                                     <div class="flex">
                                         <input
