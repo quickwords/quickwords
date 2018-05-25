@@ -13,7 +13,7 @@
                     placeholder="Search..."
                     v-model="searchSnippets"
                     class="rounded flex-1 py-2 px-4"
-                    :class="['bg-grey-light text-grey-darkest', 'border text-grey-darkest'][theme]"
+                    :class="['bg-black-light text-grey-light shadow-inner-normal border border-black-darkest', 'border text-grey-darkest'][theme]"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
