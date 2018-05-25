@@ -77,16 +77,22 @@
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
                         <textarea
-                            class="rounded flex-1 p-4 text-grey-darkest resize-none"
+                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans"
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
-                            @keydown.meta="metaKeydown"
-                            @keydown.tab.prevent="() => {}"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
-                            :style="`font-size: ${fontSize}px`"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            v-if="editing.type === 'plain'"
                         ></textarea>
-                        <emoji-picker @emoji="append" :search="searchEmojis">
+                        <editor
+                            class="rounded flex-1"
+                            @edit="(value) => editing.value = value"
+                            :theme="theme === 0 ? 'monokai' : 'chrome'"
+                            :mode="editing.type === 'js' ? 'javascript' : 'text'"
+                            ref="editor"
+                            v-else
+                        ></editor>
+                        <emoji-picker @emoji="append" :search="searchEmojis" v-if="editing.type === 'plain'">
                             <div
                                 class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
                                 :class="['text-grey', ''][theme]"
@@ -178,6 +184,7 @@
     import Vue from 'vue'
     import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
+    import Editor from './Editor'
 
     import ArrowDown from '../../../icons/ArrowDown'
     import Checkbox from '../../../icons/Checkbox'
@@ -197,6 +204,7 @@
             IconPlus: Plus,
             IconRemove: Remove,
             EmojiPicker: EmojiPicker,
+            Editor: Editor,
         },
         data() {
             return {
@@ -206,7 +214,6 @@
                 status: 'Saving...',
                 statusVisible: false,
                 snippets: [],
-                fontSize: 14,
             }
         },
         computed: {
@@ -239,6 +246,10 @@
         methods: {
             edit(snippet) {
                 this.editing = snippet
+
+                if (this.editing.type === 'js') {
+                    Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
+                }
             },
             add() {
                 const newSnippet = {
@@ -279,17 +290,7 @@
                 if (this.editing.type === 'js' && !this.editing.value) {
                     this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction (trigger) {\n  return trigger.toUpperCase()\n}\n'
                 }
-            },
-            metaKeydown(e) {
-                if (e.key === '=') {
-                    e.preventDefault()
-                    this.fontSize += 1
-                }
-
-                if (e.key === '-') {
-                    e.preventDefault()
-                    this.fontSize = (this.fontSize > 8) ? this.fontSize - 1 : 8
-                }
+                Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
             },
         },
         directives: {
