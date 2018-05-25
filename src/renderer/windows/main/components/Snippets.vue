@@ -18,11 +18,11 @@
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar" ref="list">
+            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4" ref="list">
                 <div
                     class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable border border-transparent"
                     :class="{
-                        'bg-grey-darkest': theme === 0,
+                        'bg-grey-darkest shadow-lg': theme === 0,
                         'bg-grey-light': theme === 1,
                         'border-white': editing && editing.id === snippet.id && theme === 0,
                         'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
@@ -32,8 +32,8 @@
                     @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.regex">regex</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
+                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
+                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
                     <span class="flex items-center ml-2" :class="['', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
                     </span>
@@ -98,7 +98,7 @@
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
                                 <div
                                     class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
-                                    :class="['bg-grey-dark shadow-inner-normal', 'border bg-grey-lightest'][theme]"
+                                    :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
                                 >
                                     <div class="flex">
                                         <input
@@ -139,7 +139,7 @@
                         <select
                             v-model="editing.type"
                             class="p-4 rounded flex-1"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            :class="['bg-grey-darkest shadow-lg text-grey-lightest', 'border'][theme]"
                             @change="changedType"
                         >
                             <option value="plain">Plain text</option>

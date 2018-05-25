@@ -5,12 +5,12 @@
                 <router-link :to="{ name: 'Snippets' }" class="text-2xl text-grey-dark cursor-pointer no-underline">Snippets</router-link>
                 <span class="text-3xl ml-4">Preferences</span>
             </h1>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 padding-for-scrollbar">
+            <div class="mb-8 mt-8 overflow-y-scroll flex-1 custom-width-for-shadows px-4 -ml-4">
                 <div class="mb-8 flex-1">
                     <label
                         @click="changeSection('Manual')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Manual</span>
                     </label>
@@ -18,7 +18,7 @@
                     <label
                         @click="changeSection('Shortcuts')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Shortcuts</span>
                     </label>
@@ -26,7 +26,7 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Theme</span>
                         <input type="checkbox" class="invisible" v-model="theme">
@@ -39,7 +39,7 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Launch at system startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
@@ -51,7 +51,7 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Stored characters</span>
                         <input
