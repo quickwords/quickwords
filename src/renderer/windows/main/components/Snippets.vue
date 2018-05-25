@@ -82,6 +82,7 @@
                             v-model="editing.value"
                             @keydown="save"
                             @keydown.meta="metaKeydown"
+                            @keydown.tab.prevent="() => {}"
                             :class="['bg-grey-darkest text-grey-lightest', 'border'][theme] + ((editing.type === 'js') ? ' font-mono' : ' font-sans')"
                             :style="`font-size: ${fontSize}px`"
                         ></textarea>
