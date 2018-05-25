@@ -37,7 +37,7 @@ class SnippetsManager {
         return _.get(chars, keycode, null)
     }
 
-    _eventToUnicode({ keycode, shiftKey, altKey }) {
+    _eventToUnicode({ keycode, shiftKey, altKey, ctrlKey, metaKey }) {
         const name = this._getCharNameFromKeycode(keycode)
 
         if (!name || !(name in keymap)) {
@@ -52,8 +52,10 @@ class SnippetsManager {
             value = _.get(keymap, `${name}.withShift`, false)
         } else if (altKey) {
             value = _.get(keymap, `${name}.withAltGr`, false)
-        } else {
+        } else if (!ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.value`, false)
+        } else {
+            value = false
         }
 
         if (!value) {
