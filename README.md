@@ -38,6 +38,8 @@ Control-click the app icon, then choose Open from the shortcut menu.
 
 More information: [PH25088](https://support.apple.com/kb/PH25088)
 
+P.S. If you want to help us get rid of this problem and/or would like Quickwords to auto-update you can go to our [Patreon page](https://www.patreon.com/quickwords) and see the details.
+
 ## Contribution
 Contributions are very welcome. If you want, just drop a PR with any feature you'd like to see. If you want to help with the development of the app, you could [buy us a coffee](https://www.patreon.com/quickwords).
 

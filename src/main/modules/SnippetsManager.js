@@ -46,11 +46,11 @@ class SnippetsManager {
 
         let value
 
-        if (shiftKey && altKey) {
+        if (shiftKey && altKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withShiftAltGr`, false)
-        } else if (shiftKey) {
+        } else if (shiftKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withShift`, false)
-        } else if (altKey) {
+        } else if (altKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withAltGr`, false)
         } else if (!ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.value`, false)
@@ -139,8 +139,18 @@ class SnippetsManager {
                 resolve(data)
             }
 
-            executable(matchedString).then(r).catch(r)
+            const e = executable(matchedString)
+
+            if (this._isPromise(e)) {
+                e.then(r).catch(r)
+            } else {
+                r(e)
+            }
         })
+    }
+
+    _isPromise(variable) {
+        return _.isObject(variable) && _.isFunction(variable.then)
     }
 
     _replaceSnippetIfMatchFound() {
