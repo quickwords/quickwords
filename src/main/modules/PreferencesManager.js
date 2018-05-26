@@ -7,6 +7,16 @@ class PreferencesManager {
             name: 'Quickwords',
             path: '/Applications/Quickwords.app',
         })
+
+        if (this.store.get('autoLaunch') === true) {
+            this.autoLaunch.isEnabled()
+                .then(isEnabled => {
+                    if (isEnabled === false) {
+                        this.enableAutoLaunch()
+                    }
+                })
+                .catch(() => {})
+        }
     }
 
     isFirstLaunch() {

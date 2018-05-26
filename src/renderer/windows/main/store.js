@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-const store = window.require('electron').remote.getCurrentWindow().preferencesManager.store
+const { enableAutoLaunch, disableAutoLaunch, store } = window.require('electron').remote.getCurrentWindow().preferencesManager
 
 Vue.use(Vuex)
 
@@ -24,6 +24,12 @@ export default new Vuex.Store({
         autoLaunch(state, autoLaunch) {
             state.autoLaunch = autoLaunch
             store.set('autoLaunch', autoLaunch)
+
+            if (autoLaunch) {
+                enableAutoLaunch()
+            } else {
+                disableAutoLaunch()
+            }
         },
         bufferLength(state, bufferLength) {
             state.bufferLength = bufferLength
