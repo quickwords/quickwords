@@ -13,7 +13,7 @@
                     placeholder="Search..."
                     v-model="searchSnippets"
                     class="rounded flex-1 py-2 px-4"
-                    :class="['bg-black-light text-grey-light  border border-black-darkest', 'border text-grey-darkest'][theme]"
+                    :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
@@ -51,7 +51,7 @@
                     <div class="flex mb-4">
                         <input
                             class="rounded p-4 mr-4 flex-1"
-                            :class="['bg-grey-darkest  text-grey-lightest', 'border text-grey-darkest'][theme]"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
@@ -81,7 +81,7 @@
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
-                            :class="['bg-grey-darkest  text-grey-lightest', 'border'][theme]"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                             v-if="editing.type === 'plain'"
                         ></textarea>
                         <editor

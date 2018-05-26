@@ -56,7 +56,7 @@
                         <span class="select-none">Stored characters</span>
                         <input
                             type="text"
-                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right outline-none"
+                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right"
                             :class="['text-black', 'text-grey-lightest'][theme]"
                             @keypress="isNumber(event)"
                             v-model.number="bufferLength"
