@@ -9,8 +9,17 @@
     import 'brace/ext/statusbar'
     import 'brace/ext/language_tools'
     import 'brace/mode/javascript'
-    import 'brace/theme/monokai'
     import 'brace/theme/chrome'
+
+    ace.define('ace/theme/qw_dark', ['require', 'exports', 'module', 'ace/lib/dom'], function (acequire, exports, module) {
+
+        exports.isDark = true
+        exports.cssClass = 'ace-qw-dark'
+        exports.cssText = ''
+
+        const dom = acequire('../lib/dom')
+        dom.importCssString(exports.cssText, exports.cssClass)
+    })
 
     export default {
         props: ['theme', 'mode'],
