@@ -46,11 +46,11 @@ class SnippetsManager {
 
         let value
 
-        if (shiftKey && altKey) {
+        if (shiftKey && altKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withShiftAltGr`, false)
-        } else if (shiftKey) {
+        } else if (shiftKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withShift`, false)
-        } else if (altKey) {
+        } else if (altKey && !ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.withAltGr`, false)
         } else if (!ctrlKey && !metaKey) {
             value = _.get(keymap, `${name}.value`, false)
