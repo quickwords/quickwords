@@ -20,7 +20,7 @@
             </div>
             <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4" ref="list">
                 <div
-                    class="items-center h-12 flex py-4 px-6 mb-4 rounded cursor-pointer clickable border border-transparent"
+                    class="items-center h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
                     :class="{
                         'bg-grey-darkest shadow-lg': theme === 0,
                         'bg-grey-light': theme === 1,
