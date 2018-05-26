@@ -11,7 +11,7 @@
     import 'brace/mode/javascript'
     import 'brace/theme/chrome'
 
-    ace.define('ace/theme/qw_dark', ['require', 'exports', 'module', 'ace/lib/dom'], function (acequire, exports, module) {
+    ace.define('ace/theme/qw_dark', ['require', 'exports', 'module', 'ace/lib/dom'], function (acequire, exports) {
         exports.isDark = true
         exports.cssClass = 'ace-qw-dark'
         exports.cssText = ''
@@ -21,7 +21,16 @@
     })
 
     export default {
-        props: ['theme', 'mode'],
+        props: {
+            theme: {
+                type: String,
+                required: true,
+            },
+            mode: {
+                type: String,
+                required: true,
+            },
+        },
         data() {
             return {
                 editor: null,
