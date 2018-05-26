@@ -10,7 +10,7 @@
                     <label
                         @click="changeSection('Manual')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Manual</span>
                     </label>
@@ -18,7 +18,7 @@
                     <label
                         @click="changeSection('Shortcuts')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Shortcuts</span>
                     </label>
@@ -26,7 +26,7 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Theme</span>
                         <input type="checkbox" class="invisible" v-model="theme">
@@ -39,7 +39,7 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Launch at system startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
@@ -51,12 +51,12 @@
                     <label
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-lg', 'bg-grey-light'][theme]"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Stored characters</span>
                         <input
                             type="text"
-                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right outline-none"
+                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right"
                             :class="['text-black', 'text-grey-lightest'][theme]"
                             @keypress="isNumber(event)"
                             v-model.number="bufferLength"

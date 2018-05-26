@@ -13,7 +13,7 @@
                     placeholder="Search..."
                     v-model="searchSnippets"
                     class="rounded flex-1 py-2 px-4"
-                    :class="['bg-black-light text-grey-light shadow-inner-normal border border-black-darkest', 'border text-grey-darkest'][theme]"
+                    :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
@@ -22,7 +22,7 @@
                 <div
                     class="items-center h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
                     :class="{
-                        'bg-grey-darkest shadow-lg': theme === 0,
+                        'bg-grey-darkest shadow-md': theme === 0,
                         'bg-grey-light': theme === 1,
                         'border-white': editing && editing.id === snippet.id && theme === 0,
                         'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
@@ -51,7 +51,7 @@
                     <div class="flex mb-4">
                         <input
                             class="rounded p-4 mr-4 flex-1"
-                            :class="['bg-grey-darkest shadow-inner-normal text-grey-lightest', 'border text-grey-darkest'][theme]"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
@@ -81,7 +81,7 @@
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
-                            :class="['bg-grey-darkest shadow-inner-normal text-grey-lightest', 'border'][theme]"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                             v-if="editing.type === 'plain'"
                         ></textarea>
                         <editor
@@ -146,7 +146,7 @@
                         <select
                             v-model="editing.type"
                             class="p-4 rounded flex-1"
-                            :class="['bg-grey-darkest shadow-lg text-grey-lightest', 'border'][theme]"
+                            :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
                             @change="changedType"
                         >
                             <option value="plain">Plain text</option>
