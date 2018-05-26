@@ -26,8 +26,16 @@
             this.editor.setHighlightActiveLine(false)
             this.editor.getSession().setTabSize(2)
             this.editor.setShowPrintMargin(false)
-            // this.editor.renderer.setShowGutter(false)
-            this.editor.getSession().$worker.send('changeOptions', [{ asi: true }])
+
+            this.editor.session.$worker.send('setOptions', [
+                {
+                    esversion: 6,
+                    globals: { exec: true, fetch: true },
+                    strict: 'implied',
+                    undef: true,
+                    asi: true,
+                },
+            ])
 
             this.editor.getSession().on('change', () => {
                 this.$emit('edit', this.editor.getSession().getValue())
