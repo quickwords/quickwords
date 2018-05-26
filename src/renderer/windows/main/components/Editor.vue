@@ -12,7 +12,6 @@
     import 'brace/theme/chrome'
 
     ace.define('ace/theme/qw_dark', ['require', 'exports', 'module', 'ace/lib/dom'], function (acequire, exports, module) {
-
         exports.isDark = true
         exports.cssClass = 'ace-qw-dark'
         exports.cssText = ''
