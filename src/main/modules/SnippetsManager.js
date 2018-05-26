@@ -139,8 +139,18 @@ class SnippetsManager {
                 resolve(data)
             }
 
-            executable(matchedString).then(r).catch(r)
+            const e = executable(matchedString)
+
+            if (this._isPromise(e)) {
+                e.then(r).catch(r)
+            } else {
+                r(e)
+            }
         })
+    }
+
+    _isPromise(variable) {
+        return _.isObject(variable) && _.isFunction(variable.then)
     }
 
     _replaceSnippetIfMatchFound() {
