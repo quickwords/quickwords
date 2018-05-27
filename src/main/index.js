@@ -1,7 +1,7 @@
 const config = require('../../config')
 config.load()
 
-const { app, Tray, systemPreferences } = require('electron')
+const { app, Tray, systemPreferences, clipboard } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
@@ -21,7 +21,8 @@ const store = new Store({
         bufferLength: 20,
     },
 })
-const snippetsManager = new SnippetsManager(store)
+
+const snippetsManager = new SnippetsManager({ store, clipboard, keyboardHandler: require('iohook'), keyboardSimulator: require('robotjs'), })
 const windows = {}
 
 app.dock.hide()

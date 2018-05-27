@@ -1,6 +1,3 @@
-const { clipboard } = require('electron')
-const ioHook = require('iohook')
-const robot = require('robotjs')
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
@@ -10,23 +7,26 @@ const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor(store) {
+    constructor({ store, keyboardHandler, keyboardSimulator, clipboard }) {
         this.store = store
+        this.keyboardHandler = keyboardHandler
+        this.keyboardSimulator = keyboardSimulator
+        this.clipboard = clipboard
 
         this.buffer = ''
         this.shouldMatch = true
 
-        robot.setKeyboardDelay(0)
+        this.keyboardSimulator.setKeyboardDelay(0)
 
-        ioHook.on('keydown', e => this._onKeyDown(e))
-        ioHook.on('mouseclick', e => this._onMouseClick(e))
+        this.keyboardHandler.on('keydown', e => this._onKeyDown(e))
+        this.keyboardHandler.on('mouseclick', e => this._onMouseClick(e))
 
-        ioHook.start()
+        this.keyboardHandler.start()
     }
 
     destructor() {
-        ioHook.unload()
-        ioHook.stop()
+        this.keyboardHandler.unload()
+        this.keyboardHandler.stop()
     }
 
     _isBackspace(keycode) {
@@ -111,7 +111,7 @@ class SnippetsManager {
         return new Promise((resolve, reject) => {
             'use strict'
 
-            const timeout = setTimeout(() => reject('Promise timed out after 5 minutes of inactivity'), 5000)
+            const timeout = setTimeout(() => reject('Promise timed out after 5 seconds of inactivity'), 5000)
 
             let executable
 
@@ -167,7 +167,7 @@ class SnippetsManager {
 
             if (matchedString) {
                 for (let i = 0; i < matchedString.length; i++) {
-                    robot.keyTap('backspace')
+                    this.keyboardSimulator.keyTap('backspace')
                 }
 
                 if (snippet.type === 'js') {
@@ -182,27 +182,27 @@ class SnippetsManager {
     }
 
     async _handleJavascriptSnippet(matchedString, code) {
-        const clipboardContent = clipboard.readText()
+        const clipboardContent = this.clipboard.readText()
 
         try {
             const data = await this._evaluate(matchedString, code)
 
-            clipboard.writeText(data)
+            this.clipboard.writeText(data)
         } catch (error) {
-            clipboard.writeText(error)
+            this.clipboard.writeText(error)
         } finally {
-            setTimeout(() => robot.keyTap('v', 'command'), 50)
-            setTimeout(() => clipboard.writeText(clipboardContent), 500)
+            setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
+            setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
         }
     }
 
     _handlePlainTextSnippet(value) {
-        const clipboardContent = clipboard.readText()
+        const clipboardContent = this.clipboard.readText()
 
-        clipboard.writeText(value)
+        this.clipboard.writeText(value)
 
-        setTimeout(() => robot.keyTap('v', 'command'), 50)
-        setTimeout(() => clipboard.writeText(clipboardContent), 500)
+        setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
+        setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
     }
 
     _addCharToBuffer(character) {
