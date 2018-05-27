@@ -22,7 +22,12 @@ const store = new Store({
     },
 })
 
-const snippetsManager = new SnippetsManager({ store, clipboard, keyboardHandler: require('iohook'), keyboardSimulator: require('robotjs'), })
+const snippetsManager = new SnippetsManager({
+    store,
+    clipboard,
+    keyboardHandler: require('iohook'),
+    keyboardSimulator: require('robotjs'),
+})
 const windows = {}
 
 app.dock.hide()
