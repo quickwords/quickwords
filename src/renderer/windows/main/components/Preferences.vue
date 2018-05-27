@@ -15,13 +15,13 @@
                         <span class="select-none">Manual</span>
                     </label>
 
-                    <label
+                    <!-- <label
                         @click="changeSection('Shortcuts')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
                         <span class="select-none">Shortcuts</span>
-                    </label>
+                    </label> -->
 
                     <label
                         @click="changeSection(null)"
