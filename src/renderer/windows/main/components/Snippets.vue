@@ -288,7 +288,7 @@
             }, 3000),
             changedType() {
                 if (this.editing.type === 'js' && !this.editing.value) {
-                    this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction (trigger) {\n  return trigger.toUpperCase()\n}\n'
+                    this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction qw(trigger) {\n  return trigger.toUpperCase()\n}\n'
                 }
                 Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
             },
