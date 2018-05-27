@@ -13,3 +13,4 @@ install:
 script:
   - npm run prod
   - npm run dist
+  - npm run test
