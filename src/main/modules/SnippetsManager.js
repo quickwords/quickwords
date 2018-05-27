@@ -107,7 +107,7 @@ class SnippetsManager {
         console.log(this.buffer)
     }
 
-    async _evaluate(matchedString, code) {
+    _evaluate(matchedString, code) {
         return new Promise((resolve, reject) => {
             'use strict'
 
@@ -121,8 +121,8 @@ class SnippetsManager {
                     const exec = require('child_process').exec;
                     (${code})
                 `)
-            } catch (e) {
-                reject('Syntax error in the snippet code')
+            } catch (err) {
+                reject(String(err))
             }
 
             if (!_.isFunction(executable)) {
@@ -132,25 +132,25 @@ class SnippetsManager {
             const r = (data) => {
                 clearTimeout(timeout)
 
-                if (!_.isString(data)) {
-                    data = JSON.stringify(data)
-                }
-
                 resolve(data)
             }
 
-            const e = executable(matchedString)
+            let e
 
-            if (this._isPromise(e)) {
-                e.then(r).catch(r)
-            } else {
+            try {
+                e = executable(matchedString)
+            } catch (err) {
+                reject(err)
+            }
+
+            if (_.isObject(e) && _.isFunction(e.then)) {
+                e.then(r).catch(reject)
+            } else if (_.isString(e) || _.isNumber(e)) {
                 r(e)
+            } else {
+                reject('User-defined function returned invalid type. Expected a Promise, string or number.')
             }
         })
-    }
-
-    _isPromise(variable) {
-        return _.isObject(variable) && _.isFunction(variable.then)
     }
 
     _replaceSnippetIfMatchFound() {
@@ -189,7 +189,7 @@ class SnippetsManager {
 
             this.clipboard.writeText(data)
         } catch (error) {
-            this.clipboard.writeText(error)
+            this.clipboard.writeText(`QWError: ${_.get('error', 'message', String(error))}`)
         } finally {
             setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
             setTimeout(() => this.clipboard.writeText(clipboardContent), 500)

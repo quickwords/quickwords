@@ -1,5 +1,4 @@
 const assert = require('assert')
-const mock = require('mock-require')
 
 const keyboardHandler = {
     on(event, callback) {
@@ -34,7 +33,7 @@ const store = {
     },
 }
 
-const SnippetsManager = require('../../../src/main/modules/SnippetsManager')
+const SnippetsManager = require('../../../out/main/modules/SnippetsManager')
 const snippetsManager = new SnippetsManager({ store, keyboardHandler, keyboardSimulator, clipboard })
 
 describe('SnippetsManager', () => {
@@ -61,6 +60,18 @@ describe('SnippetsManager', () => {
             const result = await snippetsManager._evaluate('abcd', code)
 
             assert.equal('ABCD', result)
+        })
+
+        it('handles a number', async () => {
+            const code = `
+                (function () {
+                    return 10
+                })
+            `
+
+            const result = await snippetsManager._evaluate('abcd', code)
+
+            assert.equal(10, result)
         })
 
         it('handles a Promise', async () => {
@@ -107,14 +118,14 @@ describe('SnippetsManager', () => {
 
             return snippetsManager._evaluate('abcd', code)
                 .then(() => {
-                    throw new Error('_evaluate did not inform of a syntax error')
+                    throw new Error('Exception was expected to be thrown because of syntax error')
                 })
                 .catch((err) => {
-                    assert.equal('Syntax error in the snippet code', err)
+                    assert.equal('SyntaxError: Unexpected string', err)
                 })
         })
 
-        it.only('errors a script with call to undefined function', function () {
+        it('errors a script with call to undefined function', function () {
             const code = `
                 (function () {
                     alert('abcd')
@@ -123,10 +134,44 @@ describe('SnippetsManager', () => {
 
             return snippetsManager._evaluate('abcd', code)
                 .then(() => {
-                    throw new Error('_evaluate did not inform of a call to undefined function')
+                    throw new Error('Exception was expected to be thrown because of a call to undefined function')
                 })
                 .catch((err) => {
-                    assert.equal('blah', err)
+                    assert.equal('ReferenceError: alert is not defined', err)
+                })
+        })
+
+        it('errors a script with invalid declaration', function () {
+            const code = `
+                function a() {
+                    return 'a'
+                }
+
+                function b() {
+                    return b
+                }
+            `
+
+            return snippetsManager._evaluate('abcd', code)
+                .then(() => {
+                    throw new Error('Exception was expected to be thrown because of invalid syntax')
+                })
+                .catch((err) => {
+                    assert.equal('SyntaxError: Unexpected token function', err)
+                })
+        })
+
+        it('errors a script when it is not a callable', function () {
+            const code = `
+                ''.trim()
+            `
+
+            return snippetsManager._evaluate('abcd', code)
+                .then(() => {
+                    throw new Error('Exception was expected to be thrown because provided code is not callable')
+                })
+                .catch((err) => {
+                    assert.equal('Used snippet code is not a function', err)
                 })
         })
     })
