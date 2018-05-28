@@ -41,7 +41,7 @@
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
-                        <span class="select-none">Launch at system startup</span>
+                        <span class="select-none">Launch at System Startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
 
                         <icon-checkbox v-if="autoLaunch" :checked="true" class="w-6 h-6 text-blue-light fill-current"></icon-checkbox>
@@ -65,7 +65,7 @@
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
-                        <span class="select-none">Stored characters</span>
+                        <span class="select-none">Stored Characters</span>
                         <input
                             type="text"
                             class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right"

@@ -72,7 +72,7 @@
                                 ></icon-checkbox>
                             </div>
 
-                            Use regular expression
+                            Use Regular Expression
                         </label>
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
@@ -149,7 +149,7 @@
                             :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
                             @change="changedType"
                         >
-                            <option value="plain">Plain text</option>
+                            <option value="plain">Plain Text</option>
                             <option value="js">JavaScript</option>
                         </select>
                         <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
