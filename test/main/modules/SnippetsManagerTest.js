@@ -102,7 +102,7 @@ describe('SnippetsManager', () => {
             try {
                 await snippetsManager._evaluate('abcd', code)
             } catch (err) {
-                assert.equal('Promise timed out after 5 seconds of inactivity', err)
+                assert.equal('Function timed out after 5 seconds of inactivity', err)
                 return
             }
 

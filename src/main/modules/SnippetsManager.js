@@ -112,7 +112,7 @@ class SnippetsManager {
         return new Promise((resolve, reject) => {
             'use strict'
 
-            const timeout = setTimeout(() => reject('Promise timed out after 5 seconds of inactivity'), this.timeout)
+            const timeout = setTimeout(() => reject('Function timed out after 5 seconds of inactivity'), this.timeout)
 
             let executable
 
