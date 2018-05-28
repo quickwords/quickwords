@@ -10,8 +10,8 @@ export default new Vuex.Store({
         snippets: null, // array
         theme: null, // int
         autoLaunch: null, // bool
-        bufferLength: null,
-        autoUpdate: null,
+        bufferLength: null, // int
+        autoUpdate: null, // bool
     },
     mutations: {
         snippets(state, snippets) {
