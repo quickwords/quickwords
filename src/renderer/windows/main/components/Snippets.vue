@@ -55,6 +55,7 @@
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
+                            v-focus
                         >
                         <label for="regex" class="flex justify-center items-center cursor-pointer">
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
