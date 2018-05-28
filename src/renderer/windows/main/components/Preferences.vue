@@ -68,9 +68,10 @@
                         <span class="select-none">Stored Characters</span>
                         <input
                             type="text"
-                            class="px-2 bg-grey-dark shadow-inner-normal flex rounded w-16 text-right"
+                            class="px-2 bg-grey-dark flex rounded w-16 text-right h-6"
                             :class="['text-black', 'text-grey-lightest'][theme]"
                             @keypress="isNumber(event)"
+                            @blur="bufferLengthChanged"
                             v-model.number="bufferLength"
                         >
                     </label>
@@ -115,7 +116,11 @@
         data() {
             return {
                 section: null,
+                bufferLength: null,
             }
+        },
+        created() {
+            this.bufferLength = this.$store.getters.bufferLength
         },
         computed: {
             theme: {
@@ -142,22 +147,17 @@
                     this.$store.commit('autoUpdate', autoUpdate)
                 },
             },
-            bufferLength: {
-                get() {
-                    return this.$store.getters.bufferLength
-                },
-                set(bufferLength) {
-                    if (bufferLength > MAX_BUFFER_LENGTH) {
-                        bufferLength = MAX_BUFFER_LENGTH
-                    } else if (bufferLength < MIN_BUFFER_LENGTH) {
-                        bufferLength = MIN_BUFFER_LENGTH
-                    }
-
-                    this.$store.commit('bufferLength', bufferLength)
-                },
-            },
         },
         methods: {
+            bufferLengthChanged() {
+                if (this.bufferLength > MAX_BUFFER_LENGTH) {
+                    this.bufferLength = MAX_BUFFER_LENGTH
+                } else if (this.bufferLength < MIN_BUFFER_LENGTH) {
+                    this.bufferLength = MIN_BUFFER_LENGTH
+                }
+
+                this.$store.commit('bufferLength', this.bufferLength)
+            },
             changeSection(page) {
                 this.section = page
             },
