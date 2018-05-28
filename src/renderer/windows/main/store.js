@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-const { enableAutoLaunch, disableAutoLaunch, store } = window.require('electron').remote.getCurrentWindow().preferencesManager
+const { enableAutoLaunch, disableAutoLaunch, store, enableAutoUpdate, disableAutoUpdate } = window.require('electron').remote.getCurrentWindow().preferencesManager
 
 Vue.use(Vuex)
 
@@ -10,7 +10,8 @@ export default new Vuex.Store({
         snippets: null, // array
         theme: null, // int
         autoLaunch: null, // bool
-        bufferLength: null,
+        bufferLength: null, // int
+        autoUpdate: null, // bool
     },
     mutations: {
         snippets(state, snippets) {
@@ -31,6 +32,16 @@ export default new Vuex.Store({
                 disableAutoLaunch()
             }
         },
+        autoUpdate(state, autoUpdate) {
+            state.autoUpdate = autoUpdate
+            store.set('autoUpdate', autoUpdate)
+
+            if (autoUpdate) {
+                enableAutoUpdate()
+            } else {
+                disableAutoUpdate()
+            }
+        },
         bufferLength(state, bufferLength) {
             state.bufferLength = bufferLength
             store.set('bufferLength', bufferLength)
@@ -46,6 +57,9 @@ export default new Vuex.Store({
         autoLaunch(state) {
             return state.autoLaunch
         },
+        autoUpdate(state) {
+            return state.autoUpdate
+        },
         bufferLength(state) {
             return state.bufferLength
         },
@@ -56,6 +70,7 @@ export default new Vuex.Store({
             commit('theme', store.get('theme'))
             commit('autoLaunch', store.get('autoLaunch'))
             commit('bufferLength', store.get('bufferLength'))
+            commit('autoUpdate', store.get('autoUpdate'))
         },
     },
 })

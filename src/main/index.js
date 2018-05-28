@@ -7,7 +7,7 @@ const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
 const mainWindow = require('./windows/main')
 const iconPath = path.join(__dirname, '../../assets/iconTemplate.png')
-const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, checkForNewVersion, registerNativeShortcuts } = require('./helpers')
+const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, registerNativeShortcuts } = require('./helpers')
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
@@ -19,6 +19,7 @@ const store = new Store({
         autoLaunch: true,
         snippets: defaultSnippets,
         bufferLength: 20,
+        autoUpdate: true,
     },
 })
 
@@ -60,8 +61,6 @@ app.on('ready', () => {
 
     appIcon.setToolTip('Quickwords')
     appIcon.setContextMenu(menu)
-
-    setTimeout(checkForNewVersion, 1000)
 
     if (process.env.ENVIRONMENT === 'production') {
         registerNativeShortcuts(app, windows)
