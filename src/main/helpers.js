@@ -1,6 +1,4 @@
-const { Notification, shell, Menu } = require('electron')
-const fetch = require('node-fetch')
-const path = require('path')
+const { Menu } = require('electron')
 
 module.exports.doNotQuitAppOnWindowClosure = function (windows) {
     Object.keys(windows).forEach(key => windows[key].on('close', e => {
