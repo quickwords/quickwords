@@ -15,6 +15,7 @@ class SnippetsManager {
 
         this.buffer = ''
         this.shouldMatch = true
+        this.timeout = 5000 // 5 seconds
 
         this.keyboardSimulator.setKeyboardDelay(0)
 
@@ -111,7 +112,7 @@ class SnippetsManager {
         return new Promise((resolve, reject) => {
             'use strict'
 
-            const timeout = setTimeout(() => reject('Promise timed out after 5 seconds of inactivity'), 5000)
+            const timeout = setTimeout(() => reject('Promise timed out after 5 seconds of inactivity'), this.timeout)
 
             let executable
 

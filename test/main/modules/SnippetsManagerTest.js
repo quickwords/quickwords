@@ -88,13 +88,13 @@ describe('SnippetsManager', () => {
             assert.equal('value', result)
         })
 
-        it('errors a Promise that takes longer than 5 seconds', async function () {
-            this.timeout(7000)
+        it('errors a Promise that takes longer than the timeout', async function () {
+            snippetsManager.timeout = 10
 
             const code = `
                 (function () {
                     return new Promise((resolve, reject) => {
-                        setTimeout(() => resolve('value'), 6000)
+                        setTimeout(() => resolve('value'), 2000)
                     })
                 })
             `
