@@ -19,6 +19,7 @@ const store = new Store({
         autoLaunch: true,
         snippets: defaultSnippets,
         bufferLength: 20,
+        autoUpdate: true,
     },
 })
 

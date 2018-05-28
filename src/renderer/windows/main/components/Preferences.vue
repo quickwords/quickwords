@@ -53,6 +53,18 @@
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                     >
+                        <span class="select-none">Chceck for updates</span>
+                        <input type="checkbox" class="invisible" v-model="autoUpdate">
+
+                        <icon-checkbox v-if="autoUpdate" :checked="true" class="w-6 h-6 text-blue-light fill-current"></icon-checkbox>
+                        <icon-checkbox v-else :checked="false" class="w-6 h-6 fill-current"></icon-checkbox>
+                    </label>
+
+                    <label
+                        @click="changeSection(null)"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                    >
                         <span class="select-none">Stored characters</span>
                         <input
                             type="text"
@@ -120,6 +132,14 @@
                 },
                 set(autoLaunch) {
                     this.$store.commit('autoLaunch', autoLaunch)
+                },
+            },
+            autoUpdate: {
+                get() {
+                    return this.$store.getters.autoUpdate
+                },
+                set(autoUpdate) {
+                    this.$store.commit('autoUpdate', autoUpdate)
                 },
             },
             bufferLength: {
