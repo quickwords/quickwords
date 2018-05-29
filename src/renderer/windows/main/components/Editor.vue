@@ -46,8 +46,15 @@
 
             this.editor.session.$worker.send('setOptions', [
                 {
-                    esversion: 6,
-                    globals: { exec: true, fetch: true },
+                    esversion: 7,
+                    globals: {
+                        exec: true,
+                        fetch: true,
+                        setTimeout: true,
+                        setInterval: true,
+                        clearTimeout: true,
+                        clearInterval: true,
+                    },
                     strict: 'implied',
                     undef: true,
                     asi: true,
