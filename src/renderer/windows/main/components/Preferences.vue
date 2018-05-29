@@ -159,7 +159,12 @@
                 this.$store.commit('bufferLength', this.bufferLength)
             },
             changeSection(page) {
-                this.section = page
+                if (page === 'Manual') {
+                    this.section = null
+                    window.require('electron').remote.shell.openExternal(window.require('../../../../config').config.DOCS_URL)
+                } else {
+                    this.section = page
+                }
             },
             isNumber(e) {
                 if ((e.keyCode > 31 && (e.keyCode < 48 || e.keyCode > 57))) {

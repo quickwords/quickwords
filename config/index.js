@@ -9,6 +9,7 @@ const config = {
     GITHUB_URL: 'https://github.com/quickwords/quickwords',
     DC_URL: 'https://dczajkowski.com',
     GT_URL: 'https://github.com/gtluszcz',
+    DOCS_URL: 'https://quickwords.co/docs',
 }
 
 function load() {
