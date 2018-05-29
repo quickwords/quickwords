@@ -1,5 +1,3 @@
-# 🚧 Work in Progress!!! 🚧
-
 <p align="center"><a href="https://quickwords.co"><img width="450" src="https://quickwords.co/assets/logo.svg"></a></p>
 
 ## Table of Contents
@@ -8,14 +6,13 @@
     - [MacOS](#macos)
     - [Linux & Windows](#linux--windows)
 - [Privacy and Security](#privacy-and-security)
-- [FAQ](#faq)
-    - [macOS doesn't allow me to start the app](#macos-doesnt-allow-me-to-start-the-app)
 - [Contribution](#contribution)
 - [Authors](#authors)
 - [License](#license)
 
 ## What is Quickwords?
 Quickwords is an open-source alternative to [Text Expander](https://textexpander.com) written in [Electron](https://electronjs.org). It is available on MacOS (other systems coming very soon).
+You can check out the [website](https://quickwords.co) and [full documentation](https://quickwords.co/docs) for more information.
 
 ## Installation
 ### MacOS
@@ -28,17 +25,6 @@ Linux and Windows versions of the app are coming soon. In the meantime all PRs a
 Quickwords registers all global keyboard events, so it has an access to everything you type on the system. No data is saved on the system, and only 20 last keystrokes are remembered in the memory of the app. All your data should be absolutely secure.
 
 If you discover a security vulnerability within Quickwords, please DM [@quickwordsapp](https://twitter.com/quickwordsapp). All security vulnerabilities will be promptly addressed.
-
-## FAQ
-### macOS doesn't allow me to start the app
-On macOS Sierra and newer, if you try to open an app that is not signed by an identified developer you get a warning dialog. To override your security settings and open the app:
-
-In the Finder, locate the app you want to open.
-Control-click the app icon, then choose Open from the shortcut menu.
-
-More information: [PH25088](https://support.apple.com/kb/PH25088)
-
-P.S. If you want to help us get rid of this problem and/or would like Quickwords to auto-update you can go to our [Patreon page](https://www.patreon.com/quickwords) and see the details.
 
 ## Contribution
 Contributions are very welcome. If you want, just drop a PR with any feature you'd like to see. If you want to help with the development of the app, you could [buy us a coffee](https://www.patreon.com/quickwords).
