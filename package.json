@@ -1,6 +1,6 @@
 {
   "name": "Quickwords",
-  "version": "v0.0.6-alpha",
+  "version": "v0.0.7-alpha",
   "description": "An open-source alternative to Textexpander.",
   "main": "out/main/index.js",
   "scripts": {
