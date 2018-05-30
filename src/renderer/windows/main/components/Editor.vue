@@ -50,6 +50,7 @@
                     globals: {
                         exec: true,
                         fetch: true,
+                        require: true,
                         setTimeout: true,
                         setInterval: true,
                         clearTimeout: true,
