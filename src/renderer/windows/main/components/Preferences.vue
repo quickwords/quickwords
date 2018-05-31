@@ -29,13 +29,13 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); theme = (theme)===0 ? 1:0"
+                        @keyup.enter="changeSection(null); theme = (theme === 0) ? 1 : 0"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="theme_label"
-                        :aria-checked="(theme===0 ? 'false' : 'true')"
+                        :aria-checked="(theme === 0) ? 'false' : 'true'"
                     >
                         <span id="theme_label" class="select-none">Theme</span>
                         <input type="checkbox" class="invisible" v-model="theme">
@@ -53,7 +53,7 @@
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="autoLaunch_label"
-                        :aria-checked="(autoLaunch===true ? 'true' : 'false')"
+                        :aria-checked="(autoLaunch === true) ? 'true' : 'false'"
                     >
                         <span id="autoLaunch_label" class="select-none" aria-label="Launch at System Startup">Launch at System Startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
@@ -70,7 +70,7 @@
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="update_label"
-                        :aria-checked="(autoUpdate===true ? 'true' : 'false')"
+                        :aria-checked="(autoUpdate === true) ? 'true' : 'false'"
                     >
                         <span class="select-none" id="update_label" aria-label="Check for Updates">Check for Updates</span>
                         <input type="checkbox" class="invisible" v-model="autoUpdate">
