@@ -11,7 +11,7 @@
 - [License](#license)
 
 ## What is Quickwords?
-Quickwords is an open-source alternative to [Text Expander](https://textexpander.com) written in [Electron](https://electronjs.org). It is available on MacOS (other systems coming very soon).
+Quickwords is a productivity app, to get on with your work quicker. It helps you substitute common words, phrases and paragraphs with just few key strokes. It is available on MacOS (other systems coming very soon).
 You can check out the [website](https://quickwords.co) and [full documentation](https://quickwords.co/docs) for more information.
 
 ## Installation

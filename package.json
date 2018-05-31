@@ -1,7 +1,7 @@
 {
   "name": "Quickwords",
   "version": "v0.0.7-alpha",
-  "description": "An open-source alternative to Textexpander.",
+  "description": "A productivity app, to get on with your work quicker",
   "main": "out/main/index.js",
   "scripts": {
     "start": "electron .",
