@@ -161,7 +161,7 @@
                         <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
                     </div>
                 </div>
-                <div v-else class="flex flex-col h-full">
+                <div class="flex flex-col h-full" v-else>
                     <input
                         :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                         class="mb-4 p-4"
