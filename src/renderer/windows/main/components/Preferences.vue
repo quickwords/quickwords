@@ -8,11 +8,15 @@
             <div class="mb-8 mt-8 overflow-y-scroll flex-1 custom-width-for-shadows px-4 -ml-4">
                 <div class="mb-8 flex-1">
                     <label
+                        tabindex="0"
+                        @keyup.enter="changeSection('Manual')"
                         @click="changeSection('Manual')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                        role="button"
+                        aria-labelledby="manual_label"
                     >
-                        <span class="select-none">Manual</span>
+                        <span id="manual_label" class="select-none">Manual</span>
                     </label>
 
                     <!-- <label
@@ -24,11 +28,16 @@
                     </label> -->
 
                     <label
+                        tabindex="0"
+                        @keyup.enter="changeSection(null); theme = (theme)===0 ? 1:0"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                        role="checkbox"
+                        aria-labelledby="theme_label"
+                        :aria-checked="(theme===0 ? 'false' : 'true')"
                     >
-                        <span class="select-none">Theme</span>
+                        <span id="theme_label" class="select-none">Theme</span>
                         <input type="checkbox" class="invisible" v-model="theme">
                         <div class="w-16 flex rounded overflow-hidden">
                             <div class="w-16 py-1 shadow-inner text-grey-darkest select-none flex-no-shrink text-center bg-blue-light transition" :class="{ '-ml-64': theme }">dark</div>
@@ -37,11 +46,16 @@
                     </label>
 
                     <label
+                        tabindex="0"
+                        @keyup.enter="changeSection(null); autoLaunch = !autoLaunch"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                        role="checkbox"
+                        aria-labelledby="autoLaunch_label"
+                        :aria-checked="(autoLaunch===true ? 'true' : 'false')"
                     >
-                        <span class="select-none">Launch at System Startup</span>
+                        <span id="autoLaunch_label" class="select-none" aria-label="Launch at System Startup">Launch at System Startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
 
                         <icon-checkbox v-if="autoLaunch" :checked="true" class="w-6 h-6 text-blue-light fill-current"></icon-checkbox>
@@ -49,11 +63,16 @@
                     </label>
 
                     <label
+                        tabindex="0"
+                        @keyup.enter="changeSection(null); autoUpdate = !autoUpdate"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                        role="checkbox"
+                        aria-labelledby="update_label"
+                        :aria-checked="(autoUpdate===true ? 'true' : 'false')"
                     >
-                        <span class="select-none">Check for Updates</span>
+                        <span class="select-none" id="update_label" aria-label="Check for Updates">Check for Updates</span>
                         <input type="checkbox" class="invisible" v-model="autoUpdate">
 
                         <icon-checkbox v-if="autoUpdate" :checked="true" class="w-6 h-6 text-blue-light fill-current"></icon-checkbox>
@@ -64,8 +83,9 @@
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
+                        aria-labelledby="characters_label"
                     >
-                        <span class="select-none">Stored Characters</span>
+                        <span id="characters_label" class="select-none" >Stored Characters</span>
                         <input
                             type="text"
                             class="px-2 bg-grey-dark flex rounded w-16 text-right h-6"

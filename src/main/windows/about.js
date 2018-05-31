@@ -12,6 +12,7 @@ module.exports = {
             titleBarStyle: 'hidden',
         })
 
+
         this.ctx.loadURL(url.format({
             pathname: path.join(__dirname, '../../renderer/windows/about/index.html'),
             protocol: 'file:',

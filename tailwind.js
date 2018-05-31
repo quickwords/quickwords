@@ -849,7 +849,7 @@ module.exports = {
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
     borderColors: ['responsive', 'hover'],
-    borderRadius: ['responsive'],
+    borderRadius: ['responsive', 'hover'],
     borderStyle: ['responsive'],
     borderWidths: ['responsive'],
     cursor: ['responsive'],
