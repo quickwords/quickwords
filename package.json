@@ -1,6 +1,6 @@
 {
   "name": "Quickwords",
-  "version": "v0.0.7-alpha",
+  "version": "v0.1.0",
   "description": "A productivity app, to get on with your work quicker",
   "main": "out/main/index.js",
   "scripts": {
