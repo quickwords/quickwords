@@ -1,50 +1,56 @@
 <template>
-    <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
+    <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]"
+         id="app">
         <div class="flex flex-col flex-2 p-8">
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
                     <span tabindex="1" class="text-3xl">Snippets</span>
-                    <router-link tabindex="2" :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
+                    <router-link tabindex="2" :to="{ name: 'Preferences' }"
+                                 class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
                 </span>
             </h1>
             <div class="mt-4 flex">
                 <input
-                    type="text"
-                    placeholder="Search..."
-                    v-model="searchSnippets"
-                    class="rounded flex-1 py-2 px-4"
-                    :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
-                    tabindex="3"
+                        type="text"
+                        placeholder="Search..."
+                        v-model="searchSnippets"
+                        class="rounded flex-1 py-2 px-4"
+                        :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
+                        tabindex="3"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4" ref="list">
+            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4"
+                 ref="list">
                 <div
-                    class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
-                    :class="{
+                        class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
+                        :class="{
                         'bg-grey-darkest shadow-md': theme === 0,
                         'bg-grey-light': theme === 1,
                         'border-white': editing && editing.id === snippet.id && theme === 0,
                         'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
                     }"
-                    role="button"
-                    tabindex="0"
-                    v-for="snippet in filteredSnippets"
-                    :key="snippet.id"
-                    @keyup.enter="edit(snippet)"
-                    @click="edit(snippet)"
+                        role="button"
+                        tabindex="0"
+                        v-for="snippet in filteredSnippets"
+                        :key="snippet.id"
+                        @keyup.enter="edit(snippet)"
+                        @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
                     <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                    <button tabindex="0" class="flex items-center ml-2 " :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full"
+                          v-if="snippet.type === 'js'">js</span>
+                    <button tabindex="0" class="flex items-center ml-2 "
+                            :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
                     </button>
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
+                <button class="flex items-center justify-center w-8 h-8"
+                        :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
                     <icon-plus class="fill-current w-full h-full"></icon-plus>
                 </button>
             </div>
@@ -54,26 +60,27 @@
                 <div v-if="editing" class="flex flex-col h-full">
                     <div class="flex mb-4">
                         <input
-                            class="rounded p-4 mr-4 flex-1"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
-                            type="text"
-                            placeholder="Trigger"
-                            v-model="editing.key"
-                            v-focus
+                                class="rounded p-4 mr-4 flex-1"
+                                :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
+                                type="text"
+                                placeholder="Trigger"
+                                v-model="editing.key"
+                                v-focus
                         >
-                        <label tabindex="0" for="regex" @keyup.enter="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
+                        <label tabindex="0" for="regex" @keyup.enter="editing.regex = !editing.regex"
+                               class="flex justify-center items-center cursor-pointer">
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                             <div class="mr-2">
                                 <icon-checkbox
-                                    v-if="editing.regex"
-                                    :checked="true"
-                                    class="text-brand-blue fill-current w-6 h-6"
+                                        v-if="editing.regex"
+                                        :checked="true"
+                                        class="text-brand-blue fill-current w-6 h-6"
                                 ></icon-checkbox>
                                 <icon-checkbox
-                                    v-else
-                                    :checked="false"
-                                    class="fill-current w-6 h-6"
-                                    :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
+                                        v-else
+                                        :checked="false"
+                                        class="fill-current w-6 h-6"
+                                        :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
                                 ></icon-checkbox>
                             </div>
 
@@ -82,60 +89,60 @@
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
                         <textarea
-                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans"
-                            placeholder="Substitute with..."
-                            v-model="editing.value"
-                            @keydown="save"
-                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
-                            v-if="editing.type === 'plain'"
+                                class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans"
+                                placeholder="Substitute with..."
+                                v-model="editing.value"
+                                @keydown="save"
+                                :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                                v-if="editing.type === 'plain'"
                         ></textarea>
                         <editor
-                            class="rounded flex-1"
-                            @edit="(value) => editing.value = value"
-                            :theme="theme === 0 ? 'qw_dark' : 'chrome'"
-                            :mode="editing.type === 'js' ? 'javascript' : 'text'"
-                            ref="editor"
-                            v-else
+                                class="rounded flex-1"
+                                @edit="(value) => editing.value = value"
+                                :theme="theme === 0 ? 'qw_dark' : 'chrome'"
+                                :mode="editing.type === 'js' ? 'javascript' : 'text'"
+                                ref="editor"
+                                v-else
                         ></editor>
                         <emoji-picker @emoji="append" :search="searchEmojis" v-if="editing.type === 'plain'">
                             <div
-                                class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
-                                :class="['text-grey', ''][theme]"
-                                slot="emoji-invoker"
-                                slot-scope="{ events }"
-                                v-on="events"
+                                    class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
+                                    :class="['text-grey', ''][theme]"
+                                    slot="emoji-invoker"
+                                    slot-scope="{ events }"
+                                    v-on="events"
                             >
                                 <icon-face class="h-8 w-8 fill-current"></icon-face>
                             </div>
                             <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
                                 <div
-                                    class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
-                                    :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
+                                        class="absolute z-10 w-64 h-96 overflow-scroll p-4 rounded shadow t-6 r-6"
+                                        :class="['bg-grey-dark', 'border bg-grey-lightest'][theme]"
                                 >
                                     <div class="flex">
                                         <input
-                                            class="flex-1 rounded-full py-2 px-4"
-                                            :class="['bg-grey', 'bg-white border'][theme]"
-                                            type="text"
-                                            v-model="searchEmojis"
-                                            v-focus
+                                                class="flex-1 rounded-full py-2 px-4"
+                                                :class="['bg-grey', 'bg-white border'][theme]"
+                                                type="text"
+                                                v-model="searchEmojis"
+                                                v-focus
                                         >
                                     </div>
                                     <div>
                                         <div v-for="(emojiGroup, category) in emojis" :key="category">
                                             <h5
-                                                class="uppercase text-sm cursor-default mb-2 mt-4"
-                                                :class="['text-grey-darkest', 'text-grey-darker'][theme]"
+                                                    class="uppercase text-sm cursor-default mb-2 mt-4"
+                                                    :class="['text-grey-darkest', 'text-grey-darker'][theme]"
                                             >
                                                 {{ category }}
                                             </h5>
                                             <div class="flex flex-wrap justify-between emojis">
                                                 <span
-                                                    class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
-                                                    v-for="(emoji, emojiName) in emojiGroup"
-                                                    @click="insert(emoji)"
-                                                    :key="emojiName"
-                                                    :title="emojiName"
+                                                        class="p-1 cursor-pointer rounded hover:bg-grey-light flex items-center justify-center"
+                                                        v-for="(emoji, emojiName) in emojiGroup"
+                                                        @click="insert(emoji)"
+                                                        :key="emojiName"
+                                                        :title="emojiName"
                                                 >{{ emoji }}</span>
                                             </div>
                                         </div>
@@ -144,38 +151,41 @@
                             </div>
                         </emoji-picker>
                         <div class="absolute pin-r pin-b p-4 text-grey-darker text-sm pointer-events-none">
-                            <span class="relative" :class="(statusVisible) ? 'status-visible' : 'status-hidden'">{{ status }}</span>
+                            <span class="relative"
+                                  :class="(statusVisible) ? 'status-visible' : 'status-hidden'">{{ status }}</span>
                         </div>
                     </div>
                     <div class="relative flex">
                         <select
-                            tabindex="0"
-                            v-model="editing.type"
-                            class="p-4 rounded flex-1"
-                            :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
-                            @change="changedType"
+                                tabindex="0"
+                                v-model="editing.type"
+                                class="p-4 rounded flex-1"
+                                :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
+                                @change="changedType"
                         >
                             <option value="plain">Plain Text</option>
                             <option value="js">JavaScript</option>
                         </select>
-                        <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
+                        <icon-arrow-down
+                                class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
                     </div>
                 </div>
                 <div v-else class="flex flex-col h-full">
                     <input
-                        :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
-                        class="mb-4 p-4"
-                        type="text"
-                        placeholder="Trigger"
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            class="mb-4 p-4"
+                            type="text"
+                            placeholder="Trigger"
                     >
                     <textarea
-                        :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
-                        class="flex-1 p-4"
-                        placeholder="Substitute with..."
+                            :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
+                            class="flex-1 p-4"
+                            placeholder="Substitute with..."
                     ></textarea>
                 </div>
             </div>
-            <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
+            <div class="flex justify-center items-center logo" @click="edit(null)"
+                 :class="{ 'cursor-pointer': editing !== null }">
                 <div class="w-full" :class="['opacity-25', ''][theme]">
                     <icon-logo-mono v-if="theme === 0"></icon-logo-mono>
                     <icon-logo v-else></icon-logo>
