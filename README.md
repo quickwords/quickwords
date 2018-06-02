@@ -22,7 +22,7 @@ Download the [latest release](https://github.com/quickwords/quickwords/releases/
 Linux and Windows versions of the app are coming soon. In the meantime all PRs are very welcome.
 
 ## Privacy and Security
-Quickwords registers all global keyboard events, so it has an access to everything you type on the system. No data is saved on the system, and only 20 last keystrokes are remembered in the memory of the app. All your data should be absolutely secure.
+Quickwords registers all global keyboard events, so it has an access to everything you type on the system. No data is saved on the system, and only 20 last keystrokes are remembered in the memory of the app. All your data should be secure.
 
 If you discover a security vulnerability within Quickwords, please DM [@quickwordsapp](https://twitter.com/quickwordsapp). All security vulnerabilities will be promptly addressed.
 
