@@ -1,7 +1,7 @@
 const config = require('../../config')
 config.load()
 
-const { app, Tray, systemPreferences, clipboard } = require('electron')
+const { app, Tray, clipboard } = require('electron')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
@@ -12,10 +12,11 @@ const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
 const defaultSnippets = require('./modules/defaultSnippets')
+const platformAgnostic = require('./modules/platformAgnostic')
 let appIcon
 const store = new Store({
     defaults: {
-        theme: systemPreferences.isDarkMode() ? 0 : 1,
+        theme: platformAgnostic.get('theme'),
         autoLaunch: true,
         snippets: defaultSnippets,
         bufferLength: 20,

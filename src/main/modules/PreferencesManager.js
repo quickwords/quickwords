@@ -1,14 +1,15 @@
 const AutoLaunch = require('auto-launch')
-const { Notification, shell } = require('electron')
+const { app, Notification, shell } = require('electron')
 const fetch = require('node-fetch')
 const path = require('path')
+const platformAgnostic = require('./platformAgnostic')
 
 class PreferencesManager {
     constructor(store) {
         this.store = store
         this.autoLaunch = new AutoLaunch({
             name: 'Quickwords',
-            path: '/Applications/Quickwords.app',
+            path: app.getAppPath(),
         })
 
         if (this.store.get('autoLaunch') === true) {
@@ -69,7 +70,7 @@ class PreferencesManager {
             const notification = new Notification({
                 title: 'New Version Available',
                 body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                icon: path.join(__dirname, '../../../assets/icon.icns'),
+                icon: path.join(__dirname, platformAgnostic.get('notificationIcon')),
             })
 
             notification.on('click', () => shell.openExternal(url))
