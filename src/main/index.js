@@ -56,7 +56,9 @@ app.on('ready', () => {
         snippetsManager.shouldMatch = true
     })
 
-    doNotQuitAppOnWindowClosure(windows)
+    // if (platformAgnostic.mac()) {
+        doNotQuitAppOnWindowClosure(windows)
+    // }
 
     appIcon = new Tray(iconPath)
 
@@ -64,11 +66,13 @@ app.on('ready', () => {
     appIcon.setContextMenu(menu)
 
     if (process.env.ENVIRONMENT === 'production') {
-        registerNativeShortcuts(app, windows)
+        registerNativeShortcuts(app, windows) // @todo
     }
 })
 
-app.on('window-all-closed', () => {})
+// if (platformAgnostic.mac()) {
+    app.on('window-all-closed', () => {})
+// }
 
 app.on('before-quit', () => {
     unregisterWindowListeners(windows)
