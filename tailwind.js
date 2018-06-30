@@ -711,6 +711,7 @@ module.exports = {
         'lg': '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
         'xlg': '0 2px 4px -1px rgba(0, 0, 0, .1), 0 2px 2px -2px rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .04)',
         'inner': 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
+        'outline': '0 0 0 3px rgba(52,144,220,0.5)',
         'none': 'none',
     },
 
@@ -845,7 +846,7 @@ module.exports = {
         pointerEvents: ['responsive'],
         position: ['responsive'],
         resize: ['responsive'],
-        shadows: ['responsive', 'hover'],
+        shadows: ['responsive', 'hover', 'focus'],
         svgFill: [],
         svgStroke: [],
         textAlign: ['responsive'],

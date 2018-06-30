@@ -5,7 +5,7 @@
                 <router-link :to="{ name: 'Snippets' }" class="text-2xl text-grey-dark cursor-pointer no-underline">Snippets</router-link>
                 <span class="text-3xl ml-4">Preferences</span>
             </h1>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 custom-width-for-shadows px-4 -ml-4">
+            <div class="mb-8 mt-8 overflow-y-scroll pt-1 flex-1 custom-width-for-shadows px-4 -ml-4">
                 <div class="mb-8 flex-1">
                     <label
                         tabindex="0"

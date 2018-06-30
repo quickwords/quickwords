@@ -38,7 +38,7 @@
     "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
     "purgecss-webpack-plugin": "^0.22.1",
-    "tailwindcss": "^0.5.3"
+    "tailwindcss": "^0.6.1"
   },
   "dependencies": {
     "auto-launch": "^5.0.5",
