@@ -9,7 +9,7 @@
                 <div class="mb-8 flex-1">
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection('Manual')"
+                        @keydown.space="changeSection('Manual')"
                         @click="changeSection('Manual')"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
@@ -29,7 +29,7 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); theme = (theme === 0) ? 1 : 0"
+                        @keydown.space="changeSection(null); theme = (theme === 0) ? 1 : 0"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
@@ -47,7 +47,7 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); autoLaunch = !autoLaunch"
+                        @keydown.space="changeSection(null); autoLaunch = !autoLaunch"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
@@ -64,7 +64,7 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); autoUpdate = !autoUpdate"
+                        @keydown.space="changeSection(null); autoUpdate = !autoUpdate"
                         @click="changeSection(null)"
                         class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
@@ -85,7 +85,7 @@
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         aria-labelledby="characters_label"
                     >
-                        <span id="characters_label" class="select-none" >Stored Characters</span>
+                        <span id="characters_label" class="select-none">Stored Characters</span>
                         <input
                             type="text"
                             class="px-2 bg-grey-dark flex rounded w-16 text-right h-6"

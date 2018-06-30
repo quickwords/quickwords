@@ -3,8 +3,8 @@
         <div class="flex flex-col flex-2 p-8">
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
-                    <span tabindex="1" class="text-3xl">Snippets</span>
-                    <router-link tabindex="2" :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
+                    <span class="text-3xl">Snippets</span>
+                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -14,7 +14,6 @@
                     v-model="searchSnippets"
                     class="rounded flex-1 py-2 px-4"
                     :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
-                    tabindex="3"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
@@ -32,19 +31,19 @@
                     tabindex="0"
                     v-for="snippet in filteredSnippets"
                     :key="snippet.id"
-                    @keyup.enter="edit(snippet)"
+                    @keydown.space="edit(snippet)"
                     @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
                     <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
                     <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                    <button tabindex="0" class="flex items-center ml-2 " :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                    <button type="button" tabindex="0" class="flex items-center ml-2 " :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
                     </button>
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
+                <button type="button" class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
                     <icon-plus class="fill-current w-full h-full"></icon-plus>
                 </button>
             </div>
@@ -61,7 +60,7 @@
                             v-model="editing.key"
                             v-focus
                         >
-                        <label tabindex="0" for="regex" @keyup.enter="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
+                        <label tabindex="0" for="regex" @keydown.space="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                             <div class="mr-2">
                                 <icon-checkbox
