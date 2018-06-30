@@ -4,7 +4,7 @@
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
                     <span class="text-3xl">Snippets</span>
-                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
+                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4 focus:outline-none focus:shadow-outline" tabindex="1">Preferences</router-link>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -12,35 +12,39 @@
                     type="text"
                     placeholder="Search..."
                     v-model="searchSnippets"
-                    class="rounded flex-1 py-2 px-4"
+                    class="rounded flex-1 py-2 px-4 focus:outline-none focus:shadow-outline"
                     :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
+                    tabindex="2"
                 >
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
                 <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4" ref="list">
+            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 pt-1 -ml-4" ref="list">
                 <div
-                    class="items-center h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
+                    class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent focus:outline-none focus:shadow-outline"
                     :class="{
                         'bg-grey-darkest shadow-md': theme === 0,
                         'bg-grey-light': theme === 1,
                         'border-white': editing && editing.id === snippet.id && theme === 0,
                         'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
                     }"
+                    role="button"
+                    tabindex="0"
                     v-for="snippet in filteredSnippets"
                     :key="snippet.id"
+                    @keydown.space="edit(snippet)"
                     @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
                     <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
                     <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                    <span class="flex items-center ml-2" :class="['', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                    <button type="button" tabindex="0" class="flex items-center ml-2 rounded-full focus:outline-none focus:shadow-outline" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
-                    </span>
+                    </button>
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
+                <button type="button" class="flex items-center justify-center w-8 h-8 rounded-full focus:outline-none focus:shadow-outline" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet" tabindex="3">
                     <icon-plus class="fill-current w-full h-full"></icon-plus>
                 </button>
             </div>
@@ -57,7 +61,7 @@
                             v-model="editing.key"
                             v-focus
                         >
-                        <label for="regex" class="flex justify-center items-center cursor-pointer">
+                        <label tabindex="0" for="regex" @keydown.space="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                             <div class="mr-2">
                                 <icon-checkbox
@@ -95,11 +99,13 @@
                         ></editor>
                         <emoji-picker @emoji="append" :search="searchEmojis" v-if="editing.type === 'plain'">
                             <div
-                                class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
+                                class="absolute t-4 r-4 h-8 w-8 cursor-pointer emoji-invoker rounded-full focus:outline-none focus:shadow-outline"
                                 :class="['text-grey', ''][theme]"
                                 slot="emoji-invoker"
                                 slot-scope="{ events }"
                                 v-on="events"
+                                tabindex="0"
+                                @keydown.space="events.click"
                             >
                                 <icon-face class="h-8 w-8 fill-current"></icon-face>
                             </div>
@@ -145,6 +151,7 @@
                     </div>
                     <div class="relative flex">
                         <select
+                            tabindex="0"
                             v-model="editing.type"
                             class="p-4 rounded flex-1"
                             :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
@@ -156,7 +163,7 @@
                         <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
                     </div>
                 </div>
-                <div v-else class="flex flex-col h-full">
+                <div class="flex flex-col h-full" v-else>
                     <input
                         :class="['bg-grey-darkest text-grey-lightest', 'border'][theme]"
                         class="mb-4 p-4"

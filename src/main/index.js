@@ -67,7 +67,9 @@ app.on('ready', () => {
     }
 })
 
-app.on('window-all-closed', () => {})
+app.on('window-all-closed', () => {
+    //
+})
 
 app.on('before-quit', () => {
     unregisterWindowListeners(windows)
