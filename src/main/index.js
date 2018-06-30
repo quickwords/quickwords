@@ -57,7 +57,7 @@ app.on('ready', () => {
     })
 
     // if (platformAgnostic.mac()) {
-        doNotQuitAppOnWindowClosure(windows)
+    doNotQuitAppOnWindowClosure(windows)
     // }
 
     appIcon = new Tray(iconPath)
@@ -71,7 +71,9 @@ app.on('ready', () => {
 })
 
 // if (platformAgnostic.mac()) {
-    app.on('window-all-closed', () => {})
+app.on('window-all-closed', () => {
+    //
+})
 // }
 
 app.on('before-quit', () => {

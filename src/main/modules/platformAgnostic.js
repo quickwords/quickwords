@@ -1,4 +1,4 @@
-const { app, systemPreferences } = require('electron')
+const { systemPreferences } = require('electron')
 
 module.exports = {
     m: {
