@@ -115,9 +115,9 @@
 </template>
 
 <script>
-    import Checkbox from '../../../icons/Checkbox'
-    import Logo from '../../../icons/Logo'
-    import LogoMono from '../../../icons/LogoMono'
+    import IconCheckbox from '../../../icons/Checkbox'
+    import IconLogo from '../../../icons/Logo'
+    import IconLogoMono from '../../../icons/LogoMono'
 
     import PageManual from './PageManual'
     import PageShortcuts from './PageShortcuts'
@@ -127,9 +127,9 @@
 
     export default {
         components: {
-            IconCheckbox: Checkbox,
-            IconLogo: Logo,
-            IconLogoMono: LogoMono,
+            IconCheckbox,
+            IconLogo,
+            IconLogoMono,
             PageManual,
             PageShortcuts,
         },
