@@ -261,7 +261,7 @@
             },
             add() {
                 const newSnippet = {
-                    id: Math.floor(Math.random() * (9999999 - 1000000)) + 1000000,
+                    id: _.random(1000000, 9999999),
                     key: '',
                     value: '',
                     regex: false,
@@ -309,7 +309,7 @@
             },
         },
         created() {
-            this.snippets = JSON.parse(JSON.stringify(this.$store.getters.snippets))
+            this.snippets = _.cloneDeep(this.$store.getters.snippets)
         },
     }
 </script>
