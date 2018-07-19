@@ -238,7 +238,7 @@
                     return this.snippets
                 }
 
-                const regex = new RegExp(`.*${this.searchSnippets}.*`)
+                const regex = new RegExp(`.*${this.searchSnippets}.*`, 'i')
 
                 return this.snippets.filter((snippet) => regex.test(snippet.key) || regex.test(snippet.value))
             },
