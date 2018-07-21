@@ -14,6 +14,8 @@
 Quickwords is a productivity app, to get on with your work quicker. It helps you substitute common words, phrases and paragraphs with just few key strokes. It is available on MacOS (other systems coming very soon).
 You can check out the [website](https://quickwords.co) and [full documentation](https://quickwords.co/docs) for more information.
 
+![](https://i.imgur.com/asCk1Ds.png)
+
 ## Installation
 ### MacOS
 Download the [latest release](https://github.com/quickwords/quickwords/releases/latest), unzip and drag `Quickwords.app` to your `Applications` folder.
