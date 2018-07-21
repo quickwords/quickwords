@@ -14,7 +14,7 @@ module.exports = {
     w: {
         theme: 1,
         titleBarStyle: 'default',
-        notificationIcon: '../../../assets/icon.png', // @todo
+        notificationIcon: '../../../assets/icon.png',
     },
     get(key) {
         if (this.mac()) {
