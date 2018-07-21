@@ -1,7 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
-const platformAgnostic = require('../platformAgnostic')
+const platformAgnostic = require('../modules/platformAgnostic')
 
 module.exports = {
     navigate(to) {
