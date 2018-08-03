@@ -1,7 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
-const platformAgnostic = require('../modules/platformAgnostic')
+const PlatformAware = require('../modules/PlatformAware')
 
 module.exports = {
     navigate(to) {
@@ -14,7 +14,7 @@ module.exports = {
             minHeight: 360,
             width: 940,
             height: 600,
-            titleBarStyle: platformAgnostic.get('titleBarStyle'),
+            titleBarStyle: PlatformAware.get('titleBarStyle'),
         })
 
         this.ctx.loadURL(url.format({

@@ -2,7 +2,7 @@ const AutoLaunch = require('auto-launch')
 const { app, Notification, shell } = require('electron')
 const fetch = require('node-fetch')
 const path = require('path')
-const platformAgnostic = require('./platformAgnostic')
+const PlatformAware = require('./PlatformAware')
 
 class PreferencesManager {
     constructor(store) {
@@ -70,7 +70,7 @@ class PreferencesManager {
             const notification = new Notification({
                 title: 'New Version Available',
                 body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                icon: path.join(__dirname, platformAgnostic.get('notificationIcon')),
+                icon: path.join(__dirname, PlatformAware.get('notificationIcon')),
             })
 
             notification.on('click', () => shell.openExternal(url))

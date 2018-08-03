@@ -12,11 +12,11 @@ const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
 const defaultSnippets = require('./modules/defaultSnippets')
-const platformAgnostic = require('./modules/platformAgnostic')
+const PlatformAware = require('./modules/PlatformAware')
 let appIcon
 const store = new Store({
     defaults: {
-        theme: platformAgnostic.get('theme'),
+        theme: PlatformAware.get('theme'),
         autoLaunch: true,
         snippets: defaultSnippets,
         bufferLength: 20,
@@ -56,7 +56,7 @@ app.on('ready', () => {
         snippetsManager.shouldMatch = true
     })
 
-    // if (platformAgnostic.mac()) {
+    // if (PlatformAware.mac()) {
     doNotQuitAppOnWindowClosure(windows)
     // }
 
@@ -70,7 +70,7 @@ app.on('ready', () => {
     }
 })
 
-// if (platformAgnostic.mac()) {
+// if (PlatformAware.mac()) {
 app.on('window-all-closed', () => {
     //
 })
