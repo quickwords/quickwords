@@ -19,8 +19,8 @@ class SnippetsManager {
 
         this.keyboardSimulator.setKeyboardDelay(0)
 
-        this.keyboardHandler.on('keydown', e => this._onKeyDown(e))
-        this.keyboardHandler.on('mouseclick', e => this._onMouseClick(e))
+        this.keyboardHandler.on('keydown', this._onKeyDown.bind(this))
+        this.keyboardHandler.on('mouseclick', this._onMouseClick.bind(this))
 
         this.keyboardHandler.start()
     }
@@ -104,8 +104,6 @@ class SnippetsManager {
             this._shortenBufferIfNecessary()
             this._replaceSnippetIfMatchFound()
         }
-
-        console.log(this.buffer)
     }
 
     _evaluate(matchedString, code) {
