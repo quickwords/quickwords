@@ -160,7 +160,7 @@ class SnippetsManager {
 
             if (!snippet.regex) {
                 // escape all regex-special characters
-                key = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+                key = _.escapeRegExp(key)
             }
 
             const match = new RegExp(`.*(${key})$`).exec(this.buffer)
