@@ -1,6 +1,7 @@
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
+const PlatformAware = require('./PlatformAware')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -190,10 +191,18 @@ class SnippetsManager {
         } catch (error) {
             this.clipboard.writeText(`QWError: ${_.get('error', 'message', String(error))}`)
         } finally {
-            setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
+            setTimeout(() => this.paste(), 50)
             setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
         }
     }
+
+    paste() {
+        if (PlatformAware.mac()) {
+            this.keyboardSimulator.keyTap('v', 'command')
+        } else {
+            this.keyboardSimulator.keyTap('v', 'control')
+        }
+    },
 
     _handlePlainTextSnippet(value) {
         const clipboardContent = this.clipboard.readText()
