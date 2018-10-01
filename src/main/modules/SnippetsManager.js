@@ -1,6 +1,7 @@
 const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
+const Notification = require('./Notification')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -195,7 +196,13 @@ class SnippetsManager {
         try {
             return await this._evaluate(matchedString, code)
         } catch (error) {
-            return `QWError: ${_.get('error', 'message', String(error))}`
+            if (!Notification.isSupported()) {
+                return `QWError ${_.get('error', 'message', String(error))}`
+            }
+
+            Notification.show('QWError', _.get('error', 'message', String(error)))
+
+            return ''
         }
     }
 
