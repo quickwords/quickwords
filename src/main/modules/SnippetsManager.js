@@ -202,7 +202,7 @@ class SnippetsManager {
         } else {
             this.keyboardSimulator.keyTap('v', 'control')
         }
-    },
+    }
 
     _handlePlainTextSnippet(value) {
         const clipboardContent = this.clipboard.readText()
