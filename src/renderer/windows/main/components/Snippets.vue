@@ -190,29 +190,29 @@
 
 <script>
     import Vue from 'vue'
-    import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
     import Editor from './Editor'
+    import EmojiPicker from 'vue-emoji-picker'
 
-    import ArrowDown from '../../../icons/ArrowDown'
-    import Checkbox from '../../../icons/Checkbox'
-    import Face from '../../../icons/Face'
-    import Logo from '../../../icons/Logo'
-    import LogoMono from '../../../icons/LogoMono'
-    import Plus from '../../../icons/Plus'
-    import Remove from '../../../icons/Remove'
+    import IconArrowDown from '../../../icons/ArrowDown'
+    import IconCheckbox from '../../../icons/Checkbox'
+    import IconFace from '../../../icons/Face'
+    import IconLogo from '../../../icons/Logo'
+    import IconLogoMono from '../../../icons/LogoMono'
+    import IconPlus from '../../../icons/Plus'
+    import IconRemove from '../../../icons/Remove'
 
     export default {
         components: {
-            IconArrowDown: ArrowDown,
-            IconCheckbox: Checkbox,
-            IconFace: Face,
-            IconLogo: Logo,
-            IconLogoMono: LogoMono,
-            IconPlus: Plus,
-            IconRemove: Remove,
-            EmojiPicker: EmojiPicker,
-            Editor: Editor,
+            Editor,
+            EmojiPicker,
+            IconArrowDown,
+            IconCheckbox,
+            IconFace,
+            IconLogo,
+            IconLogoMono,
+            IconPlus,
+            IconRemove,
         },
         data() {
             return {
@@ -238,7 +238,7 @@
                     return this.snippets
                 }
 
-                const regex = new RegExp(`.*${this.searchSnippets}.*`)
+                const regex = new RegExp(`.*${this.searchSnippets}.*`, 'i')
 
                 return this.snippets.filter((snippet) => regex.test(snippet.key) || regex.test(snippet.value))
             },
@@ -261,7 +261,7 @@
             },
             add() {
                 const newSnippet = {
-                    id: Math.floor(Math.random() * (9999999 - 1000000)) + 1000000,
+                    id: _.random(1000000, 9999999),
                     key: '',
                     value: '',
                     regex: false,
@@ -309,7 +309,7 @@
             },
         },
         created() {
-            this.snippets = JSON.parse(JSON.stringify(this.$store.getters.snippets))
+            this.snippets = _.cloneDeep(this.$store.getters.snippets)
         },
     }
 </script>
