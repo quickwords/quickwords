@@ -154,7 +154,7 @@ class SnippetsManager {
         })
     }
 
-    _replaceSnippetIfMatchFound() {
+    async _replaceSnippetIfMatchFound() {
         for (const snippet of this.store.get('snippets')) {
             let key = snippet.key
 
@@ -172,9 +172,9 @@ class SnippetsManager {
                 }
 
                 if (snippet.type === 'js') {
-                    this._handleJavascriptSnippet(matchedString, snippet.value)
+                    this.replace(await this._handleJavascriptSnippet(matchedString, snippet.value))
                 } else {
-                    this._handlePlainTextSnippet(snippet.value)
+                    this.replace(this._handlePlainTextSnippet(snippet.value))
                 }
 
                 break
@@ -182,28 +182,25 @@ class SnippetsManager {
         }
     }
 
-    async _handleJavascriptSnippet(matchedString, code) {
-        const clipboardContent = this.clipboard.readText()
-
-        try {
-            const data = await this._evaluate(matchedString, code)
-
-            this.clipboard.writeText(data)
-        } catch (error) {
-            this.clipboard.writeText(`QWError: ${_.get('error', 'message', String(error))}`)
-        } finally {
-            setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
-            setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
-        }
-    }
-
-    _handlePlainTextSnippet(value) {
+    replace(value) {
         const clipboardContent = this.clipboard.readText()
 
         this.clipboard.writeText(value)
 
         setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
         setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
+    }
+
+    async _handleJavascriptSnippet(matchedString, code) {
+        try {
+            return await this._evaluate(matchedString, code)
+        } catch (error) {
+            return `QWError: ${_.get('error', 'message', String(error))}`
+        }
+    }
+
+    _handlePlainTextSnippet(value) {
+        return value
     }
 
     _addCharToBuffer(character) {
