@@ -2,7 +2,6 @@ const chars = require('./chars')
 const NativeKeymap = require('native-keymap')
 const _ = require('lodash')
 const Notification = require('./Notification')
-const clipboardy = require('clipboardy')
 const fixPath = require('fix-path')
 
 const KEY_BACKSPACE = 'Backspace'
@@ -10,10 +9,11 @@ const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({ store, keyboardHandler, keyboardSimulator }) {
+    constructor({ store, keyboardHandler, keyboardSimulator, clipboardy }) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
+        this.clipboardy = clipboardy
 
         this.buffer = ''
         this.shouldMatch = true
@@ -189,28 +189,22 @@ class SnippetsManager {
 
     replace(value) {
         try {
-            // 1. store old clipboard data
-            const clipboardContent = clipboardy.readSync()
-            // 2. place value in clipboard
-            clipboardy.writeSync(value)
-            // 3. perform paste (takes 1-3 ms)
+            const clipboardContent = this.clipboardy.readSync()
+            this.clipboardy.writeSync(value)
+            console.log(this.clipboardy.readSync())
             this.keyboardSimulator.keyTap('v', 'command')
-            // 4. place stored data back in clipboard
-            setTimeout(() => clipboardy.writeSync(clipboardContent), 50)
-            return true
+            setTimeout(() => this.clipboardy.writeSync(clipboardContent), 50)
         } catch (error) {
             if (!Notification.isSupported()) {
-                clipboardy.writeSync(`QWError ${_.get(
+                this.clipboardy.writeSync(`QWError ${_.get(
                     'error',
                     'message',
                     String(error)
                 )}`)
                 this.keyboardSimulator.keyTap('v', 'command')
-                return false
             }
 
             Notification.show('QWError', _.get('error', 'message', String(error)))
-            return false
         }
 
     }

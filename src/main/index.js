@@ -2,6 +2,7 @@ const config = require('../../config')
 config.load()
 
 const { app, Tray, systemPreferences } = require('electron')
+const clipboardy = require('clipboardy')
 const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
@@ -25,6 +26,7 @@ const store = new Store({
 
 const snippetsManager = new SnippetsManager({
     store,
+    clipboardy,
     keyboardHandler: require('iohook'),
     keyboardSimulator: require('robotjs'),
 })

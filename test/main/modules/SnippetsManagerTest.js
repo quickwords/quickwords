@@ -18,6 +18,15 @@ const keyboardSimulator = {
     },
 }
 
+const clipboardy = {
+    readSync() {
+        //
+    },
+    writeSync(string) {
+        //
+    },
+}
+
 const store = {
     get(key) {
         //
@@ -25,7 +34,7 @@ const store = {
 }
 
 const SnippetsManager = require('../../../out/main/modules/SnippetsManager')
-const snippetsManager = new SnippetsManager({ store, keyboardHandler, keyboardSimulator })
+const snippetsManager = new SnippetsManager({ store, keyboardHandler, keyboardSimulator, clipboardy })
 
 describe('SnippetsManager', () => {
     describe('_evaluate', () => {
