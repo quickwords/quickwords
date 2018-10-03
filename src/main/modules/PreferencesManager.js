@@ -2,6 +2,7 @@ const AutoLaunch = require('auto-launch')
 const { shell } = require('electron')
 const Notification = require('./Notification')
 const fetch = require('node-fetch')
+const { config } = require('../../../config')
 
 class PreferencesManager {
     constructor(store) {
@@ -47,7 +48,7 @@ class PreferencesManager {
     }
 
     async checkForNewVersion() {
-        const currentVersion = require('../../../package.json').version.split('.')
+        const currentVersion = config.VERSION.split('.')
 
         let data
 
