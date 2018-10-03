@@ -2,17 +2,17 @@ const chars = require('./chars')
 const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
 const Notification = require('./Notification')
+const clipboardy = require('clipboardy')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({ store, keyboardHandler, keyboardSimulator, clipboard }) {
+    constructor({store, keyboardHandler, keyboardSimulator}) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
-        this.clipboard = clipboard
 
         this.buffer = ''
         this.shouldMatch = true
@@ -39,7 +39,7 @@ class SnippetsManager {
         return _.get(chars, keycode, null)
     }
 
-    _eventToUnicode({ keycode, shiftKey, altKey, ctrlKey, metaKey }) {
+    _eventToUnicode({keycode, shiftKey, altKey, ctrlKey, metaKey}) {
         const name = this._getCharNameFromKeycode(keycode)
 
         if (!name || !(name in keymap)) {
@@ -75,7 +75,7 @@ class SnippetsManager {
         this._resetBuffer()
     }
 
-    _shouldResetBuffer({ keycode, altKey }) {
+    _shouldResetBuffer({keycode, altKey}) {
         const pressed = this._getCharNameFromKeycode(keycode)
 
         return (pressed === KEY_BACKSPACE && altKey === true)
@@ -184,12 +184,31 @@ class SnippetsManager {
     }
 
     replace(value) {
-        const clipboardContent = this.clipboard.readText()
+        try {
+            // 1. store old clipboard data
+            const clipboardContent = clipboardy.readSync()
+            // 2. place value in clipboard
+            clipboardy.writeSync(value)
+            // 3. perform paste (takes 1-3 ms)
+            this.keyboardSimulator.keyTap('v', 'command')
+            // 4. place stored data back in clipboard
+            setTimeout(() => clipboardy.writeSync(clipboardContent), 50)
+            return true
+        } catch (error) {
+            if (!Notification.isSupported()) {
+                clipboardy.writeSync(`QWError ${_.get(
+                    'error',
+                    'message',
+                    String(error)
+                )}`)
+                this.keyboardSimulator.keyTap('v', 'command')
+                return false
+            }
 
-        this.clipboard.writeText(value)
+            Notification.show('QWError', _.get('error', 'message', String(error)))
+            return false
+        }
 
-        setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
-        setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
     }
 
     async _handleJavascriptSnippet(matchedString, code) {
