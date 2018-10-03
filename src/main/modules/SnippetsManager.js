@@ -2,6 +2,7 @@ const chars = require('./chars')
 const NativeKeymap = require('native-keymap')
 const _ = require('lodash')
 const Notification = require('./Notification')
+const fixPath = require('fix-path')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -24,6 +25,8 @@ class SnippetsManager {
         this.keyboardHandler.on('mouseclick', e => this._onMouseClick(e))
 
         this.keyboardHandler.start()
+
+        fixPath()
     }
 
     destructor() {
