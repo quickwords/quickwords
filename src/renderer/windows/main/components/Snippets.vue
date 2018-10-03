@@ -4,11 +4,11 @@
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
                     <span class="text-3xl">Snippets</span>
-                    <router-link
-                        :to="{ name: 'Preferences' }"
-                        class="text-2xl text-grey-dark cursor-pointer no-underline ml-4 focus:outline-none focus:shadow-outline"
+                    <button
+                        @click="$router.push({ name: 'Preferences' })"
+                        class="text-2xl text-grey-dark cursor-pointer underline ml-4 px-1 rounded focus:outline-none focus:shadow-outline"
                         tabindex="1"
-                    >Preferences</router-link>
+                    >Preferences</button>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -75,7 +75,7 @@
                 <div v-if="editing" class="flex flex-col h-full">
                     <div class="flex mb-4">
                         <input
-                            class="rounded p-4 mr-4 flex-1"
+                            class="rounded p-4 mr-4 flex-1 focus:outline-none focus:shadow-outline"
                             :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
@@ -93,12 +93,12 @@
                                 <icon-checkbox
                                     v-if="editing.regex"
                                     :checked="true"
-                                    class="text-brand-blue fill-current w-6 h-6"
+                                    class="text-brand-blue fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
                                 ></icon-checkbox>
                                 <icon-checkbox
                                     v-else
                                     :checked="false"
-                                    class="fill-current w-6 h-6"
+                                    class="fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
                                     :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
                                 ></icon-checkbox>
                             </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
                         <textarea
-                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans"
+                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans focus:outline-none focus:shadow-outline"
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
@@ -179,7 +179,7 @@
                         <select
                             tabindex="0"
                             v-model="editing.type"
-                            class="p-4 rounded flex-1"
+                            class="p-4 rounded flex-1 focus:outline-none focus:shadow-outline"
                             :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
                             @change="changedType"
                         >
@@ -205,15 +205,25 @@
                     ></textarea>
                 </div>
             </div>
-            <div
-                class="flex justify-center items-center logo"
-                @click="edit(null)"
-                :class="{ 'cursor-pointer': editing !== null }"
-            >
-                <div class="w-full" :class="['opacity-25', ''][theme]">
+            <div class="flex justify-center items-center logo">
+                <div
+                    v-if="editing === null"
+                    class="w-48"
+                    :class="{
+                        'opacity-25': theme === 0,
+                    }"
+                >
                     <icon-logo-mono v-if="theme === 0"></icon-logo-mono>
                     <icon-logo v-else></icon-logo>
                 </div>
+                <button
+                    v-else
+                    @click.prevent="edit(null)"
+                    class="w-48 cursor-pointer p-1 focus:outline-none focus:shadow-outline rounded"
+                >
+                    <icon-logo-mono v-if="theme === 0" class="opacity-25"></icon-logo-mono>
+                    <icon-logo v-else></icon-logo>
+                </button>
             </div>
             <div class="h-12"></div>
         </div>
@@ -287,7 +297,7 @@
             edit(snippet) {
                 this.editing = snippet
 
-                if (this.editing.type === 'js') {
+                if (this.editing && this.editing.type === 'js') {
                     Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
                 }
             },
