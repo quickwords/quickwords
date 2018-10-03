@@ -3,13 +3,14 @@ const keymap = require('native-keymap').getKeyMap()
 const _ = require('lodash')
 const Notification = require('./Notification')
 const clipboardy = require('clipboardy')
+const fixPath = require('fix-path')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({store, keyboardHandler, keyboardSimulator}) {
+    constructor({ store, keyboardHandler, keyboardSimulator }) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
@@ -24,6 +25,8 @@ class SnippetsManager {
         this.keyboardHandler.on('mouseclick', e => this._onMouseClick(e))
 
         this.keyboardHandler.start()
+
+        fixPath()
     }
 
     destructor() {
@@ -39,7 +42,7 @@ class SnippetsManager {
         return _.get(chars, keycode, null)
     }
 
-    _eventToUnicode({keycode, shiftKey, altKey, ctrlKey, metaKey}) {
+    _eventToUnicode({ keycode, shiftKey, altKey, ctrlKey, metaKey }) {
         const name = this._getCharNameFromKeycode(keycode)
 
         if (!name || !(name in keymap)) {
@@ -75,7 +78,7 @@ class SnippetsManager {
         this._resetBuffer()
     }
 
-    _shouldResetBuffer({keycode, altKey}) {
+    _shouldResetBuffer({ keycode, altKey }) {
         const pressed = this._getCharNameFromKeycode(keycode)
 
         return (pressed === KEY_BACKSPACE && altKey === true)
