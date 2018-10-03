@@ -12,7 +12,7 @@ select, button
     -webkit-appearance: none
 
 *:focus
-    outline-color: #29abe2
+    outline: none
 
 // Component classes registered by plugins.
 @tailwind components
@@ -105,5 +105,8 @@ select, button
 .ace_tooltip
     left: 10px !important
     transform: translateY(-30px)
+
+.group:focus .group-focus\:shadow-outline
+    @apply .shadow-outline
 
 @import 'qw_dark'
