@@ -16,16 +16,14 @@ module.exports = Menu.buildFromTemplate([
         label: 'Snippets',
         // accelerator: 'Command+S',
         click() {
-            mainWindow.navigate('Snippets')
-            setTimeout(() => mainWindow.ctx.show(), 500)
+            mainWindow.show('Snippets')
         },
     },
     {
         label: 'Preferences',
         // accelerator: 'Command+,',
         click() {
-            mainWindow.navigate('Preferences')
-            setTimeout(() => mainWindow.ctx.show(), 500)
+            mainWindow.show('Preferences')
         },
     },
     {
