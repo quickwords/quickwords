@@ -164,7 +164,6 @@ class SnippetsManager {
             let key = snippet.key
 
             if (!snippet.regex) {
-                // escape all regex-special characters
                 key = _.escapeRegExp(key)
             }
 
@@ -188,12 +187,30 @@ class SnippetsManager {
     }
 
     replace(value) {
-        const clipboardContent = this.clipboard.readText()
+        try {
+            const clipboardContent = this.clipboard.readSync()
 
-        this.clipboard.writeText(value)
+            this.clipboard.writeSync(value)
 
-        setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
-        setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
+            this.keyboardSimulator.keyTap('v', 'command')
+
+            setTimeout(() => this.clipboard.writeSync(clipboardContent), 50)
+        } catch (error) {
+            if (!Notification.isSupported()) {
+                this.clipboard.writeSync(`QWError ${_.get(
+                    'error',
+                    'message',
+                    String(error)
+                )}`)
+
+                this.keyboardSimulator.keyTap('v', 'command')
+
+                return
+            }
+
+            Notification.show('QWError', _.get('error', 'message', String(error)))
+        }
+
     }
 
     async _handleJavascriptSnippet(matchedString, code) {

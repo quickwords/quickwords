@@ -19,10 +19,10 @@ const keyboardSimulator = {
 }
 
 const clipboard = {
-    readText() {
+    readSync() {
         //
     },
-    writeText() {
+    writeSync(string) {
         //
     },
 }
