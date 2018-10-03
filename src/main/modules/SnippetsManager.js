@@ -9,11 +9,11 @@ const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({ store, keyboardHandler, keyboardSimulator, clipboardy }) {
+    constructor({ store, keyboardHandler, keyboardSimulator, clipboard }) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
-        this.clipboardy = clipboardy
+        this.clipboard = clipboard
 
         this.buffer = ''
         this.shouldMatch = true
@@ -164,7 +164,6 @@ class SnippetsManager {
             let key = snippet.key
 
             if (!snippet.regex) {
-                // escape all regex-special characters
                 key = _.escapeRegExp(key)
             }
 
@@ -189,18 +188,24 @@ class SnippetsManager {
 
     replace(value) {
         try {
-            const clipboardContent = this.clipboardy.readSync()
-            this.clipboardy.writeSync(value)
+            const clipboardContent = this.clipboard.readSync()
+
+            this.clipboard.writeSync(value)
+
             this.keyboardSimulator.keyTap('v', 'command')
-            setTimeout(() => this.clipboardy.writeSync(clipboardContent), 50)
+
+            setTimeout(() => this.clipboard.writeSync(clipboardContent), 50)
         } catch (error) {
             if (!Notification.isSupported()) {
-                this.clipboardy.writeSync(`QWError ${_.get(
+                this.clipboard.writeSync(`QWError ${_.get(
                     'error',
                     'message',
                     String(error)
                 )}`)
+
                 this.keyboardSimulator.keyTap('v', 'command')
+
+                return
             }
 
             Notification.show('QWError', _.get('error', 'message', String(error)))
