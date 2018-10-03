@@ -15,6 +15,9 @@ class SnippetsManager {
         this.keyboardSimulator = keyboardSimulator
         this.clipboardy = clipboardy
 
+        this.remember = false
+        this.thingToRemember = ''
+
         this.buffer = ''
         this.shouldMatch = true
         this.timeout = 5000 // 5 seconds
@@ -90,6 +93,11 @@ class SnippetsManager {
     _onKeyDown(e) {
         if (!this.shouldMatch) {
             return
+        }
+
+        if (this.remember && e.keycode === 47) {
+            setTimeout(() => this.clipboardy.writeSync(this.thingToRemember), 10)
+            this.remember = false
         }
 
         if (this._shouldResetBuffer(e)) {
@@ -189,10 +197,10 @@ class SnippetsManager {
 
     replace(value) {
         try {
-            const clipboardContent = this.clipboardy.readSync()
+            this.remember = true
+            this.thingToRemember = this.clipboardy.readSync()
             this.clipboardy.writeSync(value)
             this.keyboardSimulator.keyTap('v', 'command')
-            setTimeout(() => this.clipboardy.writeSync(clipboardContent), 50)
         } catch (error) {
             if (!Notification.isSupported()) {
                 this.clipboardy.writeSync(`QWError ${_.get(
