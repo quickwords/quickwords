@@ -191,7 +191,6 @@ class SnippetsManager {
         try {
             const clipboardContent = this.clipboardy.readSync()
             this.clipboardy.writeSync(value)
-            console.log(this.clipboardy.readSync())
             this.keyboardSimulator.keyTap('v', 'command')
             setTimeout(() => this.clipboardy.writeSync(clipboardContent), 50)
         } catch (error) {
