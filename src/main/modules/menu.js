@@ -6,7 +6,7 @@ module.exports = Menu.buildFromTemplate([
     {
         label: 'About Quickwords',
         click() {
-            aboutWindow.ctx.show()
+            aboutWindow.show()
         },
     },
     {
