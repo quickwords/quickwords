@@ -16,7 +16,10 @@
                         role="button"
                         aria-labelledby="manual_label"
                     >
-                        <span id="manual_label" class="select-none">Manual</span>
+                        <span id="manual_label" class="select-none flex items-center">
+                            <span>Manual</span>
+                            <icon-external class="h-4 w-4 -mt-2px ml-1 fill-current"></icon-external>
+                        </span>
                     </label>
 
                     <!-- <label
@@ -116,6 +119,7 @@
 
 <script>
     import IconCheckbox from '../../../icons/Checkbox'
+    import IconExternal from '../../../icons/External'
     import IconLogo from '../../../icons/Logo'
     import IconLogoMono from '../../../icons/LogoMono'
 
@@ -128,6 +132,7 @@
     export default {
         components: {
             IconCheckbox,
+            IconExternal,
             IconLogo,
             IconLogoMono,
             PageManual,
