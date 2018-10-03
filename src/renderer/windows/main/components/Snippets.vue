@@ -4,7 +4,11 @@
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
                     <span class="text-3xl">Snippets</span>
-                    <router-link :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4 focus:outline-none focus:shadow-outline" tabindex="1">Preferences</router-link>
+                    <router-link
+                        :to="{ name: 'Preferences' }"
+                        class="text-2xl text-grey-dark cursor-pointer no-underline ml-4 focus:outline-none focus:shadow-outline"
+                        tabindex="1"
+                    >Preferences</router-link>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -16,8 +20,6 @@
                     :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
                     tabindex="2"
                 >
-                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
-                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
             <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 pt-1 -ml-4" ref="list">
                 <div
@@ -36,15 +38,34 @@
                     @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                    <button type="button" tabindex="0" class="flex items-center ml-2 rounded-full focus:outline-none focus:shadow-outline" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                    <span
+                        class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full"
+                        v-if="snippet.regex"
+                    >regex</span>
+                    <span
+                        class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full"
+                        v-if="snippet.type === 'js'"
+                    >js</span>
+                    <button
+                        type="button"
+                        tabindex="0"
+                        class="flex items-center ml-2 rounded-full focus:outline-none focus:shadow-outline"
+                        :class="['text-grey-light', 'text-grey-darkest'][theme]"
+                        @click.stop="remove(snippet)"
+                    >
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
                     </button>
                 </div>
             </div>
             <div class="flex justify-end">
-                <button type="button" class="flex items-center justify-center w-8 h-8 rounded-full focus:outline-none focus:shadow-outline" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet" tabindex="3">
+                <button
+                    type="button"
+                    class="flex items-center justify-center w-8 h-8 rounded-full focus:outline-none focus:shadow-outline"
+                    :class="['text-grey-light', 'text-grey-darkest'][theme]"
+                    @click="add"
+                    title="Add snippet"
+                    tabindex="3"
+                >
                     <icon-plus class="fill-current w-full h-full"></icon-plus>
                 </button>
             </div>
@@ -61,7 +82,12 @@
                             v-model="editing.key"
                             v-focus
                         >
-                        <label tabindex="0" for="regex" @keydown.space="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
+                        <label
+                            tabindex="0"
+                            for="regex"
+                            @keydown.space="editing.regex = !editing.regex"
+                            class="flex justify-center items-center cursor-pointer group"
+                        >
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                             <div class="mr-2">
                                 <icon-checkbox
@@ -160,7 +186,9 @@
                             <option value="plain">Plain Text</option>
                             <option value="js">JavaScript</option>
                         </select>
-                        <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
+                        <icon-arrow-down
+                            class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"
+                        ></icon-arrow-down>
                     </div>
                 </div>
                 <div class="flex flex-col h-full" v-else>
@@ -177,7 +205,11 @@
                     ></textarea>
                 </div>
             </div>
-            <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
+            <div
+                class="flex justify-center items-center logo"
+                @click="edit(null)"
+                :class="{ 'cursor-pointer': editing !== null }"
+            >
                 <div class="w-full" :class="['opacity-25', ''][theme]">
                     <icon-logo-mono v-if="theme === 0"></icon-logo-mono>
                     <icon-logo v-else></icon-logo>
@@ -295,10 +327,13 @@
                 this.statusVisible = false
             }, 3000),
             changedType() {
-                if (this.editing.type === 'js' && !this.editing.value) {
-                    this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction qw(trigger) {\n  return trigger.toUpperCase()\n}\n'
+                if (this.editing.type === 'js') {
+                    if (!this.editing.value) {
+                        this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction qw(trigger) {\n  return trigger.toUpperCase()\n}\n'
+                    }
+
+                    Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
                 }
-                Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
             },
         },
         directives: {
