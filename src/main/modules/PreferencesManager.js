@@ -1,7 +1,7 @@
 const AutoLaunch = require('auto-launch')
-const { Notification, shell } = require('electron')
+const { shell } = require('electron')
+const Notification = require('./Notification')
 const fetch = require('node-fetch')
-const path = require('path')
 
 class PreferencesManager {
     constructor(store) {
@@ -66,15 +66,11 @@ class PreferencesManager {
             || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] > currentVersion[1])
             || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] === currentVersion[1] && currentNewestVersion[2] > currentVersion[2])
         ) {
-            const notification = new Notification({
-                title: 'New Version Available',
-                body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                icon: path.join(__dirname, '../../../assets/icon.icns'),
-            })
-
-            notification.on('click', () => shell.openExternal(url))
-
-            notification.show()
+            Notification.show(
+                'New Version Available',
+                `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
+                () => shell.openExternal(url)
+            )
 
             return true
         }
