@@ -2,40 +2,38 @@
     <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
         <div class="flex flex-col flex-2 p-8">
             <h1 class="flex items-center h-12">
-                <router-link :to="{ name: 'Snippets' }" class="text-2xl text-grey-dark cursor-pointer no-underline">Snippets</router-link>
+                <button
+                    @click="$router.push({ name: 'Snippets' })"
+                    class="text-2xl text-grey-dark cursor-pointer underline ml-4 px-1 rounded focus:outline-none focus:shadow-outline"
+                >Snippets</button>
                 <span class="text-3xl ml-4">Preferences</span>
             </h1>
-            <div class="mb-8 mt-8 overflow-y-scroll flex-1 custom-width-for-shadows px-4 -ml-4">
+            <div class="mb-8 mt-8 overflow-y-scroll pt-1 flex-1 custom-width-for-shadows px-4 -ml-4">
                 <div class="mb-8 flex-1">
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection('Manual')"
+                        @keydown.space="changeSection('Manual')"
                         @click="changeSection('Manual')"
-                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer focus:outline-none focus:shadow-outline"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="button"
                         aria-labelledby="manual_label"
                     >
-                        <span id="manual_label" class="select-none">Manual</span>
+                        <span id="manual_label" class="select-none flex items-center">
+                            <span>Manual</span>
+                            <icon-external class="h-4 w-4 -mt-2px ml-1 fill-current"></icon-external>
+                        </span>
                     </label>
-
-                    <!-- <label
-                        @click="changeSection('Shortcuts')"
-                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
-                        :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
-                    >
-                        <span class="select-none">Shortcuts</span>
-                    </label> -->
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); theme = (theme)===0 ? 1:0"
+                        @keydown.space="changeSection(null); theme = (theme === 0) ? 1 : 0"
                         @click="changeSection(null)"
-                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer focus:outline-none focus:shadow-outline"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="theme_label"
-                        :aria-checked="(theme===0 ? 'false' : 'true')"
+                        :aria-checked="(theme === 0) ? 'false' : 'true'"
                     >
                         <span id="theme_label" class="select-none">Theme</span>
                         <input type="checkbox" class="invisible" v-model="theme">
@@ -47,13 +45,13 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); autoLaunch = !autoLaunch"
+                        @keydown.space="changeSection(null); autoLaunch = !autoLaunch"
                         @click="changeSection(null)"
-                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer focus:outline-none focus:shadow-outline"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="autoLaunch_label"
-                        :aria-checked="(autoLaunch===true ? 'true' : 'false')"
+                        :aria-checked="(autoLaunch === true) ? 'true' : 'false'"
                     >
                         <span id="autoLaunch_label" class="select-none" aria-label="Launch at System Startup">Launch at System Startup</span>
                         <input type="checkbox" class="invisible" v-model="autoLaunch">
@@ -64,13 +62,13 @@
 
                     <label
                         tabindex="0"
-                        @keyup.enter="changeSection(null); autoUpdate = !autoUpdate"
+                        @keydown.space="changeSection(null); autoUpdate = !autoUpdate"
                         @click="changeSection(null)"
-                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer"
+                        class="flex justify-between py-4 px-6 h-12 mb-4 items-center rounded cursor-pointer focus:outline-none focus:shadow-outline"
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         role="checkbox"
                         aria-labelledby="update_label"
-                        :aria-checked="(autoUpdate===true ? 'true' : 'false')"
+                        :aria-checked="(autoUpdate === true) ? 'true' : 'false'"
                     >
                         <span class="select-none" id="update_label" aria-label="Check for Updates">Check for Updates</span>
                         <input type="checkbox" class="invisible" v-model="autoUpdate">
@@ -85,10 +83,10 @@
                         :class="['bg-grey-darkest shadow-md', 'bg-grey-light'][theme]"
                         aria-labelledby="characters_label"
                     >
-                        <span id="characters_label" class="select-none" >Stored Characters</span>
+                        <span id="characters_label" class="select-none">Stored Characters</span>
                         <input
                             type="text"
-                            class="px-2 bg-grey-dark flex rounded w-16 text-right h-6"
+                            class="px-2 bg-grey-dark flex rounded w-16 text-right h-6 focus:outline-none focus:shadow-outline"
                             :class="['text-black', 'text-grey-lightest'][theme]"
                             @keypress="isNumber(event)"
                             @blur="bufferLengthChanged"
@@ -115,9 +113,10 @@
 </template>
 
 <script>
-    import Checkbox from '../../../icons/Checkbox'
-    import Logo from '../../../icons/Logo'
-    import LogoMono from '../../../icons/LogoMono'
+    import IconCheckbox from '../../../icons/Checkbox'
+    import IconExternal from '../../../icons/External'
+    import IconLogo from '../../../icons/Logo'
+    import IconLogoMono from '../../../icons/LogoMono'
 
     import PageManual from './PageManual'
     import PageShortcuts from './PageShortcuts'
@@ -127,9 +126,10 @@
 
     export default {
         components: {
-            IconCheckbox: Checkbox,
-            IconLogo: Logo,
-            IconLogoMono: LogoMono,
+            IconCheckbox,
+            IconExternal,
+            IconLogo,
+            IconLogoMono,
             PageManual,
             PageShortcuts,
         },

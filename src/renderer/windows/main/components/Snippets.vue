@@ -3,8 +3,12 @@
         <div class="flex flex-col flex-2 p-8">
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
-                    <span tabindex="1" class="text-3xl">Snippets</span>
-                    <router-link tabindex="2" :to="{ name: 'Preferences' }" class="text-2xl text-grey-dark cursor-pointer no-underline ml-4">Preferences</router-link>
+                    <span class="text-3xl">Snippets</span>
+                    <button
+                        @click="$router.push({ name: 'Preferences' })"
+                        class="text-2xl text-grey-dark cursor-pointer underline ml-4 px-1 rounded focus:outline-none focus:shadow-outline"
+                        tabindex="1"
+                    >Preferences</button>
                 </span>
             </h1>
             <div class="mt-4 flex">
@@ -12,16 +16,14 @@
                     type="text"
                     placeholder="Search..."
                     v-model="searchSnippets"
-                    class="rounded flex-1 py-2 px-4"
+                    class="rounded flex-1 py-2 px-4 focus:outline-none focus:shadow-outline"
                     :class="['bg-black-light text-grey-light border border-black-darkest', 'border text-grey-darkest'][theme]"
-                    tabindex="3"
+                    tabindex="2"
                 >
-                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">A</span> -->
-                <!-- <span class="ml-4 font-bold w-6 flex items-center justify-center cursor-pointer">↓</span> -->
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 -ml-4" ref="list">
+            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows px-4 pt-1 -ml-4" ref="list">
                 <div
-                    class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent"
+                    class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent focus:outline-none focus:shadow-outline"
                     :class="{
                         'bg-grey-darkest shadow-md': theme === 0,
                         'bg-grey-light': theme === 1,
@@ -32,19 +34,38 @@
                     tabindex="0"
                     v-for="snippet in filteredSnippets"
                     :key="snippet.id"
-                    @keyup.enter="edit(snippet)"
+                    @keydown.space="edit(snippet)"
                     @click="edit(snippet)"
                 >
                     <span class="flex-1">{{ snippet.key }}</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.regex">regex</span>
-                    <span class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full" v-if="snippet.type === 'js'">js</span>
-                    <button tabindex="0" class="flex items-center ml-2 " :class="['text-grey-light', 'text-grey-darkest'][theme]" @click.stop="remove(snippet)">
+                    <span
+                        class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full"
+                        v-if="snippet.regex"
+                    >regex</span>
+                    <span
+                        class="px-3 ml-2 text-grey-darkest py-1 text-xs bg-grey rounded-full"
+                        v-if="snippet.type === 'js'"
+                    >js</span>
+                    <button
+                        type="button"
+                        tabindex="0"
+                        class="flex items-center ml-2 rounded-full focus:outline-none focus:shadow-outline"
+                        :class="['text-grey-light', 'text-grey-darkest'][theme]"
+                        @click.stop="remove(snippet)"
+                    >
                         <icon-remove class="h-6 w-6 fill-current"></icon-remove>
                     </button>
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="flex items-center justify-center w-8 h-8" :class="['text-grey-light', 'text-grey-darkest'][theme]" @click="add" title="Add snippet">
+                <button
+                    type="button"
+                    class="flex items-center justify-center w-8 h-8 rounded-full focus:outline-none focus:shadow-outline"
+                    :class="['text-grey-light', 'text-grey-darkest'][theme]"
+                    @click="add"
+                    title="Add snippet"
+                    tabindex="3"
+                >
                     <icon-plus class="fill-current w-full h-full"></icon-plus>
                 </button>
             </div>
@@ -54,25 +75,30 @@
                 <div v-if="editing" class="flex flex-col h-full">
                     <div class="flex mb-4">
                         <input
-                            class="rounded p-4 mr-4 flex-1"
+                            class="rounded p-4 mr-4 flex-1 focus:outline-none focus:shadow-outline"
                             :class="['bg-grey-darkest text-grey-lightest', 'border text-grey-darkest'][theme]"
                             type="text"
                             placeholder="Trigger"
                             v-model="editing.key"
                             v-focus
                         >
-                        <label tabindex="0" for="regex" @keyup.enter="editing.regex = !editing.regex" class="flex justify-center items-center cursor-pointer">
+                        <label
+                            tabindex="0"
+                            for="regex"
+                            @keydown.space="editing.regex = !editing.regex"
+                            class="flex justify-center items-center cursor-pointer group"
+                        >
                             <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
                             <div class="mr-2">
                                 <icon-checkbox
                                     v-if="editing.regex"
                                     :checked="true"
-                                    class="text-brand-blue fill-current w-6 h-6"
+                                    class="text-brand-blue fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
                                 ></icon-checkbox>
                                 <icon-checkbox
                                     v-else
                                     :checked="false"
-                                    class="fill-current w-6 h-6"
+                                    class="fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
                                     :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
                                 ></icon-checkbox>
                             </div>
@@ -82,7 +108,7 @@
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
                         <textarea
-                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans"
+                            class="rounded flex-1 p-4 text-grey-darkest resize-none font-sans focus:outline-none focus:shadow-outline"
                             placeholder="Substitute with..."
                             v-model="editing.value"
                             @keydown="save"
@@ -99,11 +125,13 @@
                         ></editor>
                         <emoji-picker @emoji="append" :search="searchEmojis" v-if="editing.type === 'plain'">
                             <div
-                                class="absolute pin-t pin-r p-2 cursor-pointer emoji-invoker"
+                                class="absolute t-4 r-4 h-8 w-8 cursor-pointer emoji-invoker rounded-full focus:outline-none focus:shadow-outline"
                                 :class="['text-grey', ''][theme]"
                                 slot="emoji-invoker"
                                 slot-scope="{ events }"
                                 v-on="events"
+                                tabindex="0"
+                                @keydown.space="events.click"
                             >
                                 <icon-face class="h-8 w-8 fill-current"></icon-face>
                             </div>
@@ -151,14 +179,16 @@
                         <select
                             tabindex="0"
                             v-model="editing.type"
-                            class="p-4 rounded flex-1"
+                            class="p-4 rounded flex-1 focus:outline-none focus:shadow-outline"
                             :class="['bg-grey-darkest shadow-md text-grey-lightest', 'border'][theme]"
                             @change="changedType"
                         >
                             <option value="plain">Plain Text</option>
                             <option value="js">JavaScript</option>
                         </select>
-                        <icon-arrow-down class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"></icon-arrow-down>
+                        <icon-arrow-down
+                            class="block absolute center-y r-4 w-8 h-8 fill-current text-grey-dark"
+                        ></icon-arrow-down>
                     </div>
                 </div>
                 <div class="flex flex-col h-full" v-else>
@@ -175,11 +205,25 @@
                     ></textarea>
                 </div>
             </div>
-            <div class="flex justify-center items-center logo" @click="edit(null)" :class="{ 'cursor-pointer': editing !== null }">
-                <div class="w-full" :class="['opacity-25', ''][theme]">
+            <div class="flex justify-center items-center logo">
+                <div
+                    v-if="editing === null"
+                    class="w-48"
+                    :class="{
+                        'opacity-25': theme === 0,
+                    }"
+                >
                     <icon-logo-mono v-if="theme === 0"></icon-logo-mono>
                     <icon-logo v-else></icon-logo>
                 </div>
+                <button
+                    v-else
+                    @click.prevent="edit(null)"
+                    class="w-48 cursor-pointer p-1 focus:outline-none focus:shadow-outline rounded"
+                >
+                    <icon-logo-mono v-if="theme === 0" class="opacity-25"></icon-logo-mono>
+                    <icon-logo v-else></icon-logo>
+                </button>
             </div>
             <div class="h-12"></div>
         </div>
@@ -188,29 +232,29 @@
 
 <script>
     import Vue from 'vue'
-    import EmojiPicker from 'vue-emoji-picker'
     import _ from 'lodash'
     import Editor from './Editor'
+    import EmojiPicker from 'vue-emoji-picker'
 
-    import ArrowDown from '../../../icons/ArrowDown'
-    import Checkbox from '../../../icons/Checkbox'
-    import Face from '../../../icons/Face'
-    import Logo from '../../../icons/Logo'
-    import LogoMono from '../../../icons/LogoMono'
-    import Plus from '../../../icons/Plus'
-    import Remove from '../../../icons/Remove'
+    import IconArrowDown from '../../../icons/ArrowDown'
+    import IconCheckbox from '../../../icons/Checkbox'
+    import IconFace from '../../../icons/Face'
+    import IconLogo from '../../../icons/Logo'
+    import IconLogoMono from '../../../icons/LogoMono'
+    import IconPlus from '../../../icons/Plus'
+    import IconRemove from '../../../icons/Remove'
 
     export default {
         components: {
-            IconArrowDown: ArrowDown,
-            IconCheckbox: Checkbox,
-            IconFace: Face,
-            IconLogo: Logo,
-            IconLogoMono: LogoMono,
-            IconPlus: Plus,
-            IconRemove: Remove,
-            EmojiPicker: EmojiPicker,
-            Editor: Editor,
+            Editor,
+            EmojiPicker,
+            IconArrowDown,
+            IconCheckbox,
+            IconFace,
+            IconLogo,
+            IconLogoMono,
+            IconPlus,
+            IconRemove,
         },
         data() {
             return {
@@ -236,7 +280,7 @@
                     return this.snippets
                 }
 
-                const regex = new RegExp(`.*${this.searchSnippets}.*`)
+                const regex = new RegExp(`.*${this.searchSnippets}.*`, 'i')
 
                 return this.snippets.filter((snippet) => regex.test(snippet.key) || regex.test(snippet.value))
             },
@@ -253,13 +297,13 @@
             edit(snippet) {
                 this.editing = snippet
 
-                if (this.editing.type === 'js') {
+                if (this.editing && this.editing.type === 'js') {
                     Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
                 }
             },
             add() {
                 const newSnippet = {
-                    id: Math.floor(Math.random() * (9999999 - 1000000)) + 1000000,
+                    id: _.random(1000000, 9999999),
                     key: '',
                     value: '',
                     regex: false,
@@ -293,10 +337,13 @@
                 this.statusVisible = false
             }, 3000),
             changedType() {
-                if (this.editing.type === 'js' && !this.editing.value) {
-                    this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction qw(trigger) {\n  return trigger.toUpperCase()\n}\n'
+                if (this.editing.type === 'js') {
+                    if (!this.editing.value) {
+                        this.editing.value = '/**\n * @param {string} trigger A string that was matched\n * @return {string} Replacement\n */\nfunction qw(trigger) {\n  return trigger.toUpperCase()\n}\n'
+                    }
+
+                    Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
                 }
-                Vue.nextTick(() => this.$refs.editor.setValue(this.editing.value))
             },
         },
         directives: {
@@ -307,7 +354,7 @@
             },
         },
         created() {
-            this.snippets = JSON.parse(JSON.stringify(this.$store.getters.snippets))
+            this.snippets = _.cloneDeep(this.$store.getters.snippets)
         },
     }
 </script>

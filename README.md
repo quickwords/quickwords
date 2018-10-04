@@ -11,8 +11,10 @@
 - [License](#license)
 
 ## What is Quickwords?
-Quickwords is an open-source alternative to [Text Expander](https://textexpander.com) written in [Electron](https://electronjs.org). It is available on MacOS (other systems coming very soon).
+Quickwords is a productivity app, to get on with your work quicker. It helps you substitute common words, phrases and paragraphs with just few key strokes. It is available on MacOS (other systems coming very soon).
 You can check out the [website](https://quickwords.co) and [full documentation](https://quickwords.co/docs) for more information.
+
+![](https://i.imgur.com/asCk1Ds.png)
 
 ## Installation
 ### MacOS
@@ -22,7 +24,7 @@ Download the [latest release](https://github.com/quickwords/quickwords/releases/
 Linux and Windows versions of the app are coming soon. In the meantime all PRs are very welcome.
 
 ## Privacy and Security
-Quickwords registers all global keyboard events, so it has an access to everything you type on the system. No data is saved on the system, and only 20 last keystrokes are remembered in the memory of the app. All your data should be absolutely secure.
+Quickwords registers all global keyboard events, so it has an access to everything you type on the system. No data is saved on the system, and only 20 last keystrokes are remembered in the memory of the app. All your data should be secure.
 
 If you discover a security vulnerability within Quickwords, please DM [@quickwordsapp](https://twitter.com/quickwordsapp). All security vulnerabilities will be promptly addressed.
 
