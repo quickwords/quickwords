@@ -1,5 +1,4 @@
 export default {
-    functional: true,
     props: {
         checked: {
             type: Boolean,
