@@ -1,9 +1,10 @@
-const { Menu } = require('electron')
+const { app, Menu } = require('electron')
 
 module.exports.doNotQuitAppOnWindowClosure = function (windows) {
     Object.keys(windows).forEach(key => windows[key].on('close', e => {
         e.preventDefault()
         windows[key].hide()
+        app.dock.hide()
     }))
 }
 
