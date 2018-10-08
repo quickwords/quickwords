@@ -15,6 +15,7 @@ const defaultSnippets = require('./modules/defaultSnippets')
 let appIcon
 const store = new Store({
     defaults: {
+        user: Math.random().toString(36).slice(2),
         theme: systemPreferences.isDarkMode() ? 0 : 1,
         autoLaunch: true,
         snippets: defaultSnippets,
@@ -28,6 +29,7 @@ const snippetsManager = new SnippetsManager({
     clipboard,
     keyboardHandler: require('iohook'),
     keyboardSimulator: require('robotjs'),
+    analytics: require('./modules/Analytics'),
 })
 const windows = {}
 
