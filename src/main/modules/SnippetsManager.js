@@ -9,11 +9,12 @@ const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({ store, keyboardHandler, keyboardSimulator, clipboard }) {
+    constructor({ store, keyboardHandler, keyboardSimulator, clipboard, analytics }) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
         this.clipboard = clipboard
+        this.analytics = analytics
 
         this.buffer = ''
         this.shouldMatch = true
@@ -113,6 +114,14 @@ class SnippetsManager {
         console.log(this.buffer)
     }
 
+    _reportToAnalytics(snippet) {
+        this.analytics.report('snippet-replacement', {
+            user: this.store.get('user'),
+            regex: snippet.regex,
+            type: snippet.type,
+        })
+    }
+
     _evaluate(matchedString, code) {
         return new Promise((resolve, reject) => {
             'use strict'
@@ -181,6 +190,8 @@ class SnippetsManager {
                 } else {
                     this.replace(this._handlePlainTextSnippet(snippet.value))
                 }
+
+                this._reportToAnalytics(snippet)
 
                 break
             }
