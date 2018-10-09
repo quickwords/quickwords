@@ -1,16 +1,20 @@
 language: node_js
-
 node_js:
-  - '8'
-
+- '8'
 matrix:
   include:
-    - os: osx
-
+  - os: osx
 install:
-  - npm i
-
+- npm i
 script:
-  - npm run prod
-  - npm run dist
-  - npm run test
+- npm run prod
+- npm run dist
+- npm run test
+deploy:
+  provider: releases
+  file: quickwords/dist/*
+  skip_cleanup: true
+  on:
+    tags: true
+  api-key:
+    secure: "$GH_TOKEN"
