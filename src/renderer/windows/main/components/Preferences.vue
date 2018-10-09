@@ -1,5 +1,5 @@
 <template>
-    <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
+    <div class="bg flex h-screen font-sans text-base font-normal" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
         <div class="flex flex-col p-8 w-100">
             <h1 class="flex items-center h-12">
                 <button

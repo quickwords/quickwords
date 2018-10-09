@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../../styles/app.css">
     </head>
     <body>
-        <div class="flex flex-col items-center h-screen font-sans p-4 pb-8" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
+        <div class="flex flex-col items-center h-screen font-sans p-4 pb-8 text-base font-normal" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
             <div class="mt-8 w-48">
                 <a :href="config.WEBSITE_URL">
                     <icon-logo-mono v-if="theme === 0" class="w-full opacity-50"></icon-logo-mono>
