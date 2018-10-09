@@ -320,7 +320,9 @@
             },
             remove(snippet) {
                 this.snippets = this.snippets.filter(s => s.id !== snippet.id)
-                this.editing = null
+                if (this.editing === snippet) {
+                    this.editing = null
+                }
             },
             save() {
                 this.statusVisible = true
