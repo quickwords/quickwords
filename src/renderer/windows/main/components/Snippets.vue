@@ -1,6 +1,6 @@
 <template>
     <div class="bg flex h-screen font-sans" :class="['bg-black text-grey-light', 'bg-image text-grey-darkest'][theme]" id="app">
-        <div class="flex flex-col flex-2 p-8 max-w-42">
+        <div class="flex flex-col p-8 w-100">
             <h1 class="flex items-center h-12">
                 <span class="flex-1">
                     <span class="text-3xl">Snippets</span>
