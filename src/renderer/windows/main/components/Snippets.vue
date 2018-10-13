@@ -105,7 +105,7 @@
                                     ></icon-checkbox>
                                 </div>
 
-                                active
+                                Active
                             </label>
                             <label
                                 tabindex="0"
