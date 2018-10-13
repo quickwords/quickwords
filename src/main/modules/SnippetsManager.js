@@ -173,7 +173,6 @@ class SnippetsManager {
             let key = snippet.key
 
             if (!snippet.regex) {
-                // escape all regex-special characters
                 key = _.escapeRegExp(key)
             }
 
