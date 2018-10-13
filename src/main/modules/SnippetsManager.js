@@ -181,6 +181,10 @@ class SnippetsManager {
 
     async _replaceSnippetIfMatchFound() {
         for (const snippet of this.store.get('snippets')) {
+            if (!snippet.active) {
+                continue
+            }
+
             let key = snippet.key
 
             if (!snippet.regex) {

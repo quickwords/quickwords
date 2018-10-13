@@ -29,6 +29,7 @@
                         'bg-grey-light': theme === 1,
                         'border-white': editing && editing.id === snippet.id && theme === 0,
                         'border-brand-blue': editing && editing.id === snippet.id && theme === 1,
+                        'opacity-25': !snippet.active,
                     }"
                     role="button"
                     tabindex="0"
@@ -82,29 +83,54 @@
                             v-model="editing.key"
                             v-focus
                         >
-                        <label
-                            tabindex="0"
-                            for="regex"
-                            @keydown.space="editing.regex = !editing.regex"
-                            class="flex justify-center items-center cursor-pointer group"
-                        >
-                            <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
-                            <div class="mr-2">
-                                <icon-checkbox
-                                    v-if="editing.regex"
-                                    :checked="true"
-                                    class="text-brand-blue fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
-                                ></icon-checkbox>
-                                <icon-checkbox
-                                    v-else
-                                    :checked="false"
-                                    class="fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
-                                    :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
-                                ></icon-checkbox>
-                            </div>
+                        <div class="flex flex-col items-start">
+                            <label
+                                tabindex="0"
+                                for="active"
+                                @keydown.space="editing.active = !editing.active"
+                                class="flex justify-center items-center cursor-pointer group"
+                            >
+                                <input type="checkbox" id="active" class="invisible" v-model="editing.active">
+                                <div class="mr-2">
+                                    <icon-checkbox
+                                        v-if="editing.active"
+                                        :checked="true"
+                                        class="text-brand-blue fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
+                                    ></icon-checkbox>
+                                    <icon-checkbox
+                                        v-else
+                                        :checked="false"
+                                        class="fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
+                                        :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
+                                    ></icon-checkbox>
+                                </div>
 
-                            Use Regular Expression
-                        </label>
+                                active
+                            </label>
+                            <label
+                                tabindex="0"
+                                for="regex"
+                                @keydown.space="editing.regex = !editing.regex"
+                                class="flex justify-center items-center cursor-pointer group"
+                            >
+                                <input type="checkbox" id="regex" class="invisible" v-model="editing.regex">
+                                <div class="mr-2">
+                                    <icon-checkbox
+                                        v-if="editing.regex"
+                                        :checked="true"
+                                        class="text-brand-blue fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
+                                    ></icon-checkbox>
+                                    <icon-checkbox
+                                        v-else
+                                        :checked="false"
+                                        class="fill-current w-6 h-6 rounded-sm group-focus:shadow-outline"
+                                        :class="['text-grey-lightest', 'text-grey-darkest'][theme]"
+                                    ></icon-checkbox>
+                                </div>
+
+                                Use Regular Expression
+                            </label>
+                        </div>
                     </div>
                     <div class="relative flex flex-col flex-1 mb-4">
                         <textarea
