@@ -28,6 +28,17 @@ class SnippetsManager {
         this.keyboardHandler.start()
 
         fixPath()
+        this._addNewFields()
+    }
+
+    _addNewFields() {
+        const newSnippets = this.store.get('snippets').map(s => {
+            s.active = s.active || true
+            s.regex = s.regex || false
+            s.type = s.type || 'plain'
+            return s
+        })
+        this.store.set('snippets', newSnippets)
     }
 
     destructor() {
