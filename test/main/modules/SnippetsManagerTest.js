@@ -29,6 +29,9 @@ const clipboard = {
 
 const store = {
     get(key) {
+        return []
+    },
+    set(key) {
         //
     },
 }
