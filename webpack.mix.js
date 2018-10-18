@@ -23,4 +23,3 @@ mix
         postCss: [ tailwindcss(path.join(__dirname, './tailwind.js')) ],
         uglify: false,
     })
- 
