@@ -1,8 +1,6 @@
 const AutoLaunch = require('auto-launch')
 const { app, shell } = require('electron')
 const fetch = require('node-fetch')
-const path = require('path')
-const PlatformAware = require('./PlatformAware')
 const Notification = require('./Notification')
 const { config } = require('../../../config')
 
