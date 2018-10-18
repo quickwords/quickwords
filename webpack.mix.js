@@ -18,7 +18,9 @@ mix
         },
     })
     .options({
+        publicPath: ('./'),
         processCssUrls: false,
         postCss: [ tailwindcss(path.join(__dirname, './tailwind.js')) ],
         uglify: false,
     })
+ 

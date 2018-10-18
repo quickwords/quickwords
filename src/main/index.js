@@ -32,7 +32,9 @@ const snippetsManager = new SnippetsManager({
 })
 const windows = {}
 
-app.dock.hide()
+if (PlatformAware.mac()) {
+    app.dock.hide()
+}
 
 app.on('ready', () => {
     const preferencesManager = new PreferencesManager(store)
