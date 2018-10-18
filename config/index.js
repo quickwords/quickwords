@@ -10,6 +10,7 @@ const config = {
     DC_URL: 'https://dczajkowski.com',
     GT_URL: 'https://github.com/gtluszcz',
     DOCS_URL: 'https://quickwords.co/docs',
+    ANALYTICS_URL: 'https://europe-west1-quickwordsapp.cloudfunctions.net/quickwords-analytics',
 }
 
 function load() {

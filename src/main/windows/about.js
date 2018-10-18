@@ -13,12 +13,20 @@ module.exports = {
             titleBarStyle: PlatformAware.get('titleBarStyle'),
         })
 
+        this.ctx.on('ready-to-show', () => {
+            this.ctx.show()
+        })
+
+        return this.ctx
+    },
+    load() {
         this.ctx.loadURL(url.format({
             pathname: path.join(__dirname, '../../renderer/windows/about/index.html'),
             protocol: 'file:',
             slashes: true,
         }))
-
-        return this.ctx
+    },
+    show() {
+        this.load()
     },
 }

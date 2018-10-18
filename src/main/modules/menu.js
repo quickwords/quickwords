@@ -1,4 +1,4 @@
-const { Menu } = require('electron')
+const { app, Menu } = require('electron')
 const aboutWindow = require('../windows/about')
 const mainWindow = require('../windows/main')
 
@@ -6,7 +6,7 @@ module.exports = Menu.buildFromTemplate([
     {
         label: 'About Quickwords',
         click() {
-            aboutWindow.ctx.show()
+            aboutWindow.show()
         },
     },
     {
@@ -16,16 +16,16 @@ module.exports = Menu.buildFromTemplate([
         label: 'Snippets',
         // accelerator: 'Command+S',
         click() {
-            mainWindow.navigate('Snippets')
-            setTimeout(() => mainWindow.ctx.show(), 500)
+            mainWindow.show('Snippets')
+            app.dock.show()
         },
     },
     {
         label: 'Preferences',
         // accelerator: 'Command+,',
         click() {
-            mainWindow.navigate('Preferences')
-            setTimeout(() => mainWindow.ctx.show(), 500)
+            mainWindow.show('Preferences')
+            app.dock.show()
         },
     },
     {

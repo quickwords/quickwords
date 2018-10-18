@@ -4,8 +4,10 @@ const url = require('url')
 const PlatformAware = require('../modules/PlatformAware')
 
 module.exports = {
-    navigate(to) {
-        this.ctx.webContents.executeJavaScript(`window.vm.$router.push({ name: '${to}' })`)
+    show(page) {
+        this.ctx.webContents.executeJavaScript(`window.vm.$router.push({ name: '${page}' })`, false, () => {
+            setTimeout(() => this.ctx.show(), 50)
+        })
     },
     init() {
         this.ctx = new BrowserWindow({

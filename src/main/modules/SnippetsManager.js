@@ -1,18 +1,21 @@
 const chars = require('./chars')
-const keymap = require('native-keymap').getKeyMap()
+const NativeKeymap = require('native-keymap')
 const _ = require('lodash')
 const PlatformAware = require('./PlatformAware')
+const Notification = require('./Notification')
+const fixPath = require('fix-path')
 
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
 
 class SnippetsManager {
-    constructor({ store, keyboardHandler, keyboardSimulator, clipboard }) {
+    constructor({ store, keyboardHandler, keyboardSimulator, clipboard, analytics }) {
         this.store = store
         this.keyboardHandler = keyboardHandler
         this.keyboardSimulator = keyboardSimulator
         this.clipboard = clipboard
+        this.analytics = analytics
 
         this.buffer = ''
         this.shouldMatch = true
@@ -24,6 +27,8 @@ class SnippetsManager {
         this.keyboardHandler.on('mouseclick', this._onMouseClick.bind(this))
 
         this.keyboardHandler.start()
+
+        fixPath()
     }
 
     destructor() {
@@ -41,6 +46,7 @@ class SnippetsManager {
 
     _eventToUnicode({ keycode, shiftKey, altKey, ctrlKey, metaKey }) {
         const name = this._getCharNameFromKeycode(keycode)
+        const keymap = NativeKeymap.getKeyMap()
 
         if (!name || !(name in keymap)) {
             return false
@@ -107,6 +113,14 @@ class SnippetsManager {
         }
     }
 
+    _reportToAnalytics(snippet) {
+        this.analytics.report('snippet-replacement', {
+            user: this.store.get('user'),
+            regex: snippet.regex,
+            type: snippet.type,
+        })
+    }
+
     _evaluate(matchedString, code) {
         return new Promise((resolve, reject) => {
             'use strict'
@@ -153,12 +167,11 @@ class SnippetsManager {
         })
     }
 
-    _replaceSnippetIfMatchFound() {
+    async _replaceSnippetIfMatchFound() {
         for (const snippet of this.store.get('snippets')) {
             let key = snippet.key
 
             if (!snippet.regex) {
-                // escape all regex-special characters
                 key = _.escapeRegExp(key)
             }
 
@@ -171,28 +184,38 @@ class SnippetsManager {
                 }
 
                 if (snippet.type === 'js') {
-                    this._handleJavascriptSnippet(matchedString, snippet.value)
+                    this.replace(await this._handleJavascriptSnippet(matchedString, snippet.value))
                 } else {
-                    this._handlePlainTextSnippet(snippet.value)
+                    this.replace(this._handlePlainTextSnippet(snippet.value))
                 }
+
+                this._reportToAnalytics(snippet)
 
                 break
             }
         }
     }
 
-    async _handleJavascriptSnippet(matchedString, code) {
+    replace(value) {
         const clipboardContent = this.clipboard.readText()
 
-        try {
-            const data = await this._evaluate(matchedString, code)
+        this.clipboard.writeText(value)
 
-            this.clipboard.writeText(data)
+        setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
+        setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
+    }
+
+    async _handleJavascriptSnippet(matchedString, code) {
+        try {
+            return await this._evaluate(matchedString, code)
         } catch (error) {
-            this.clipboard.writeText(`QWError: ${_.get('error', 'message', String(error))}`)
-        } finally {
-            setTimeout(() => this.paste(), 50)
-            setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
+            if (!Notification.isSupported()) {
+                return `QWError ${_.get('error', 'message', String(error))}`
+            }
+
+            Notification.show('QWError', _.get('error', 'message', String(error)))
+
+            return ''
         }
     }
 
@@ -205,12 +228,7 @@ class SnippetsManager {
     }
 
     _handlePlainTextSnippet(value) {
-        const clipboardContent = this.clipboard.readText()
-
-        this.clipboard.writeText(value)
-
-        setTimeout(() => this.paste(), 50)
-        setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
+        return value
     }
 
     _addCharToBuffer(character) {

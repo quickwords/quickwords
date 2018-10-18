@@ -1,8 +1,10 @@
 const AutoLaunch = require('auto-launch')
-const { app, Notification, shell } = require('electron')
+const { app, shell } = require('electron')
 const fetch = require('node-fetch')
 const path = require('path')
 const PlatformAware = require('./PlatformAware')
+const Notification = require('./Notification')
+const { config } = require('../../../config')
 
 class PreferencesManager {
     constructor(store) {
@@ -48,7 +50,7 @@ class PreferencesManager {
     }
 
     async checkForNewVersion() {
-        const currentVersion = require('../../../package.json').version.split('.')
+        const currentVersion = config.VERSION.split('.')
 
         let data
 
@@ -67,15 +69,11 @@ class PreferencesManager {
             || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] > currentVersion[1])
             || (currentNewestVersion[0] === currentVersion[0] && currentNewestVersion[1] === currentVersion[1] && currentNewestVersion[2] > currentVersion[2])
         ) {
-            const notification = new Notification({
-                title: 'New Version Available',
-                body: `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
-                icon: path.join(__dirname, PlatformAware.get('notificationIcon')),
-            })
-
-            notification.on('click', () => shell.openExternal(url))
-
-            notification.show()
+            Notification.show(
+                'New Version Available',
+                `Version ${currentNewestVersion.join('.')} of Quickwords is available`,
+                () => shell.openExternal(url)
+            )
 
             return true
         }

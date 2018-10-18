@@ -1,9 +1,10 @@
-const { Menu } = require('electron')
+const { app, Menu } = require('electron')
 
 module.exports.doNotQuitAppOnWindowClosure = function (windows) {
     Object.keys(windows).forEach(key => windows[key].on('close', e => {
         e.preventDefault()
         windows[key].hide()
+        app.dock.hide()
     }))
 }
 
@@ -11,8 +12,7 @@ module.exports.unregisterWindowListeners = function (windows) {
     Object.keys(windows).forEach(key => windows[key].removeAllListeners('close'))
 }
 
-module.exports.registerNativeShortcuts = function (app, windows) {
-    // This menu does not show up nowhere, but it does register shortcuts like copy-paste, close and minimize
+module.exports.setUpWindowMenu = function (app, aboutWindow) {
     Menu.setApplicationMenu(Menu.buildFromTemplate([
         {
             label: 'Quickwords',
@@ -20,7 +20,7 @@ module.exports.registerNativeShortcuts = function (app, windows) {
                 {
                     label: 'About Quickwords',
                     click() {
-                        windows.about.show()
+                        aboutWindow.show()
                     },
                 },
                 { type: 'separator' },

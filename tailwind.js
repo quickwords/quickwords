@@ -474,6 +474,7 @@ module.exports = {
         '32': '8rem',
         '48': '12rem',
         '64': '16rem',
+        '100': '25rem',
         '1/2': '50%',
         '1/3': '33.33333%',
         '2/3': '66.66667%',
@@ -680,6 +681,7 @@ module.exports = {
 
     negativeMargin: {
         'px': '1px',
+        '2px': '2px',
         '0': '0',
         '1': '0.25rem',
         '2': '0.5rem',
@@ -840,7 +842,7 @@ module.exports = {
         minHeight: ['responsive'],
         minWidth: ['responsive'],
         negativeMargin: ['responsive'],
-        opacity: ['responsive'],
+        opacity: ['responsive', 'focus'],
         overflow: ['responsive'],
         padding: ['responsive'],
         pointerEvents: ['responsive'],

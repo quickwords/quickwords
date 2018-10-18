@@ -15,9 +15,9 @@ module.exports = [
     },
     {
         'id': 3,
-        'key': ';up .* ',
-        'value': '// After typing everything after \';up \' becomes uppercase\n// Note that Quickwords matches only last 20\n// characters by default, so anything longer than that will not work\nfunction qw(trigger) {\n    return trigger.substr(4).toUpperCase()\n}\n',
-        'regex': true,
+        'key': ';date',
+        'value': "function qw() {\n  const date = new Date()\n  const month = (n) => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][n]\n  const suffix = (n) => (n < 11 || n > 13) ? ['st', 'nd', 'rd', 'th'][Math.min((n - 1) % 10, 3)] : 'th'\n\n  return `${date.getDate()}${suffix(date.getDate())} of ${month(date.getMonth())} ${date.getFullYear()}`\n}\n",
+        'regex': false,
         'type': 'js',
     },
 ]

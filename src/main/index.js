@@ -7,7 +7,7 @@ const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
 const mainWindow = require('./windows/main')
 const iconPath = path.join(__dirname, '../../assets/iconTemplate.png')
-const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, registerNativeShortcuts } = require('./helpers')
+const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, setUpWindowMenu } = require('./helpers')
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
@@ -16,6 +16,7 @@ const PlatformAware = require('./modules/PlatformAware')
 let appIcon
 const store = new Store({
     defaults: {
+        user: Math.random().toString(36).slice(2),
         theme: PlatformAware.get('theme'),
         autoLaunch: true,
         snippets: defaultSnippets,
@@ -29,6 +30,7 @@ const snippetsManager = new SnippetsManager({
     clipboard,
     keyboardHandler: require('iohook'),
     keyboardSimulator: require('robotjs'),
+    analytics: require('./modules/Analytics'),
 })
 const windows = {}
 
@@ -68,7 +70,7 @@ app.on('ready', () => {
     appIcon.setContextMenu(menu)
 
     if (process.env.ENVIRONMENT === 'production') {
-        registerNativeShortcuts(app, windows) // @todo
+        setUpWindowMenu(app, aboutWindow)
     }
 })
 
