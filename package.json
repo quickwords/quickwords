@@ -1,6 +1,6 @@
 {
   "name": "Quickwords",
-  "version": "v0.1.1",
+  "version": "v0.1.2",
   "description": "A productivity app, to get on with your work quicker",
   "main": "out/main/index.js",
   "scripts": {
@@ -28,17 +28,17 @@
   "license": "MIT",
   "devDependencies": {
     "@vue/devtools": "^1.1.0",
-    "cross-env": "^5.1.6",
-    "electron": "^2.0.0",
-    "electron-builder": "^20.14.7",
+    "cross-env": "^5.2.0",
+    "electron": "^2.0.15",
+    "electron-builder": "^20.38.3",
     "eslint": "^4.19.1",
-    "eslint-plugin-vue": "^4.5.0",
+    "eslint-plugin-vue": "^4.7.1",
     "glob-all": "^3.1.0",
-    "laravel-mix": "^2.1.11",
+    "laravel-mix": "^2.1.14",
     "mocha": "^5.2.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.11.0",
     "purgecss-webpack-plugin": "^0.22.1",
-    "tailwindcss": "^0.6.1"
+    "tailwindcss": "^0.6.6"
   },
   "dependencies": {
     "auto-launch": "^5.0.5",
@@ -46,16 +46,16 @@
     "electron-is-dev": "^0.3.0",
     "electron-store": "^1.3.0",
     "fix-path": "^2.1.0",
-    "iohook": "^0.2.0",
-    "lodash": "^4.17.10",
+    "iohook": "^0.2.5",
+    "lodash": "^4.17.11",
     "native-keymap": "^1.2.5",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^2.3.0",
     "robotjs": "^0.5.1",
-    "vue": "^2.5.16",
-    "vue-emoji-picker": "^1.0.0",
-    "vue-router": "^3.0.1",
+    "vue": "^2.5.21",
+    "vue-emoji-picker": "^1.0.1",
+    "vue-router": "^3.0.2",
     "vuex": "^3.0.1",
-    "webpack-merge": "^4.1.2"
+    "webpack-merge": "^4.1.5"
   },
   "iohook": {
     "targets": [
