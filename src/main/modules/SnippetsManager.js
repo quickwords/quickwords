@@ -29,6 +29,17 @@ class SnippetsManager {
         this.keyboardHandler.start()
 
         fixPath()
+        this._ensureAllFieldsArePresent()
+    }
+
+    _ensureAllFieldsArePresent() {
+        const snippets = this.store.get('snippets').map(s => {
+            s.active = (s.active === undefined) ? true : s.active
+            s.regex = (s.regex === undefined) ? false : s.regex
+            s.type = s.type || 'plain'
+            return s
+        })
+        this.store.set('snippets', snippets)
     }
 
     destructor() {
@@ -169,6 +180,10 @@ class SnippetsManager {
 
     async _replaceSnippetIfMatchFound() {
         for (const snippet of this.store.get('snippets')) {
+            if (!snippet.active) {
+                continue
+            }
+
             let key = snippet.key
 
             if (!snippet.regex) {
