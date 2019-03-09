@@ -4,9 +4,9 @@ const PlatformAware = require('./modules/PlatformAware')
 module.exports.doNotQuitAppOnWindowClosure = function (windows) {
     Object.keys(windows).forEach(key => windows[key].on('close', e => {
         e.preventDefault()
+        windows[key].hide()
 
         if (PlatformAware.mac()) {
-            windows[key].hide()
             app.dock.hide()
         }
     }))
