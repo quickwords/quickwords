@@ -16,7 +16,7 @@ const linuxConfig = () => ({
 
 const windowsConfig = () => ({
     theme: 1,
-    titleBarStyle: 'default',
+    titleBarStyle: 'hidden',
     notificationIcon: '../../../assets/icon.png',
     pasteModifier: 'control',
 })
