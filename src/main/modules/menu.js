@@ -1,4 +1,5 @@
 const { app, Menu } = require('electron')
+const PlatformAware = require('./PlatformAware')
 const aboutWindow = require('../windows/about')
 const mainWindow = require('../windows/main')
 
@@ -17,7 +18,10 @@ module.exports = Menu.buildFromTemplate([
         // accelerator: 'Command+S',
         click() {
             mainWindow.show('Snippets')
-            app.dock.show()
+
+            if (PlatformAware.mac()) {
+                app.dock.show()
+            }
         },
     },
     {
@@ -25,7 +29,10 @@ module.exports = Menu.buildFromTemplate([
         // accelerator: 'Command+,',
         click() {
             mainWindow.show('Preferences')
-            app.dock.show()
+
+            if (PlatformAware.mac()) {
+                app.dock.show()
+            }
         },
     },
     {
