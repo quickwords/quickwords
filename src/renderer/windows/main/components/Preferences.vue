@@ -8,7 +8,7 @@
                 >Snippets</button>
                 <span class="text-3xl ml-4">Preferences</span>
             </h1>
-            <div class="mb-8 mt-8 overflow-y-scroll pt-1 flex-1 custom-width-for-shadows -ml-1 pl-1 pr-2">
+            <div class="mb-8 mt-8 overflow-y-scroll pt-1 flex-1 custom-width-for-shadows -ml-1 pl-1 pr-2 no-drag">
                 <div class="mb-8 flex-1">
                     <label
                         tabindex="0"
