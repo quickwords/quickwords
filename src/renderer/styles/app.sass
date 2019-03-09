@@ -55,7 +55,18 @@ select, button
     flex: auto
 
 .custom-width-for-shadows
-    width: calc(100% + 2rem)
+    width: calc(100% + 1rem)
+
+::-webkit-scrollbar
+    width: 9px
+
+::-webkit-scrollbar-thumb
+    background: #333
+    border-radius: 20px
+
+::-webkit-scrollbar-track
+    background: transparent
+    border-radius: 20px
 
 // Tailwind's utility classes.
 @tailwind utilities
