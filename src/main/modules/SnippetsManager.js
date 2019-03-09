@@ -3,8 +3,6 @@ const NativeKeymap = require('native-keymap')
 const _ = require('lodash')
 const PlatformAware = require('./PlatformAware')
 const Notification = require('./Notification')
-const fixPath = require('fix-path')
-
 const KEY_BACKSPACE = 'Backspace'
 const KEY_ARROWS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 const KEY_TAB = 'Tab'
@@ -28,7 +26,10 @@ class SnippetsManager {
 
         this.keyboardHandler.start()
 
-        fixPath()
+        if (PlatformAware.mac()) {
+            require('fix-path')()
+        }
+
         this._ensureAllFieldsArePresent()
     }
 
