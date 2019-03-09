@@ -12,7 +12,7 @@ module.exports = {
     init() {
         this.ctx = new BrowserWindow({
             show: false,
-            minWidth: 920,
+            minWidth: 940,
             minHeight: 360,
             width: 940,
             height: 600,
