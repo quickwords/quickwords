@@ -1,31 +1,31 @@
 const { systemPreferences } = require('electron')
 
-const macConfig = {
+const macConfig = () => ({
     theme: systemPreferences.isDarkMode() ? 0 : 1,
     titleBarStyle: 'hidden',
     notificationIcon: '../../../assets/icon.icns',
-}
+})
 
-const linuxConfig = {
+const linuxConfig = () => ({
     theme: 1,
     titleBarStyle: 'default',
     notificationIcon: '../../../assets/icon.ico', // @todo
-}
+})
 
-const windowsConfig = {
+const windowsConfig = () => ({
     theme: 1,
     titleBarStyle: 'default',
     notificationIcon: '../../../assets/icon.png',
-}
+})
 
 class PlatformAware {
     static get(key) {
         if (this.mac()) {
-            return macConfig[key]
+            return macConfig()[key]
         } else if (this.linux()) {
-            return linuxConfig[key]
+            return linuxConfig()[key]
         } else if (this.windows()) {
-            return windowsConfig[key]
+            return windowsConfig()[key]
         }
 
         throw new Error('Could not specify the platform')
