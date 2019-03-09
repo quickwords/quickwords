@@ -334,6 +334,7 @@
                     value: '',
                     regex: false,
                     type: 'plain',
+                    active: true,
                 }
 
                 this.snippets.push(newSnippet)
