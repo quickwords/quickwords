@@ -21,7 +21,7 @@
                     tabindex="2"
                 >
             </div>
-            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows pr-2 pt-1" ref="list">
+            <div class="mb-8 mt-8 overflow-y-scroll overflow-x-visible flex-1 custom-width-for-shadows pl-1 -ml-1 pr-2 pt-1" ref="list">
                 <div
                     class="w-full items-center justify-between h-12 flex pt-4 pb-3 px-6 mb-4 rounded cursor-pointer clickable border-b-4 border-transparent focus:outline-none focus:shadow-outline"
                     :class="{
