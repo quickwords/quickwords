@@ -4,18 +4,21 @@ const macConfig = () => ({
     theme: systemPreferences.isDarkMode() ? 0 : 1,
     titleBarStyle: 'hidden',
     notificationIcon: '../../../assets/icon.icns',
+    pasteModifier: 'command',
 })
 
 const linuxConfig = () => ({
     theme: 1,
     titleBarStyle: 'default',
     notificationIcon: '../../../assets/icon.ico', // @todo
+    pasteModifier: 'control',
 })
 
 const windowsConfig = () => ({
     theme: 1,
     titleBarStyle: 'default',
     notificationIcon: '../../../assets/icon.png',
+    pasteModifier: 'control',
 })
 
 class PlatformAware {

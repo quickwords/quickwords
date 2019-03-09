@@ -217,7 +217,7 @@ class SnippetsManager {
 
         this.clipboard.writeText(value)
 
-        setTimeout(() => this.keyboardSimulator.keyTap('v', 'command'), 50)
+        setTimeout(() => this.keyboardSimulator.keyTap('v', PlatformAware.get('pasteModifier')), 50)
         setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
     }
 
