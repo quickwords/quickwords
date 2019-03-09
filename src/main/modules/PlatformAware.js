@@ -5,6 +5,7 @@ const macConfig = () => ({
     titleBarStyle: 'hidden',
     notificationIcon: '../../../assets/icon.icns',
     pasteModifier: 'command',
+    trayIcon: 'iconTemplate.png',
 })
 
 const linuxConfig = () => ({
@@ -12,6 +13,7 @@ const linuxConfig = () => ({
     titleBarStyle: 'default',
     notificationIcon: '../../../assets/icon.ico', // @todo
     pasteModifier: 'control',
+    trayIcon: 'iconTemplate.png',
 })
 
 const windowsConfig = () => ({
@@ -19,6 +21,7 @@ const windowsConfig = () => ({
     titleBarStyle: 'hidden',
     notificationIcon: '../../../assets/icon.png',
     pasteModifier: 'control',
+    trayIcon: 'windowsIconTemplate.png',
 })
 
 class PlatformAware {
