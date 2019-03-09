@@ -6,13 +6,13 @@ const path = require('path')
 const menu = require('./modules/menu')
 const aboutWindow = require('./windows/about')
 const mainWindow = require('./windows/main')
+const PlatformAware = require('./modules/PlatformAware')
 const iconPath = path.join(__dirname, '../../assets/', PlatformAware.get('trayIcon'))
 const { doNotQuitAppOnWindowClosure, unregisterWindowListeners, setUpWindowMenu } = require('./helpers')
 const Store = require('electron-store')
 const SnippetsManager = require('./modules/SnippetsManager')
 const PreferencesManager = require('./modules/PreferencesManager')
 const defaultSnippets = require('./modules/defaultSnippets')
-const PlatformAware = require('./modules/PlatformAware')
 let appIcon
 const store = new Store({
     defaults: {
