@@ -58,15 +58,13 @@ select, button
     width: calc(100% + 1rem)
 
 ::-webkit-scrollbar
-    width: 9px
+    @apply .w-2
 
 ::-webkit-scrollbar-thumb
-    background: #333
-    border-radius: 20px
+    @apply .bg-grey-dark .rounded-full
 
 ::-webkit-scrollbar-track
-    background: transparent
-    border-radius: 20px
+    @apply .rounded-full .bg-transparent
 
 // Tailwind's utility classes.
 @tailwind utilities
