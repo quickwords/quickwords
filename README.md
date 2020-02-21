@@ -7,6 +7,7 @@
     - [Linux & Windows](#linux--windows)
 - [Privacy and Security](#privacy-and-security)
 - [Contribution](#contribution)
+- [FAQ](#faq)
 - [Authors](#authors)
 - [License](#license)
 
@@ -33,7 +34,9 @@ Contributions are very welcome. If you want, just drop a PR with any feature you
 
 ## FAQ
 ### Replacements do not work after installation
-Please make sure you gave the accessibility access in your system preferences. If it still does not work, try restarting the app. On newer versions of macOS computer restart may be required. It seems like a bug with macOS not registering granted accessibility permission.
+Please make sure you gave the accessibility access in your system preferences. If it still does not work, try restarting the app. On newer versions of macOS (including Mojave and Catalina), computer restart may be required. It seems like a bug with macOS not registering granted accessibility permission.
+
+It appears that sometimes in Mojave and Catalina the app stops working when you open the computer after a longer period of time (like after the night). Simply go to the Login screen (ctrl+cmd+q) and log back in. The issue should be resolved. If it is not, please file an issue. If you know how to fix this or the cause of the issue, we would like to know :)
 
 ## Authors
 The app was made by [Dariusz Czajkowski](https://dczajkowski.com/) and [Grzegorz Tłuszcz](https://github.com/gtluszcz), two students from Kraków, Poland.
