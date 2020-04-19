@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test-compile:
+    name: build and publish
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        node-version: [8.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node Version ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install, test, build
+        run: |
+          npm install
+          npm run prod
+          npm run dist
+          npm run test
+          echo 'Done!'
