@@ -3,12 +3,11 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "npm rebuild --runtime=electron --target=8.5.1 --disturl=https://atom.io/download/atom-shell --abi=72",
-    "build": "yarn build:tools && yarn build:front && yarn build:back",
-    "build:tools": "tsc -p tsconfig.tools.json",
+    "build": "yarn build:front && yarn build:back",
     "build:front": "vite build",
     "build:back": "rm -rf dist/back_ dist/back dist/common && tsc -p tsconfig.back.json && mv dist/back dist/back_ && mv dist/back_/src/back dist/back && mv dist/back_/src/common dist/common && rm -rf dist/back_",
-    "serve:front": "echo 'Remember to run `yarn build:tools` before running the frontend' && vite",
-    "serve:back": "echo 'Remember to run `yarn build` and `yarn serve:front` before running the backend' && electron dist/back/"
+    "serve:front": "vite",
+    "serve:back": "echo 'Remember to run `yarn build` before running the backend' && electron dist/back/"
   },
   "dependencies": {
     "@pika/react": "^16.13.1",
