@@ -77,4 +77,6 @@ function main(): void {
   setup(snippetsManager, platformAware, [aboutWindow, mainWindow], eventHandler)
 }
 
+app.allowRendererProcessReuse = true
+
 app.whenReady().then(main)
