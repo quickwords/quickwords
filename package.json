@@ -11,6 +11,10 @@
     "serve:back": "echo 'Remember to run `yarn build` and `yarn serve:front` before running the backend'; electron dist/back/"
   },
   "dependencies": {
+    "@pika/react": "^16.13.1",
+    "@pika/react-dom": "^16.13.1",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
     "auto-launch": "^5.0.5",
     "electron": "^8.0.0",
     "electron-store": "^6.0.0",
@@ -22,15 +26,11 @@
     "tailwindcss": "^1.8.5"
   },
   "devDependencies": {
-    "@pika/react": "^16.13.1",
-    "@pika/react-dom": "^16.13.1",
     "@types/auto-launch": "^5.0.1",
     "@types/jest": "^26.0.13",
     "@types/lodash": "^4.14.161",
     "@types/node": "12",
     "@types/node-fetch": "^2.5.7",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "autoprefixer": "^9.8.6",
