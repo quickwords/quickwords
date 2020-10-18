@@ -1,7 +1,5 @@
-import { systemPreferences } from 'electron'
 
 type Config = {
-  theme: 0 | 1
   titleBarStyle: 'hidden' | 'default'
   notificationIcon: string
   pasteModifier: 'command' | 'control'
@@ -9,7 +7,6 @@ type Config = {
 }
 
 const macConfig = (): Config => ({
-  theme: systemPreferences.isDarkMode() ? 0 : 1,
   titleBarStyle: 'hidden',
   notificationIcon: '../../../assets/icon.icns',
   pasteModifier: 'command',
@@ -17,7 +14,6 @@ const macConfig = (): Config => ({
 })
 
 const linuxConfig = (): Config => ({
-  theme: 1,
   titleBarStyle: 'default',
   notificationIcon: '../../../assets/icon.ico', // @todo
   pasteModifier: 'control',
@@ -25,7 +21,6 @@ const linuxConfig = (): Config => ({
 })
 
 const windowsConfig = (): Config => ({
-  theme: 1,
   titleBarStyle: 'hidden',
   notificationIcon: '../../../assets/icon.png',
   pasteModifier: 'control',

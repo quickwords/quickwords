@@ -63,7 +63,7 @@ function setup(
 
 function main(): void {
   const platformAware = new PlatformAware()
-  const store = new Store(platformAware)
+  const store = new Store()
   const analytics = new Analytics(platformAware)
   const notification = new Notification()
   const snippetsManager = new SnippetsManager(store, notification, platformAware, analytics)

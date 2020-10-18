@@ -1,16 +1,16 @@
+import { nativeTheme } from 'electron'
 import ElectronStore from 'electron-store'
 import { defaultSnippets } from '../default-snippets'
-import { PlatformAware } from './PlatformAware'
 import { Store as StoreContent } from '../../common/store'
 
 export class Store {
   private store: ElectronStore<StoreContent>
 
-  constructor(platformAware: PlatformAware) {
+  constructor() {
     this.store = new ElectronStore<StoreContent>({
       defaults: {
         user: Math.random().toString(36).slice(2),
-        theme: platformAware.get('theme'),
+        theme: nativeTheme.shouldUseDarkColors ? 0 : 1,
         autoLaunch: true,
         snippets: defaultSnippets,
         bufferLength: 20,
