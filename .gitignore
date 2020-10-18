@@ -1,4 +1,6 @@
 dist/
 node_modules/
+src/**/*.js
+src/**/*.d.ts
 
-*.config.js
+vite.config.js
