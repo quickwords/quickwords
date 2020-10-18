@@ -4,7 +4,7 @@
     "declaration": false,
     "module": "CommonJS",
     "moduleResolution": "node",
-    "target": "ESNext"
+    "target": "ESNext",
   },
-  "include": ["./*.config.ts"]
+  "include": ["./*.config.ts"],
 }
