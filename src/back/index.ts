@@ -8,7 +8,6 @@ import { PreferencesManager } from './Modules/PreferencesManager'
 import { AboutWindow } from './Windows/AboutWindow'
 import { MainWindow } from './Windows/MainWindow'
 import { EventHandler } from './Modules/EventHandler'
-import path from 'path'
 import { Menu } from './Modules/Menu'
 import { WindowMenu } from './Modules/WindowMenu'
 import { Notification } from './Modules/Notification'
@@ -35,8 +34,7 @@ function setup(
     app.dock.hide()
   }
 
-  const trayIcon = path.join(__dirname, '../../assets/', platformAware.get('trayIcon'))
-  const appIcon = new Tray(trayIcon)
+  const appIcon = new Tray(platformAware.get('trayIcon'))
   const menu = new Menu(windows, platformAware, app)
 
   appIcon.setToolTip('Quickwords')

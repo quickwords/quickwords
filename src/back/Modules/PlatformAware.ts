@@ -1,3 +1,4 @@
+import path from 'path'
 
 type Config = {
   titleBarStyle: 'hidden' | 'default'
@@ -6,25 +7,27 @@ type Config = {
   trayIcon: string
 }
 
+const resolveTrayIconPath = (iconName: string) => path.join(__dirname, '../../../assets/app-icons/', iconName)
+
 const macConfig = (): Config => ({
   titleBarStyle: 'hidden',
   notificationIcon: '../../../assets/icon.icns',
   pasteModifier: 'command',
-  trayIcon: 'iconTemplate.png',
+  trayIcon: resolveTrayIconPath('macOSIconTemplate.png'),
 })
 
 const linuxConfig = (): Config => ({
   titleBarStyle: 'default',
   notificationIcon: '../../../assets/icon.ico', // @todo
   pasteModifier: 'control',
-  trayIcon: 'iconTemplate.png',
+  trayIcon: resolveTrayIconPath('iconTemplate.png'), // @todo
 })
 
 const windowsConfig = (): Config => ({
   titleBarStyle: 'hidden',
-  notificationIcon: '../../../assets/icon.png',
+  notificationIcon: '../../../assets/icon.png', // @todo
   pasteModifier: 'control',
-  trayIcon: 'windowsIconTemplate.png',
+  trayIcon: resolveTrayIconPath('windowsIconTemplate.png'), // @todo
 })
 
 export class PlatformAware {
