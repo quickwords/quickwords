@@ -27,7 +27,7 @@ const windowsConfig = (): Config => ({
   titleBarStyle: 'hidden',
   notificationIcon: '../../../assets/icon.png', // @todo
   pasteModifier: 'control',
-  trayIcon: resolveTrayIconPath('windowsIconTemplate.png'), // @todo
+  trayIcon: resolveTrayIconPath('windowsIcon.png'),
 })
 
 export class PlatformAware {
