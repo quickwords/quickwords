@@ -13,7 +13,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   overrides: [
     {
-      files: ['src/**/*.ts', '*.config.ts'],
+      files: ['src/**/*.ts', 'src/**/*.tsx', '*.config.ts'],
       parser: '@typescript-eslint/parser',
       extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
       plugins: ['@typescript-eslint', 'jest'],

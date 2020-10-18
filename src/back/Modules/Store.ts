@@ -1,6 +1,6 @@
 import { nativeTheme } from 'electron'
 import ElectronStore from 'electron-store'
-import { defaultSnippets } from '../default-snippets'
+import defaultSnippets from '../../common/default-snippets'
 import { Store as StoreContent } from '../../common/store'
 
 export class Store {

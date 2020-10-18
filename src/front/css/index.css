@@ -1,0 +1,64 @@
+@tailwind base;
+
+::-webkit-scrollbar {
+  @apply hidden;
+}
+
+*:focus {
+  @apply outline-none shadow-outline !important;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  @apply hidden;
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+.filter-gray-100 {
+  filter: invert(100%) sepia(77%) saturate(1442%) hue-rotate(179deg) brightness(109%) contrast(97%);
+}
+
+.filter-gray-200 {
+  filter: invert(98%) sepia(2%) saturate(965%) hue-rotate(180deg) brightness(97%) contrast(101%);
+}
+
+.filter-gray-300 {
+  filter: invert(96%) sepia(2%) saturate(1020%) hue-rotate(183deg) brightness(99%) contrast(89%);
+}
+
+.filter-gray-400 {
+  filter: invert(94%) sepia(3%) saturate(1548%) hue-rotate(181deg) brightness(98%) contrast(78%);
+}
+
+.filter-gray-500 {
+  filter: invert(73%) sepia(10%) saturate(465%) hue-rotate(174deg) brightness(92%) contrast(93%);
+}
+
+.filter-gray-600 {
+  filter: invert(52%) sepia(14%) saturate(554%) hue-rotate(176deg) brightness(92%) contrast(90%);
+}
+
+.filter-gray-700 {
+  filter: invert(33%) sepia(9%) saturate(1158%) hue-rotate(180deg) brightness(91%) contrast(87%);
+}
+
+.filter-gray-800 {
+  filter: invert(17%) sepia(44%) saturate(418%) hue-rotate(178deg) brightness(95%) contrast(88%);
+}
+
+.filter-gray-900 {
+  filter: invert(9%) sepia(43%) saturate(558%) hue-rotate(181deg) brightness(84%) contrast(91%);
+}
+
+.text-start {
+  text-align: start;
+}
+
+.reset-outline:focus {
+  @apply shadow-none !important;
+}

@@ -1,9 +1,15 @@
+import viteReactPlugin from 'vite-plugin-react'
 import { UserConfig } from 'vite'
 
 const config: UserConfig = {
   jsx: 'react',
-  root: 'src/front',
-  outDir: 'dist/front',
+  base: './',
+  outDir: './dist/front',
+  assetsInlineLimit: 0,
+  plugins: [viteReactPlugin],
+  optimizeDeps: {
+    auto: false,
+  },
 }
 
-export default config
+export = config
