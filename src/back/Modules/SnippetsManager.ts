@@ -232,7 +232,7 @@ export class SnippetsManager {
 
     this.clipboard.writeText(value)
 
-    setTimeout(() => this.paste, 50)
+    setTimeout(() => this.paste(), 50)
     setTimeout(() => this.clipboard.writeText(clipboardContent), 500)
   }
 
