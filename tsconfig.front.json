@@ -6,5 +6,5 @@
     "moduleResolution": "node",
     "target": "ESNext",
   },
-  "include": ["./src/front/**/*.ts"]
+  "include": ["./src/front/**/*.ts"],
 }

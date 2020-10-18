@@ -1,14 +1,26 @@
 {
+  "version": "0.2.0",
   "scripts": {
     "build": "yarn build:front && yarn build:back",
     "build:front": "cp ./src/front/index.html ./dist/front/index.html && tsc -p tsconfig.front.json",
-    "build:back": "tsc -p tsconfig.back.json"
+    "build:back": "tsc -p tsconfig.back.json",
+    "serve": "electron dist/back/"
   },
   "dependencies": {
-    "electron": "^10.1.1"
+    "auto-launch": "^5.0.5",
+    "electron": "^10.1.1",
+    "electron-store": "^6.0.0",
+    "iohook": "^0.6.6",
+    "lodash": "^4.17.20",
+    "native-keymap": "^2.2.0",
+    "node-fetch": "^2.6.1",
+    "robotjs": "^0.6.0"
   },
   "devDependencies": {
+    "@types/auto-launch": "^5.0.1",
     "@types/jest": "^26.0.13",
+    "@types/lodash": "^4.14.161",
+    "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",

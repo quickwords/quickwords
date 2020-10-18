@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "outDir": "./dist/back",
     "moduleResolution": "node",
-    "target": "ESNext"
+    "target": "ESNext",
   },
-  "include": ["./src/back/**/*.ts"]
+  "include": ["./src/back/**/*.ts"],
 }
