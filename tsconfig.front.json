@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "./dist/front",
+    "moduleResolution": "node",
+    "target": "ESNext",
+  },
+  "include": ["./src/front/**/*.ts"]
+}

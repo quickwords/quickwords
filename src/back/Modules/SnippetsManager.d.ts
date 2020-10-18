@@ -1,0 +1,37 @@
+import { Notification } from './Notification';
+import { Store } from './Store';
+import { Analytics } from './Analytics';
+import { PlatformAware } from './PlatformAware';
+export declare class SnippetsManager {
+    private store;
+    private notification;
+    private platformAware;
+    private analytics;
+    private keyboardSimulator;
+    private keyboardHandler;
+    private buffer;
+    private shouldMatch;
+    private clipboard;
+    constructor(store: Store, notification: Notification, platformAware: PlatformAware, analytics: Analytics);
+    destructor(): void;
+    stopMatching(): void;
+    startMatching(): void;
+    private validateAllFieldsArePresent;
+    private onKeyDown;
+    private onMouseClick;
+    private isBackspace;
+    private getCharNameFromKeycode;
+    private eventToUnicode;
+    private resetBuffer;
+    private shouldResetBuffer;
+    private reportToAnalytics;
+    private evaluate;
+    private replaceSnippetIfMatchFound;
+    private replace;
+    private handleJavascriptSnippet;
+    private handlePlainTextSnippet;
+    private paste;
+    private addCharToBuffer;
+    private shortenBufferBy;
+    private shortenBufferIfNecessary;
+}
