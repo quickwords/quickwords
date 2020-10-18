@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Tray, Menu as ElectronMenu } from 'electron'
+import { app, BrowserWindow, Tray, Menu as ElectronMenu } from 'electron'
 import { config } from './config'
 import { Store } from './Modules/Store'
 import { SnippetsManager } from './Modules/SnippetsManager'
