@@ -1,3 +1,3 @@
-import { mod } from './mod.js'
+import { mod } from './mod'
 
 console.log('hi from front', document.body, mod())

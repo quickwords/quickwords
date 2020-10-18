@@ -1,7 +1,8 @@
 {
   "version": "0.2.0",
   "scripts": {
-    "build": "yarn build:front && yarn build:back",
+    "build": "yarn build:tools && yarn build:front && yarn build:back",
+    "build:tools": "tsc -p tsconfig.tools.json",
     "build:front": "cp ./src/front/index.html ./dist/front/index.html && tsc -p tsconfig.front.json",
     "build:back": "tsc -p tsconfig.back.json",
     "serve": "electron dist/back/"
@@ -30,6 +31,7 @@
     "jest": "^26.4.2",
     "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "vite": "^1.0.0-rc.4"
   }
 }
