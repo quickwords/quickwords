@@ -1,5 +1,8 @@
-node_modules
-iohook-crash.log
-dist
-.idea
-out
+dist/
+node_modules/
+src/**/*.js
+src/**/*.d.ts
+
+!src/**/@types/*.d.ts
+
+vite.config.js

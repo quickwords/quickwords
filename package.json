@@ -1,68 +1,57 @@
 {
-  "name": "Quickwords",
-  "version": "v0.1.2",
-  "description": "A productivity app, to get on with your work quicker",
-  "main": "out/main/index.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "node_modules/.bin/eslint --ext .js,.vue src",
-    "test": "mocha --recursive",
-    "pack": "build --dir",
-    "dist": "build"
-  },
-  "build": {
-    "appId": "co.quickwords.quickwords",
-    "productName": "Quickwords"
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "Dariusz Czajkowski and Grzegorz Tłuszcz",
+  "version": "0.2.0",
   "license": "MIT",
-  "devDependencies": {
-    "@vue/devtools": "^1.1.0",
-    "cross-env": "^5.2.0",
-    "electron": "^2.0.15",
-    "electron-builder": "^20.38.3",
-    "eslint": "^4.19.1",
-    "eslint-plugin-vue": "^4.7.1",
-    "glob-all": "^3.1.0",
-    "laravel-mix": "^2.1.14",
-    "mocha": "^5.2.0",
-    "node-sass": "^4.11.0",
-    "purgecss-webpack-plugin": "^0.22.1",
-    "tailwindcss": "^0.6.6"
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=8.5.1 --disturl=https://atom.io/download/atom-shell --abi=72",
+    "build": "yarn build:front && yarn build:back",
+    "build:front": "vite build",
+    "build:back": "rm -rf dist/back_ dist/back dist/common && tsc -p tsconfig.back.json && mv dist/back dist/back_ && mv dist/back_/src/back dist/back && mv dist/back_/src/common dist/common && rm -rf dist/back_",
+    "serve:front": "vite",
+    "serve:back": "echo 'Remember to run `yarn build` before running the backend' && electron dist/back/"
   },
   "dependencies": {
+    "@pika/react": "^16.13.1",
+    "@pika/react-dom": "^16.13.1",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
     "auto-launch": "^5.0.5",
-    "brace": "^0.11.1",
-    "electron-is-dev": "^0.3.0",
-    "electron-store": "^1.3.0",
-    "fix-path": "^2.1.0",
-    "iohook": "^0.2.5",
-    "lodash": "^4.17.11",
-    "native-keymap": "^1.2.5",
-    "node-fetch": "^2.3.0",
-    "robotjs": "^0.5.1",
-    "vue": "^2.5.21",
-    "vue-emoji-picker": "^1.0.1",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.0.1",
-    "webpack-merge": "^4.1.5"
+    "electron": "^8.0.0",
+    "electron-store": "^6.0.0",
+    "iohook": "^0.6.6",
+    "lodash": "^4.17.20",
+    "native-keymap": "^2.2.0",
+    "node-fetch": "^2.6.1",
+    "robotjs": "^0.6.0",
+    "tailwindcss": "^1.8.5"
+  },
+  "devDependencies": {
+    "@types/auto-launch": "^5.0.1",
+    "@types/jest": "^26.0.13",
+    "@types/lodash": "^4.14.161",
+    "@types/node": "12",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "autoprefixer": "^9.8.6",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^24.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "postcss": "^7.0.32",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.2",
+    "vite": "^1.0.0-rc.4",
+    "vite-plugin-react": "^3.0.2"
   },
   "iohook": {
     "targets": [
-      "node-51",
-      "electron-57"
+      "node-72",
+      "electron-76"
     ],
     "platforms": [
+      "win32",
       "darwin"
     ],
     "arches": [
