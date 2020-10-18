@@ -16,7 +16,6 @@ export class AboutWindow implements WindowInterface {
       titleBarStyle: platformAware.get('titleBarStyle'),
       webPreferences: {
         nodeIntegration: true,
-        worldSafeExecuteJavaScript: true,
       },
     })
 

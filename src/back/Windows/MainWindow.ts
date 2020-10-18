@@ -22,13 +22,12 @@ export class MainWindow implements WindowInterface {
       titleBarStyle: platformAware.get('titleBarStyle'),
       webPreferences: {
         nodeIntegration: true,
-        worldSafeExecuteJavaScript: true,
       },
     })
 
     this.ctx.loadURL(
       url.format({
-        pathname: path.join(__dirname, '../../front/main.html'),
+        pathname: path.join(__dirname, '../../front/index.html'),
         protocol: 'file:',
         slashes: true,
       })
@@ -50,7 +49,7 @@ export class MainWindow implements WindowInterface {
   }
 
   public async show(page: 'Snippets' | 'Preferences'): Promise<void> {
-    await this.ctx.webContents.executeJavaScript(`window.vm.$router.push({ name: '${page}' })`, false)
+    // await this.ctx.webContents.executeJavaScript(`window.vm.$router.push({ name: '${page}' })`, false)
 
     setTimeout(() => this.ctx.show(), 50)
   }
