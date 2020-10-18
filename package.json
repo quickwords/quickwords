@@ -1,5 +1,6 @@
 {
   "version": "0.2.0",
+  "license": "MIT",
   "scripts": {
     "build": "yarn build:tools && yarn build:front && yarn build:back",
     "build:tools": "tsc -p tsconfig.tools.json",
