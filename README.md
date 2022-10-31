@@ -1,5 +1,15 @@
 <p align="center"><a href="https://quickwords.co"><img width="450" src="https://quickwords.co/assets/logo.svg"></a></p>
 
+## Disclaimer
+
+The authors have abandoned the work on Quickwords and are currently focused on [Dilato](https://www.dilato.app?utm_source=github&utm_medium=quickwords), a desktop app for clinicians. It uses much better technologies for keyboard recognition and has many more features. Give it a try and see for yourself! However, it's not open-source.
+
+Quickwords should still work on macOS, but it's discouraged to use, as it hasn't gotten any security updates for quite a long time now.
+
+Other alternatives to Quickwords:
+- [Raycast](https://www.raycast.com/) — free, closed-source,
+- [Espanso](https://espanso.org/) — free, open-source.
+
 ## Table of Contents
 - [What is Quickwords?](#what-is-quickwords)
 - [Installation](#installation)
