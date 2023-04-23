@@ -29,7 +29,7 @@
   "devDependencies": {
     "@vue/devtools": "^1.1.0",
     "cross-env": "^5.2.0",
-    "electron": "^2.0.15",
+    "electron": "^18.3.7",
     "electron-builder": "^20.38.3",
     "eslint": "^4.19.1",
     "eslint-plugin-vue": "^4.7.1",
